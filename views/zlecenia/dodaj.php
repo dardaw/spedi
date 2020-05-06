@@ -12,11 +12,12 @@ $this->title = 'Dodawanie zlecenia';
     <div class="body-content">
 
         <?php if (!empty($zlecenie['zl_data_utworzenia'])): ?>
-            Data utworzenia &nbsp;<?php echo $zlecenie['zl_data_utworzenia']; ?>
+            Data utworzenia &nbsp;<?php echo $zlecenie['zl_data_utworzenia']; ?>&nbsp;Numer &nbsp;<?php echo $zlecenie['zl_numer_pelny']; ?> 
         <?php endif; ?>
         <?php $url = Url::toRoute(['zlecenia/zapisz']); ?>
         <form action ="<?php echo $url; ?>" method="POST">
             <div class="form-group">
+                <input type="hidden" class="form-control" id="zl_id" name="zl_id" value="<?php echo key_exists("zl_id", $zlecenie) ? $zlecenie['zl_id'] : '' ?>">
                 <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->getCsrfToken()?>" />
                 <label for="kh_id">Kontrahent</label>
                 <select class="form-control" id="kh_id" name="kh_id">

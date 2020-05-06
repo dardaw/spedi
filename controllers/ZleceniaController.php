@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\Zlecenia;
+use yii\data\Pagination;
 
 class ZleceniaController extends Controller {
 
@@ -20,10 +21,13 @@ class ZleceniaController extends Controller {
                 ->select(['*'])
                 ->from('zlecenia')
                 //->where(['last_name' => 'Smith'])
-                ->limit(20)
-                ->orderBy('zl_id DESC')
+                ->orderBy('zl_id DESC');
+        $countQuery = clone $zlecenia;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $zlecenia = $zlecenia->offset($pages->offset)
+                ->limit($pages->limit)
                 ->all();
-        return $this->render('index', ['zlecenia' => $zlecenia]);
+        return $this->render('index', ['zlecenia' => $zlecenia, 'pages' => $pages]);
     }
 
     public function actionDodaj() {
@@ -32,15 +36,22 @@ class ZleceniaController extends Controller {
     }
 
     public function actionZapisz() {
-
         $post = Yii::$app->request->post();
+        if(count($post) == 0){
+               echo 'Nieuprawniony dostep';
+            exit;
+        }
         $zlecenia = new Zlecenia();
         $zlecenia->zapisz($post);
-        $this->redirect('zlecenia/index');
+        $this->redirect(['zlecenia/index']);
     }
-    
-    public function actionEdycja(){
+
+    public function actionEdycja() {
         $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
         $query = (new \yii\db\Query());
         $query->select(['*']);
         $query->from('zlecenia');
