@@ -15,26 +15,39 @@ class ZleceniaController extends Controller {
      * @return string
      */
     public function actionIndex() {
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazzlecenia.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $zlecenia = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('zlecenia')
                 //->where(['last_name' => 'Smith'])
-                ->limit(10)
+                ->limit(20)
+                ->orderBy('zl_id DESC')
                 ->all();
         return $this->render('index', ['zlecenia' => $zlecenia]);
     }
 
     public function actionDodaj() {
 
-        return $this->render('dodaj');
+        return $this->render('dodaj', ['zlecenie' => []]);
     }
 
     public function actionZapisz() {
 
-        $customer = new \app\models\Zlecenia();
-        $customer->kh_id = 1;
-        $customer->save();
+        $post = Yii::$app->request->post();
+        $zlecenia = new Zlecenia();
+        $zlecenia->zapisz($post);
         $this->redirect('zlecenia/index');
+    }
+    
+    public function actionEdycja(){
+        $get = Yii::$app->request->get();
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('zlecenia');
+        $query->where(["zl_id" => $get['id']]);
+        $query->limit(1);
+        $wynik = $query->one();
+        return $this->render('dodaj', ['zlecenie' => $wynik]);
     }
 
     public function actionError() {
