@@ -10,10 +10,10 @@ $this->title = 'Dodawanie zlecenia';
 
 
     <div class="body-content">
-          <?php if (!empty($zlecenie['zl_id'])): ?>
-        <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/zleceniemenu.php',['zl_id' => $zlecenie['zl_id']]); ?>
+        <?php if (!empty($zlecenie['zl_id'])): ?>
+            <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/zleceniemenu.php', ['zl_id' => $zlecenie['zl_id']]); ?>
         <?php endif; ?>
-            
+
         <?php if (!empty($zlecenie['zl_data_utworzenia'])): ?>
             Data utworzenia &nbsp;<?php echo $zlecenie['zl_data_utworzenia']; ?>&nbsp;Numer &nbsp;<?php echo $zlecenie['zl_numer_pelny']; ?> 
         <?php endif; ?>
@@ -26,7 +26,7 @@ $this->title = 'Dodawanie zlecenia';
                 <select class="form-control" id="kh_id" name="kh_id">
                     <option value="0" <?php echo key_exists("kh_id", $zlecenie) && 0 == $zlecenie['kh_id'] ? 'selected="selected"' : '' ?>></option>
                     <?php foreach ($kontrahenci as $kontrahent): ?>
-                        <option value="<?php echo $kontrahent['kh_id']?>" <?php echo key_exists("kh_id", $zlecenie) && $kontrahent['kh_id'] == $zlecenie['kh_id'] ? 'selected="selected"' : '' ?>><?php echo $kontrahent['kh_symbol'] ?></option>
+                        <option value="<?php echo $kontrahent['kh_id'] ?>" <?php echo key_exists("kh_id", $zlecenie) && $kontrahent['kh_id'] == $zlecenie['kh_id'] ? 'selected="selected"' : '' ?>><?php echo $kontrahent['kh_symbol'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -112,6 +112,16 @@ $this->title = 'Dodawanie zlecenia';
                 <textarea class="form-control" id="zl_uwagi" name="zl_uwagi"><?php echo key_exists("zl_uwagi", $zlecenie) ? $zlecenie['zl_uwagi'] : '' ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Zapisz</button>
+            <?php if (!empty($zlecenie['zl_id'])): ?>
+                <?php $url = Url::toRoute(['zlecenia/usun', 'id' => $zlecenie['zl_id']]); ?>
+                <a href="<?php echo $url; ?>">
+                    <button type="button" class="btn btn-primary">Usuń</button>
+                </a>
+                <?php $url = Url::toRoute(['dokumenty/index', 'id' => $zlecenie['zl_id']]); ?>
+                <a href="<?php echo $url; ?>">
+                    <button type="button" class="btn btn-primary">Dokumenty</button>
+                </a>
+            <?php endif; ?>
         </form>
     </div>
 </div>

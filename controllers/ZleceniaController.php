@@ -20,7 +20,7 @@ class ZleceniaController extends Controller {
         $zlecenia = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('zlecenia')
-                //->where(['last_name' => 'Smith'])
+                ->where(['zl_widocznosc' => 1])
                 ->orderBy('zl_id DESC');
         $countQuery = clone $zlecenia;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
@@ -49,6 +49,21 @@ class ZleceniaController extends Controller {
         }
         $zlecenia = new Zlecenia();
         $zlecenia->zapisz($post);
+        $this->redirect(['zlecenia/index']);
+    }
+
+    public function actionUsun() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $zlecenie = Zlecenia::find()
+                ->where(['zl_id' => $get['id']])
+                ->one();
+        $zlecenie->zl_widocznosc = 0;
+        $zlecenie->save();
+
         $this->redirect(['zlecenia/index']);
     }
 

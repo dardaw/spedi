@@ -17,6 +17,7 @@ class Zlecenia extends ActiveRecord {
         $query = (new \yii\db\Query());
         $query->select(['zl_numer_pelny', 'zl_numer', 'zl_miesiac', 'zl_rok', 'zl_oddzial']);
         $query->from('zlecenia');
+        $query->where(['zl_widocznosc' => 1]);
         $query->limit(1);
         $query->orderBy('zl_numer DESC')->addOrderBy('zl_rok DESC')->addOrderBy('zl_miesiac DESC')->addOrderBy('zl_oddzial DESC');
         $wynik = $query->one();
@@ -57,6 +58,7 @@ class Zlecenia extends ActiveRecord {
         $zlecenie->zl_temperatura = $post['zl_temperatura'];
         $zlecenie->zl_temperatura_jednostka = $post['zl_temperatura_jednostka'];
         $zlecenie->zl_uwagi = $post['zl_uwagi'];
+        $zlecenie->zl_widocznosc = 1;
         $zlecenie->save();
     }
 
