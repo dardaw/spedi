@@ -39,16 +39,20 @@ $this->title = 'Dodawanie zlecenia';
                 <input type="text" class="form-control" id="adres_ulica" name="adres_ulica" value="<?php echo key_exists("adres_ulica", $adres) ? $adres['adres_ulica'] : '' ?>">
             </div>
             <div class="form-group">
-                <label for="adres_data">Data</label>
-                <input type="text" class="form-control" id="adres_data" name="adres_data" value="<?php echo key_exists("adres_data", $adres) ? $adres['adres_data'] : '' ?>">
+                <div class='input-group date form-date' style="width: 100%">
+                    <label for="adres_data">Data</label>
+                    <input type="text" class="form-control datepicker" id="adres_data" name="adres_data" value="<?php echo key_exists("adres_data", $adres) ? $adres['adres_data'] : '' ?>">
+                </div>
             </div>
             <div class="form-group">
-                <label for="adres_godzina">Godzina</label>
-                <input type="text" class="form-control" id="adres_godzina" name="adres_godzina" value="<?php echo key_exists("adres_godzina", $adres) ? $adres['adres_godzina'] : '' ?>">
+                <div class='input-group date form-date' style="width: 100%">
+                    <label for="adres_godzina">Godzina</label>
+                    <input type="text" class="form-control timepicker" id="adres_godzina" name="adres_godzina" value="<?php echo key_exists("adres_godzina", $adres) ? $adres['adres_godzina'] : '' ?>">
+                </div>
             </div>
             <div class="form-group">
                 <label for="adres_typ">Typ</label>
-                 <select class="form-control" id="adres_typ" name="adres_typ">
+                <select class="form-control" id="adres_typ" name="adres_typ">
                     <option value=""></option>
                     <option value="ZAL" <?php echo key_exists("adres_typ", $adres) && $adres['adres_typ'] == 'ZAL' ? 'selected="selected"' : '' ?>>Załadunek</option>
                     <option value="ROZ" <?php echo key_exists("adres_typ", $adres) && $adres['adres_typ'] == 'ROZ' ? 'selected="selected"' : '' ?>>Rozładunek</option>
