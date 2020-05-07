@@ -18,7 +18,7 @@ $this->title = 'Kontrahenci';
         <br />
         <div class="row">
             <table class="table table-bordered">
-                <tr>
+                 <tr class="pierwsza">
                     <td scope="col">
                         Numer kontrahenta
                     </td>
@@ -30,7 +30,7 @@ $this->title = 'Kontrahenci';
                     </td>
                 </tr>
                 <?php foreach ($kontrahenci as $kontrahent): ?>      
-                    <?php $url = Url::toRoute(['kontahenci/edycja', 'id' => $kontrahent['kh_id']]); ?>
+                    <?php $url = Url::toRoute(['kontrahenci/edycja', 'id' => $kontrahent['kh_id']]); ?>
                     <tr gdzie="<?php echo $url; ?>">
                         <td scope="row">
                             <?php echo $kontrahent['kh_numer_pelny']; ?>

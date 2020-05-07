@@ -43,7 +43,7 @@ class Zlecenia extends ActiveRecord {
             }
             $zlecenie->zl_data_utworzenia = date("Y-m-d H:i:s");
         }
-        $zlecenie->kh_id = 1;
+        $zlecenie->kh_id = $post['kh_id'];
         $zlecenie->zl_order = $post['zl_order'];
         $zlecenie->zl_ladunek = $post['zl_ladunek'];
         $zlecenie->zl_waga = $post['zl_waga'];

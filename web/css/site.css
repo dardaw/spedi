@@ -1,3 +1,4 @@
-table tr:hover {
+table tr:not(.pierwsza):hover {
     background-color: #F0F8FF;
+    cursor: pointer;
 }

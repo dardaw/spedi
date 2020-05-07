@@ -44,6 +44,7 @@ AppAsset::register($this);
         </div>
 
         <?php $this->endBody() ?>
+        <script src="<?php echo Url::base() ?>/js/system.js?md=<?php echo rand(1, 100); ?>"></script>
     </body>
 </html>
 <?php $this->endPage() ?>

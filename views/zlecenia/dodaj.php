@@ -10,7 +10,10 @@ $this->title = 'Dodawanie zlecenia';
 
 
     <div class="body-content">
-
+          <?php if (!empty($zlecenie['zl_id'])): ?>
+        <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/zleceniemenu.php',['zl_id' => $zlecenie['zl_id']]); ?>
+        <?php endif; ?>
+            
         <?php if (!empty($zlecenie['zl_data_utworzenia'])): ?>
             Data utworzenia &nbsp;<?php echo $zlecenie['zl_data_utworzenia']; ?>&nbsp;Numer &nbsp;<?php echo $zlecenie['zl_numer_pelny']; ?> 
         <?php endif; ?>
@@ -18,11 +21,13 @@ $this->title = 'Dodawanie zlecenia';
         <form action ="<?php echo $url; ?>" method="POST">
             <div class="form-group">
                 <input type="hidden" class="form-control" id="zl_id" name="zl_id" value="<?php echo key_exists("zl_id", $zlecenie) ? $zlecenie['zl_id'] : '' ?>">
-                <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->getCsrfToken()?>" />
+                <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->getCsrfToken() ?>" />
                 <label for="kh_id">Kontrahent</label>
                 <select class="form-control" id="kh_id" name="kh_id">
-                    <option value=""></option>
-                    <option value="1">1</option>
+                    <option value="0" <?php echo key_exists("kh_id", $zlecenie) && 0 == $zlecenie['kh_id'] ? 'selected="selected"' : '' ?>></option>
+                    <?php foreach ($kontrahenci as $kontrahent): ?>
+                        <option value="<?php echo $kontrahent['kh_id']?>" <?php echo key_exists("kh_id", $zlecenie) && $kontrahent['kh_id'] == $zlecenie['kh_id'] ? 'selected="selected"' : '' ?>><?php echo $kontrahent['kh_symbol'] ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group">
@@ -98,8 +103,8 @@ $this->title = 'Dodawanie zlecenia';
                 <label for="zl_temperatura_jednostka">Temperatura jednostka</label>
                 <select class="form-control" id="zl_temperatura_jednostka" name="zl_temperatura_jednostka">
                     <option value=""></option>
-                    <option value="C" <?php echo key_exists("zl_temperatura_jednostka", $zlecenie) && $zlecenie['zl_temperatura_jednostka'] == 'USD' ? 'selected="selected"' : '' ?>>C</option>
-                    <option value="K" <?php echo key_exists("zl_temperatura_jednostka", $zlecenie) && $zlecenie['zl_temperatura_jednostka'] == 'USD' ? 'selected="selected"' : '' ?>>K</option>
+                    <option value="C" <?php echo key_exists("zl_temperatura_jednostka", $zlecenie) && $zlecenie['zl_temperatura_jednostka'] == 'C' ? 'selected="selected"' : '' ?>>C</option>
+                    <option value="K" <?php echo key_exists("zl_temperatura_jednostka", $zlecenie) && $zlecenie['zl_temperatura_jednostka'] == 'K' ? 'selected="selected"' : '' ?>>K</option>
                 </select>
             </div>
             <div class="form-group">

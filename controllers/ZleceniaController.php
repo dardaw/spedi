@@ -27,18 +27,24 @@ class ZleceniaController extends Controller {
         $zlecenia = $zlecenia->offset($pages->offset)
                 ->limit($pages->limit)
                 ->all();
+
         return $this->render('index', ['zlecenia' => $zlecenia, 'pages' => $pages]);
     }
 
     public function actionDodaj() {
-
-        return $this->render('dodaj', ['zlecenie' => []]);
+        $kontrahenci = (new \yii\db\Query())
+                ->select(['kh_id', 'kh_symbol'])
+                ->from('kontrahenci')
+                //->where(['last_name' => 'Smith'])
+                ->orderBy('kh_symbol ASC')
+                ->all();
+        return $this->render('dodaj', ['zlecenie' => [], 'kontrahenci' => $kontrahenci]);
     }
 
     public function actionZapisz() {
         $post = Yii::$app->request->post();
-        if(count($post) == 0){
-               echo 'Nieuprawniony dostep';
+        if (count($post) == 0) {
+            echo 'Nieuprawniony dostep';
             exit;
         }
         $zlecenia = new Zlecenia();
@@ -58,7 +64,13 @@ class ZleceniaController extends Controller {
         $query->where(["zl_id" => $get['id']]);
         $query->limit(1);
         $wynik = $query->one();
-        return $this->render('dodaj', ['zlecenie' => $wynik]);
+        $kontrahenci = (new \yii\db\Query())
+                ->select(['kh_id', 'kh_symbol'])
+                ->from('kontrahenci')
+                //->where(['last_name' => 'Smith'])
+                ->orderBy('kh_symbol ASC')
+                ->all();
+        return $this->render('dodaj', ['zlecenie' => $wynik, 'kontrahenci' => $kontrahenci]);
     }
 
     public function actionError() {

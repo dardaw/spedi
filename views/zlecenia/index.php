@@ -18,7 +18,7 @@ $this->title = 'Zlecenia';
         <br />
         <div class="row">
             <table class="table table-bordered">
-                <tr>
+                <tr class="pierwsza">
                     <td scope="col">
                         Numer zlecenia
                     </td>

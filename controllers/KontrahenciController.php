@@ -16,6 +16,7 @@ class KontrahenciController extends Controller {
      * @return string
      */
     public function actionIndex() {
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazkontrahenci.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $kontrahenci = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('kontrahenci')
@@ -43,6 +44,21 @@ class KontrahenciController extends Controller {
         $zlecenia = new Kontrahenci();
         $zlecenia->zapisz($post);
         $this->redirect(['kontrahenci/index']);
+    }
+    
+    public function actionEdycja() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('kontrahenci');
+        $query->where(["kh_id" => $get['id']]);
+        $query->limit(1);
+        $wynik = $query->one();
+        return $this->render('dodaj', ['kontrahent' => $wynik]);
     }
 
 }
