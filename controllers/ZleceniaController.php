@@ -17,6 +17,7 @@ class ZleceniaController extends Controller {
      * @return string
      */
     public function actionIndex() {
+        $get = Yii::$app->request->get();
         Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazzlecenia.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $zlecenia = (new \yii\db\Query())
                 ->select(['*'])
@@ -24,6 +25,16 @@ class ZleceniaController extends Controller {
                 ->leftJoin("kontrahenci", "kontrahenci.kh_id = zlecenia.kh_id")
                 ->where(['zl_widocznosc' => 1])
                 ->orderBy('zl_id DESC');
+
+        if (count($get) != 0) {
+            foreach ($get as $klucz => $wartosc) {
+                if (!empty($wartosc)) {
+                    if ($klucz != 'r') {
+                        $zlecenia->andWhere([$klucz => $wartosc]);
+                    }
+                }
+            }
+        }
         $countQuery = clone $zlecenia;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $zlecenia = $zlecenia->offset($pages->offset)

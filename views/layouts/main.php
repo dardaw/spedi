@@ -28,21 +28,31 @@ AppAsset::register($this);
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                             <?php $url = Url::toRoute(['zlecenia/index']); ?>
+                            <?php $url = Url::toRoute(['zlecenia/index']); ?>
                             <a class="navbar-brand" href="<?php echo $url; ?>">Spedi</a>
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <?php $url = Url::toRoute(['zlecenia/index']); ?>
                                 <li><a href="<?php echo $url; ?>">Zlecenia</a></li>
-                                   <?php $url = Url::toRoute(['kontrahenci/index']); ?>
+                                <?php $url = Url::toRoute(['kontrahenci/index']); ?>
                                 <li><a href="<?php echo $url; ?>">Kontrahenci</a></li>
-                        </div><!--/.nav-collapse -->
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#" id="filtr_przycisk">Filtr</a></li>
+                            </ul>
+                        </div>
                     </div><!--/.container-fluid -->
                 </nav>
                 <?= $content ?>
             </div>
         </div>
+
+        <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/filtr.php'); ?>
+
+        <input type="hidden" id="base_url" value="<?php echo Url::base(); ?>" />
+        <input type="hidden" id="controller_name" value="<?php echo Yii::$app->controller->id; ?>" />
+        <input type="hidden" id="action_name" value="<?php echo Yii::$app->controller->action->id; ?>" />
 
         <?php $this->endBody() ?>
         <script src="<?php echo Url::base() ?>/js/system.js?md=<?php echo rand(1, 100); ?>"></script>
