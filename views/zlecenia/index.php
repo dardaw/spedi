@@ -28,6 +28,9 @@ $this->title = 'Zlecenia';
                     <td scope="col">
                         Ładunek
                     </td>
+                    <td scope="col">
+                        Klient
+                    </td>
                 </tr>
                 <?php foreach ($zlecenia as $zlecenie): ?>      
                     <?php $url = Url::toRoute(['zlecenia/edycja', 'id' => $zlecenie['zl_id']]); ?>
@@ -40,6 +43,9 @@ $this->title = 'Zlecenia';
                         </td>
                         <td>
                             <?php echo $zlecenie['zl_ladunek']; ?>
+                        </td>
+                        <td>
+                            <?php echo $zlecenie['kh_nazwa_pelna']; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -33,7 +33,7 @@ class AdresyController extends Controller {
 
     public function actionDodaj() {
         $get = Yii::$app->request->get();
-        if(empty($get['zl_id'])){
+        if (empty($get['zl_id'])) {
             echo 'Nieuprawniony dostep';
             exit;
         }
@@ -48,7 +48,7 @@ class AdresyController extends Controller {
         }
         $zlecenia = new Adresy();
         $zlecenia->zapisz($post);
-        $this->redirect(['adresy/index','id' => $post['zl_id']]);
+        $this->redirect(['adresy/index', 'id' => $post['zl_id']]);
     }
 
     public function actionEdycja() {
@@ -57,7 +57,7 @@ class AdresyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-         if(empty($get['zl_id'])){
+        if (empty($get['zl_id'])) {
             echo 'Nieuprawniony dostep';
             exit;
         }
@@ -68,6 +68,20 @@ class AdresyController extends Controller {
         $query->limit(1);
         $wynik = $query->one();
         return $this->render('dodaj', ['adres' => $wynik, 'get' => $get]);
+    }
+
+    public function actionUsun() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id']) || empty($get['adres_id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $dokumenty = Adresy::find()
+                ->where(['adres_id' => $get['adres_id']])
+                ->one();
+        $dokumenty->delete();
+
+        $this->redirect(['adresy/index', 'id' => $get['id']]);
     }
 
 }

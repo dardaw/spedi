@@ -10,7 +10,7 @@ use yii\helpers\Url;
 <a href="<?php echo $url; ?>">
     <button type="button" class="btn btn-primary">Adresy</button>
 </a>
-  <?php $url = Url::toRoute(['trasa/edycja', 'id' => $zl_id]); ?>
+  <?php $url = Url::toRoute(['trasy/edycja', 'id' => $zl_id]); ?>
 <a href="<?php echo $url; ?>">
     <button type="button" class="btn btn-primary">Trasa</button>
 </a>

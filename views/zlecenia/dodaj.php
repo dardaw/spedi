@@ -112,10 +112,18 @@ $this->title = 'Dodawanie zlecenia';
                 <textarea class="form-control" id="zl_uwagi" name="zl_uwagi"><?php echo key_exists("zl_uwagi", $zlecenie) ? $zlecenie['zl_uwagi'] : '' ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Zapisz</button>
+             <?php $url = Url::toRoute(['zlecenia/index']); ?>
+                <a href="<?php echo $url; ?>">
+                    <button type="button" class="btn btn-primary">Anuluj</button>
+                </a>
             <?php if (!empty($zlecenie['zl_id'])): ?>
                 <?php $url = Url::toRoute(['zlecenia/usun', 'id' => $zlecenie['zl_id']]); ?>
                 <a href="<?php echo $url; ?>">
                     <button type="button" class="btn btn-primary">Usuń</button>
+                </a>
+                <?php $url = Url::toRoute(['zlecenia/kopiuj', 'id' => $zlecenie['zl_id']]); ?>
+                <a href="<?php echo $url; ?>">
+                    <button type="button" class="btn btn-primary">Kopiuj</button>
                 </a>
                 <?php $url = Url::toRoute(['dokumenty/index', 'id' => $zlecenie['zl_id']]); ?>
                 <a href="<?php echo $url; ?>">

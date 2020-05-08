@@ -79,6 +79,10 @@ $this->title = 'Dodawanie zlecenia';
                 <textarea class="form-control" id="adres_uwagi" name="adres_uwagi"><?php echo key_exists("adres_uwagi", $adres) ? $adres['adres_uwagi'] : '' ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Zapisz</button>
+            <?php if (!empty($adres['adres_id'])): ?>
+                <?php $link = Url::toRoute(['adresy/usun', 'adres_id' => $adres['adres_id'], 'id' => $get['zl_id']]); ?>
+                <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Usuń</button></a>
+            <?php endif; ?>
         </form>
     </div>
 </div>

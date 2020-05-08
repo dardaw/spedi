@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\Zlecenia;
+use app\models\Adresy;
 use yii\data\Pagination;
 
 class ZleceniaController extends Controller {
@@ -20,6 +21,7 @@ class ZleceniaController extends Controller {
         $zlecenia = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('zlecenia')
+                ->leftJoin("kontrahenci", "kontrahenci.kh_id = zlecenia.kh_id")
                 ->where(['zl_widocznosc' => 1])
                 ->orderBy('zl_id DESC');
         $countQuery = clone $zlecenia;
@@ -93,6 +95,41 @@ class ZleceniaController extends Controller {
         if ($exception !== null) {
             return $this->render('error', ['exception' => $exception]);
         }
+    }
+
+    public function actionKopiuj() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $zlecenie = Zlecenia::find()
+                ->where(['zl_id' => $get['id']])
+                ->one();
+        $kopia = new Zlecenia();
+        foreach ($zlecenie as $key => $value) {
+            $kopia->$key = $value;
+        }
+        unset($kopia->zl_id);
+        $kopia->zl_data_utworzenia = date('Y-m-d H:i:s');
+        $kopia->save();
+        $zl_id = $kopia->getAttribute("zl_id");
+        $adresy = (new \yii\db\Query())
+                        ->select(['*'])
+                        ->from('adresy')
+                        ->where(['zl_id' => $get['id']])->all();
+
+        foreach ($adresy as $key => $adres) {
+            $kopia = new Adresy();
+            foreach ($adres as $key2 => $value) {
+                $kopia->$key2 = $value;
+            }
+            $kopia->zl_id = $zl_id;
+            unset($kopia->adres_id);
+            $kopia->save();
+        }
+
+        $this->redirect(['zlecenia/index']);
     }
 
 }

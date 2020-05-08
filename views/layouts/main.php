@@ -28,7 +28,8 @@ AppAsset::register($this);
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="#">Menu</a>
+                             <?php $url = Url::toRoute(['zlecenia/index']); ?>
+                            <a class="navbar-brand" href="<?php echo $url; ?>">Spedi</a>
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
