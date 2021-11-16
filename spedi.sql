@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 07 Maj 2020, 15:33
--- Wersja serwera: 10.1.40-MariaDB
--- Wersja PHP: 7.3.5
+-- Czas generowania: 16 Lis 2021, 13:37
+-- Wersja serwera: 10.4.21-MariaDB
+-- Wersja PHP: 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -42,7 +41,7 @@ CREATE TABLE `adresy` (
   `adres_ladunek` varchar(800) DEFAULT NULL,
   `adres_waga` decimal(10,2) DEFAULT NULL,
   `adres_waga_jednostka` varchar(255) DEFAULT NULL,
-  `adres_uwagi` text
+  `adres_uwagi` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -52,7 +51,8 @@ CREATE TABLE `adresy` (
 INSERT INTO `adresy` (`adres_id`, `zl_id`, `adres_nazwa`, `adres_kraj`, `adres_miasto`, `adres_kod_pocztowy`, `adres_ulica`, `adres_data`, `adres_godzina`, `adres_typ`, `adres_ladunek`, `adres_waga`, `adres_waga_jednostka`, `adres_uwagi`) VALUES
 (1, 25, 'Test', 'Polska', 'Miastko', '77-200', 'gen. Wybickiego', '2020-03-06', '14:00:00', 'ZAL', 'palety', '3.00', 'kg', 'uwagi \r\n'),
 (2, 25, '', '', '', '', '', NULL, NULL, '', '', NULL, '', ''),
-(3, 25, 'f', '', '', '', '', NULL, NULL, '', '', NULL, '', '');
+(3, 25, 'f', '', '', '', '', NULL, NULL, '', '', NULL, '', ''),
+(4, 30, 'a', 'Polska', '', '', '', NULL, NULL, '', '', NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -85,6 +85,7 @@ INSERT INTO `dokumenty` (`dok_id`, `dok_opis`, `dok_nazwa`, `dok_data`, `zl_id`,
 
 CREATE TABLE `kontrahenci` (
   `kh_id` int(11) NOT NULL,
+  `kh_glowny` int(11) DEFAULT NULL,
   `kh_numer_pelny` varchar(255) DEFAULT NULL,
   `kh_numer` int(11) DEFAULT NULL,
   `kh_symbol` varchar(255) DEFAULT NULL,
@@ -115,23 +116,23 @@ CREATE TABLE `kontrahenci` (
   `kh_oddzial` int(11) DEFAULT NULL,
   `kh_spedytor` int(11) DEFAULT NULL,
   `kh_data_utworzenia` datetime DEFAULT NULL,
-  `kh_uwagi` text
+  `kh_uwagi` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Zrzut danych tabeli `kontrahenci`
 --
 
-INSERT INTO `kontrahenci` (`kh_id`, `kh_numer_pelny`, `kh_numer`, `kh_symbol`, `kh_typ`, `kh_rodzaj`, `kh_blokada`, `kh_nazwa_pelna`, `kh_kraj`, `kh_kod_pocztowy`, `kh_miasto`, `kh_ulica`, `kh_telefon`, `kh_telefon2`, `kh_email`, `kh_fax`, `kh_nip`, `kh_vat_ue`, `kh_regon`, `kh_trans`, `kh_timo_com`, `kh_gg`, `kh_podatnik_ue`, `kh_termin_platnosci_klienta`, `kh_termin_platnosci_przewoznika`, `kh_metoda_platnosci`, `kh_waluta_faktury`, `kh_kredyt_kupiecki`, `kh_oddzial`, `kh_spedytor`, `kh_data_utworzenia`, `kh_uwagi`) VALUES
-(1, '1', 1, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:35:51', ''),
-(2, '2', 2, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:36:20', ''),
-(3, '3', 3, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:37:10', ''),
-(4, '4', 4, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:37:53', ''),
-(5, '5', 5, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:01', ''),
-(6, '6', 6, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:36', ''),
-(7, '7', 7, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:39:59', ''),
-(8, '8', 8, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:05', ''),
-(9, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:32', '');
+INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `kh_symbol`, `kh_typ`, `kh_rodzaj`, `kh_blokada`, `kh_nazwa_pelna`, `kh_kraj`, `kh_kod_pocztowy`, `kh_miasto`, `kh_ulica`, `kh_telefon`, `kh_telefon2`, `kh_email`, `kh_fax`, `kh_nip`, `kh_vat_ue`, `kh_regon`, `kh_trans`, `kh_timo_com`, `kh_gg`, `kh_podatnik_ue`, `kh_termin_platnosci_klienta`, `kh_termin_platnosci_przewoznika`, `kh_metoda_platnosci`, `kh_waluta_faktury`, `kh_kredyt_kupiecki`, `kh_oddzial`, `kh_spedytor`, `kh_data_utworzenia`, `kh_uwagi`) VALUES
+(1, NULL, '1', 1, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:35:51', ''),
+(2, NULL, '2', 2, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:36:20', ''),
+(3, NULL, '3', 3, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:37:10', ''),
+(4, NULL, '4', 4, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:37:53', ''),
+(5, NULL, '5', 5, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:01', ''),
+(6, NULL, '6', 6, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:36', ''),
+(7, NULL, '7', 7, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:39:59', ''),
+(8, NULL, '8', 8, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:05', ''),
+(9, 1, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:32', '');
 
 -- --------------------------------------------------------
 
@@ -141,6 +142,7 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_numer_pelny`, `kh_numer`, `kh_symbol`, `
 
 CREATE TABLE `trasy` (
   `tr_id` int(11) NOT NULL,
+  `zl_id` int(11) DEFAULT NULL,
   `przew_id` int(11) DEFAULT NULL,
   `tr_rodzaj_pojazdu` varchar(255) DEFAULT NULL,
   `tr_kierowca_imie` varchar(255) DEFAULT NULL,
@@ -152,8 +154,34 @@ CREATE TABLE `trasy` (
   `tr_ilosc` decimal(10,2) DEFAULT NULL,
   `tr_wartosc` decimal(10,2) DEFAULT NULL,
   `tr_waluta` varchar(255) DEFAULT NULL,
-  `tr_uwagi` text
+  `tr_uwagi` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `trasy`
+--
+
+INSERT INTO `trasy` (`tr_id`, `zl_id`, `przew_id`, `tr_rodzaj_pojazdu`, `tr_kierowca_imie`, `tr_kierowca_nazwisko`, `tr_samochod`, `tr_naczepa`, `tr_stawka`, `tr_jednostka`, `tr_ilosc`, `tr_wartosc`, `tr_waluta`, `tr_uwagi`) VALUES
+(1, 30, 9, '', '', '', '', '', NULL, '', NULL, NULL, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `uzytkownicy`
+--
+
+CREATE TABLE `uzytkownicy` (
+  `uz_id` int(11) NOT NULL,
+  `uz_login` varchar(255) DEFAULT NULL,
+  `uz_haslo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `uzytkownicy`
+--
+
+INSERT INTO `uzytkownicy` (`uz_id`, `uz_login`, `uz_haslo`) VALUES
+(1, 'dardaw', '1');
 
 -- --------------------------------------------------------
 
@@ -171,7 +199,7 @@ CREATE TABLE `zlecenia` (
   `zl_oddzial` varchar(255) DEFAULT NULL,
   `kh_id` int(11) DEFAULT NULL,
   `zl_order` varchar(255) DEFAULT NULL,
-  `zl_ladunek` text,
+  `zl_ladunek` text DEFAULT NULL,
   `zl_data_utworzenia` datetime DEFAULT NULL,
   `zl_waga` decimal(10,2) DEFAULT NULL,
   `zl_waga_jednostka` varchar(255) DEFAULT NULL,
@@ -183,7 +211,7 @@ CREATE TABLE `zlecenia` (
   `zl_kilometry` decimal(10,2) DEFAULT NULL,
   `zl_temperatura` decimal(10,2) DEFAULT NULL,
   `zl_temperatura_jednostka` varchar(255) DEFAULT NULL,
-  `zl_uwagi` text
+  `zl_uwagi` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -218,7 +246,9 @@ INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, 
 (25, NULL, '15/5/2020/MIA', 15, 5, 2020, 'MIA', 9, '1', '1', '2020-05-07 08:30:37', '1.00', 'kg', '2.11', 'Fracht', '1.00', '2.11', 'PLN', '2.00', '2.00', 'K', 'tet'),
 (26, NULL, '16/5/2020/MIA', 16, 5, 2020, 'MIA', 0, '', '', '2020-05-07 14:02:50', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', ''),
 (28, 0, '1', 1, 5, 2020, 'MIA', 0, '', '', '2020-05-07 14:06:08', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', ''),
-(29, 1, '2/5/2020/MIA', 2, 5, 2020, 'MIA', 0, '', '', '2020-05-07 14:06:12', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '');
+(29, 0, '2/5/2020/MIA', 2, 5, 2020, 'MIA', 0, '', '', '2020-05-07 14:06:12', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', ''),
+(30, 1, '1', 1, 11, 2021, 'MIA', 9, 'a', '', '2021-11-15 11:39:45', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', ''),
+(31, 1, '2/11/2021/MIA', 2, 11, 2021, 'MIA', 9, 'b', '', '2021-11-16 08:49:54', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -249,20 +279,26 @@ ALTER TABLE `trasy`
   ADD PRIMARY KEY (`tr_id`);
 
 --
+-- Indeksy dla tabeli `uzytkownicy`
+--
+ALTER TABLE `uzytkownicy`
+  ADD PRIMARY KEY (`uz_id`);
+
+--
 -- Indeksy dla tabeli `zlecenia`
 --
 ALTER TABLE `zlecenia`
   ADD PRIMARY KEY (`zl_id`);
 
 --
--- AUTO_INCREMENT dla tabel zrzutów
+-- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
 -- AUTO_INCREMENT dla tabeli `adresy`
 --
 ALTER TABLE `adresy`
-  MODIFY `adres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `adres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT dla tabeli `dokumenty`
@@ -280,13 +316,19 @@ ALTER TABLE `kontrahenci`
 -- AUTO_INCREMENT dla tabeli `trasy`
 --
 ALTER TABLE `trasy`
-  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT dla tabeli `uzytkownicy`
+--
+ALTER TABLE `uzytkownicy`
+  MODIFY `uz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `zlecenia`
 --
 ALTER TABLE `zlecenia`
-  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

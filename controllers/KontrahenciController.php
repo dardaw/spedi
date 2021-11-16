@@ -10,11 +10,23 @@ use app\models\Kontrahenci;
 
 class KontrahenciController extends Controller {
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+   public function beforeAction($action) {
+        // your custom code here, if you want the code to run before action filters,
+        // which are triggered on the [[EVENT_BEFORE_ACTION]] event, e.g. PageCache or AccessControl
+
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        $session = Yii::$app->session;
+        if ($session->get('spedi_zalogowany') != 1) {
+            $this->redirect(['logowanie/index']);
+        }
+        // other custom code here
+
+        return true; // or false to not run the action
+    }
+    
     public function actionIndex() {
         Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazkontrahenci.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $kontrahenci = (new \yii\db\Query())
