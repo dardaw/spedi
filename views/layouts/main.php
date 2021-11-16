@@ -40,6 +40,8 @@ AppAsset::register($this);
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="#" id="filtr_przycisk">Filtr</a></li>
+                                  <?php $url = Url::toRoute(['logowanie/wyloguj']); ?>
+                                <li><a href="<?php echo $url; ?>">Wyloguj</a></li>
                             </ul>
                         </div>
                     </div><!--/.container-fluid -->

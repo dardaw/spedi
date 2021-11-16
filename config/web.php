@@ -53,6 +53,7 @@ $config = [
         */
     ],
     'params' => $params,
+    'defaultRoute' => 'logowanie/index',
 ];
 
 if (YII_ENV_DEV) {

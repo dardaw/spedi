@@ -18,6 +18,7 @@ use yii\helpers\Url;
             <form action ="<?php echo $url; ?>" method="GET">
                 <div class="modal-body">
                     <div class="form-group">
+                        <input type="hidden" name="r" value="<?php echo "zlecenia/index"; ?>" />
                         <label for="kh_id">Klient</label>
                         <input type="text" id="kh_id" class="form-control" name="kh_id"/>
                     </div>
