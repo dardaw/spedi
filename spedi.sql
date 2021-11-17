@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 16 Lis 2021, 13:37
+-- Czas generowania: 17 Lis 2021, 11:02
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -80,6 +80,41 @@ INSERT INTO `dokumenty` (`dok_id`, `dok_opis`, `dok_nazwa`, `dok_data`, `zl_id`,
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `faktury`
+--
+
+CREATE TABLE `faktury` (
+  `fak_id` int(11) NOT NULL,
+  `fak_numer` int(11) DEFAULT NULL,
+  `fak_miesiac` int(11) DEFAULT NULL,
+  `fak_rok` int(11) DEFAULT NULL,
+  `fak_numer_pelny` varchar(255) DEFAULT NULL,
+  `fak_widocznosc` int(11) DEFAULT NULL,
+  `fak_miejsce_wystawienia` varchar(255) DEFAULT NULL,
+  `fak_data_wystawienia` date DEFAULT NULL,
+  `fak_data_zakonczenia` date DEFAULT NULL,
+  `fak_nabywca_symbol` int(11) DEFAULT NULL,
+  `fak_nabywca_nazwa` varchar(255) DEFAULT NULL,
+  `fak_nabywca_ulica` varchar(255) DEFAULT NULL,
+  `fak_nabywca_kod_pocztowy` varchar(255) DEFAULT NULL,
+  `fak_nabywca_miasto` varchar(255) DEFAULT NULL,
+  `fak_nabywca_nip` varchar(255) DEFAULT NULL,
+  `fak_wystawil` varchar(255) DEFAULT NULL,
+  `fak_wartosc_netto` decimal(10,2) DEFAULT NULL,
+  `fak_wartosc_vat` decimal(10,2) DEFAULT NULL,
+  `fak_wartosc_brutto` decimal(10,2) DEFAULT NULL,
+  `fak_waluta` varchar(255) DEFAULT NULL,
+  `fak_platnosc` varchar(255) DEFAULT NULL,
+  `fak_metoda_platnosci` varchar(255) DEFAULT NULL,
+  `fak_termin_platnosci` int(11) DEFAULT NULL,
+  `fak_rachunek_bankowy` varchar(255) DEFAULT NULL,
+  `fak_rachunek_bankowy_vat` varchar(255) DEFAULT NULL,
+  `fak_opis` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `kontrahenci`
 --
 
@@ -130,8 +165,8 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `
 (4, NULL, '4', 4, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:37:53', ''),
 (5, NULL, '5', 5, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:01', ''),
 (6, NULL, '6', 6, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:36', ''),
-(7, NULL, '7', 7, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:39:59', ''),
-(8, NULL, '8', 8, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:05', ''),
+(7, NULL, '7', 7, 'c', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:39:59', ''),
+(8, NULL, '8', 8, 'b', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:05', ''),
 (9, 1, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:32', '');
 
 -- --------------------------------------------------------
@@ -267,6 +302,12 @@ ALTER TABLE `dokumenty`
   ADD PRIMARY KEY (`dok_id`);
 
 --
+-- Indeksy dla tabeli `faktury`
+--
+ALTER TABLE `faktury`
+  ADD PRIMARY KEY (`fak_id`);
+
+--
 -- Indeksy dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
@@ -305,6 +346,12 @@ ALTER TABLE `adresy`
 --
 ALTER TABLE `dokumenty`
   MODIFY `dok_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT dla tabeli `faktury`
+--
+ALTER TABLE `faktury`
+  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `kontrahenci`

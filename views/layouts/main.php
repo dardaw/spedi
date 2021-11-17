@@ -35,6 +35,8 @@ AppAsset::register($this);
                             <ul class="nav navbar-nav">
                                 <?php $url = Url::toRoute(['zlecenia/index']); ?>
                                 <li><a href="<?php echo $url; ?>">Zlecenia</a></li>
+                                  <?php $url = Url::toRoute(['faktury/index']); ?>
+                                <li><a href="<?php echo $url; ?>">Faktury</a></li>
                                 <?php $url = Url::toRoute(['kontrahenci/index']); ?>
                                 <li><a href="<?php echo $url; ?>">Kontrahenci</a></li>
                             </ul>
