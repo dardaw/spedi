@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 17 Lis 2021, 11:02
+-- Czas generowania: 03 Sty 2022, 11:47
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -89,11 +89,11 @@ CREATE TABLE `faktury` (
   `fak_miesiac` int(11) DEFAULT NULL,
   `fak_rok` int(11) DEFAULT NULL,
   `fak_numer_pelny` varchar(255) DEFAULT NULL,
+  `kh_id` int(11) DEFAULT NULL,
   `fak_widocznosc` int(11) DEFAULT NULL,
   `fak_miejsce_wystawienia` varchar(255) DEFAULT NULL,
   `fak_data_wystawienia` date DEFAULT NULL,
   `fak_data_zakonczenia` date DEFAULT NULL,
-  `fak_nabywca_symbol` int(11) DEFAULT NULL,
   `fak_nabywca_nazwa` varchar(255) DEFAULT NULL,
   `fak_nabywca_ulica` varchar(255) DEFAULT NULL,
   `fak_nabywca_kod_pocztowy` varchar(255) DEFAULT NULL,
@@ -110,6 +110,39 @@ CREATE TABLE `faktury` (
   `fak_rachunek_bankowy` varchar(255) DEFAULT NULL,
   `fak_rachunek_bankowy_vat` varchar(255) DEFAULT NULL,
   `fak_opis` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `faktury`
+--
+
+INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_numer_pelny`, `kh_id`, `fak_widocznosc`, `fak_miejsce_wystawienia`, `fak_data_wystawienia`, `fak_data_zakonczenia`, `fak_nabywca_nazwa`, `fak_nabywca_ulica`, `fak_nabywca_kod_pocztowy`, `fak_nabywca_miasto`, `fak_nabywca_nip`, `fak_wystawil`, `fak_wartosc_netto`, `fak_wartosc_vat`, `fak_wartosc_brutto`, `fak_waluta`, `fak_platnosc`, `fak_metoda_platnosci`, `fak_termin_platnosci`, `fak_rachunek_bankowy`, `fak_rachunek_bankowy_vat`, `fak_opis`) VALUES
+(1, 1, 1, 2022, '1', 9, 0, 'E', '2022-01-04', '2022-01-03', 'e', 'e', 'e', 'e', 'e', 'e', '11.00', '1.00', '11.00', 'PLN', 'zapłacono z góry', 'przelew', 1, '1', '1', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `faktury_pozycje`
+--
+
+CREATE TABLE `faktury_pozycje` (
+  `poz_id` int(11) NOT NULL,
+  `poz_nazwa` varchar(255) DEFAULT NULL,
+  `zł_id` int(11) DEFAULT NULL,
+  `poz_jednostka` varchar(255) DEFAULT NULL,
+  `poz_ilosc` decimal(10,2) DEFAULT NULL,
+  `poz_cena_netto` decimal(10,2) DEFAULT NULL,
+  `poz_wartosc_netto` decimal(10,2) DEFAULT NULL,
+  `poz_vat` int(11) DEFAULT NULL,
+  `poz_wartosc_brutto` decimal(10,2) DEFAULT NULL,
+  `poz_cena_netto_waluta` decimal(10,2) DEFAULT NULL,
+  `poz_wartosc_netto_waluta` decimal(10,2) DEFAULT NULL,
+  `poz_vat_waluta` int(11) DEFAULT NULL,
+  `poz_wartosc_brutto_waluta` decimal(10,2) DEFAULT NULL,
+  `poz_waluta` varchar(255) DEFAULT NULL,
+  `poz_waluta_zrodlowa` varchar(255) NOT NULL,
+  `poz_kurs_wartosc` decimal(10,4) DEFAULT NULL,
+  `poz_kurs_data` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -308,6 +341,12 @@ ALTER TABLE `faktury`
   ADD PRIMARY KEY (`fak_id`);
 
 --
+-- Indeksy dla tabeli `faktury_pozycje`
+--
+ALTER TABLE `faktury_pozycje`
+  ADD PRIMARY KEY (`poz_id`);
+
+--
 -- Indeksy dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
@@ -351,7 +390,13 @@ ALTER TABLE `dokumenty`
 -- AUTO_INCREMENT dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
-  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT dla tabeli `faktury_pozycje`
+--
+ALTER TABLE `faktury_pozycje`
+  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `kontrahenci`

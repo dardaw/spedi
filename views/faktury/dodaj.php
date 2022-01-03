@@ -3,132 +3,128 @@
 
 use yii\helpers\Url;
 
-$this->title = 'Dodawanie zlecenia';
+$this->title = 'Dodawanie faktury';
 ?>
 <div class="site-index">
 
 
 
     <div class="body-content">
-        <?php if (!empty($zlecenie['zl_id'])): ?>
-            <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/zleceniemenu.php', ['zl_id' => $zlecenie['zl_id']]); ?>
-        <?php endif; ?>
-
-        <?php if (!empty($zlecenie['zl_data_utworzenia'])): ?>
-            Data utworzenia &nbsp;<?php echo $zlecenie['zl_data_utworzenia']; ?>&nbsp;Numer &nbsp;<?php echo $zlecenie['zl_numer_pelny']; ?> 
-        <?php endif; ?>
-        <?php $url = Url::toRoute(['zlecenia/zapisz']); ?>
+        <?php $url = Url::toRoute(['faktury/zapisz']); ?>
         <form action ="<?php echo $url; ?>" method="POST">
             <div class="form-group">
-                <input type="hidden" class="form-control" id="zl_id" name="zl_id" value="<?php echo key_exists("zl_id", $zlecenie) ? $zlecenie['zl_id'] : '' ?>">
+                <input type="hidden" class="form-control" id="fak_id" name="fak_id" value="<?php echo key_exists("fak_id", $faktura) ? $faktura['fak_id'] : '' ?>">
                 <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->getCsrfToken() ?>" />
                 <label for="kh_id">Kontrahent</label>
                 <select class="form-control" id="kh_id" name="kh_id">
-                    <option value="0" <?php echo key_exists("kh_id", $zlecenie) && 0 == $zlecenie['kh_id'] ? 'selected="selected"' : '' ?>></option>
+                    <option value="0" <?php echo key_exists("kh_id", $faktura) && 0 == $faktura['kh_id'] ? 'selected="selected"' : '' ?>></option>
                     <?php foreach ($kontrahenci as $kontrahent): ?>
-                        <option value="<?php echo $kontrahent['kh_id'] ?>" <?php echo key_exists("kh_id", $zlecenie) && $kontrahent['kh_id'] == $zlecenie['kh_id'] ? 'selected="selected"' : '' ?>><?php echo $kontrahent['kh_symbol'] ?></option>
+                        <option value="<?php echo $kontrahent['kh_id'] ?>" <?php echo key_exists("kh_id", $faktura) && $kontrahent['kh_id'] == $faktura['kh_id'] ? 'selected="selected"' : '' ?>><?php echo $kontrahent['kh_symbol'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group">
-                <label for="zl_order">Nr order</label>
-                <input type="text" class="form-control" id="zl_order" name="zl_order" value="<?php echo key_exists("zl_order", $zlecenie) ? $zlecenie['zl_order'] : '' ?>">
+                <label for="fak_miejsce_wystawienia">Miejsce wystawienia</label>
+                <input type="text" class="form-control" id="fak_miejsce_wystawienia" name="fak_miejsce_wystawienia" value="<?php echo key_exists("fak_miejsce_wystawienia", $faktura) ? $faktura['fak_miejsce_wystawienia'] : '' ?>">
             </div>
-            <div class="form-group">
-                <label for="zl_ladunek">Ładunek</label>
-                <textarea class="form-control" id="zl_ladunek" name="zl_ladunek"><?php echo key_exists("zl_ladunek", $zlecenie) ? $zlecenie['zl_ladunek'] : '' ?></textarea>
+            <div class="form-group input-group date" style="width: 100%">
+                <label for="fak_data_wystawienia">Data wystawienia</label>
+                <input type="text" class="form-control datepicker" id="fak_data_wystawienia" name="fak_data_wystawienia" value="<?php echo key_exists("fak_data_wystawienia", $faktura) ? $faktura['fak_data_wystawienia'] : '' ?>">
             </div>
-            <div class="form-group">
-                <label for="zl_waga">Waga</label>
-                <input type="text" class="form-control" id="zl_waga" name="zl_waga" value="<?php echo key_exists("zl_waga", $zlecenie) ? $zlecenie['zl_waga'] : '' ?>">
+            <div class="form-group input-group date" style="width: 100%">
+                <label for="fak_data_zakonczenia">Data zakończenia</label>
+                <input type="text" class="form-control datepicker" id="fak_data_zakonczenia" name="fak_data_zakonczenia" value="<?php echo key_exists("fak_data_zakonczenia", $faktura) ? $faktura['fak_data_zakonczenia'] : '' ?>">
 
             </div>
             <div class="form-group">
-                <label for="zl_waga_jednostka">Waga jednostka</label>
-                <select class="form-control" id="zl_waga_jednostka" name="zl_waga_jednostka">
+                <label for="fak_nabywca_nazwa">Nabywca nazwa</label>
+                <input type="text" class="form-control" id="fak_nabywca_nazwa" name="fak_nabywca_nazwa" value="<?php echo key_exists("fak_nabywca_nazwa", $faktura) ? $faktura['fak_nabywca_nazwa'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_nabywca_ulica">Ulica</label>
+                <input type="text" class="form-control" id="fak_nabywca_ulica" name="fak_nabywca_ulica" value="<?php echo key_exists("fak_nabywca_ulica", $faktura) ? $faktura['fak_nabywca_ulica'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_nabywca_kod_pocztowy">Kod pocztowy</label>
+                <input type="text" class="form-control" id="fak_nabywca_kod_pocztowy" name="fak_nabywca_kod_pocztowy" value="<?php echo key_exists("fak_nabywca_kod_pocztowy", $faktura) ? $faktura['fak_nabywca_kod_pocztowy'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_nabywca_miasto">Miasto</label>
+                <input type="text" class="form-control" id="fak_nabywca_miasto" name="fak_nabywca_miasto" value="<?php echo key_exists("fak_nabywca_miasto", $faktura) ? $faktura['fak_nabywca_miasto'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_nabywca_nip">NIP</label>
+                <input type="text" class="form-control" id="fak_nabywca_nip" name="fak_nabywca_nip" value="<?php echo key_exists("fak_nabywca_nip", $faktura) ? $faktura['fak_nabywca_nip'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_wystawil">Wystawił</label>
+                <input type="text" class="form-control" id="fak_wystawil" name="fak_wystawil" value="<?php echo key_exists("fak_wystawil", $faktura) ? $faktura['fak_wystawil'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_wartosc_netto">Wartość netto</label>
+                <input type="text" class="form-control" id="fak_wartosc_netto" name="fak_wartosc_netto" value="<?php echo key_exists("fak_wartosc_netto", $faktura) ? $faktura['fak_wartosc_netto'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_wartosc_vat">Wartość VAT</label>
+                <input type="text" class="form-control" id="fak_wartosc_vat" name="fak_wartosc_vat" value="<?php echo key_exists("fak_wartosc_vat", $faktura) ? $faktura['fak_wartosc_vat'] : '' ?>">
+            </div> 
+            <div class="form-group">
+                <label for="fak_wartosc_brutto">Wartość brutto</label>
+                <input type="text" class="form-control" id="fak_wartosc_brutto" name="fak_wartosc_brutto" value="<?php echo key_exists("fak_wartosc_brutto", $faktura) ? $faktura['fak_wartosc_brutto'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_waluta">Waluta</label>
+                <select class="form-control" id="fak_waluta" name="fak_waluta">
                     <option value=""></option>
-                    <option value="ton" <?php echo key_exists("zl_waga_jednostka", $zlecenie) && $zlecenie['zl_waga_jednostka'] == 'ton' ? 'selected="selected"' : '' ?>>ton</option>
-                    <option value="kg" <?php echo key_exists("zl_waga_jednostka", $zlecenie) && $zlecenie['zl_waga_jednostka'] == 'kg' ? 'selected="selected"' : '' ?>>kg</option>
+                    <option value="CHF" <?php echo key_exists("fak_waluta", $faktura) && $faktura['fak_waluta'] == 'CHF' ? 'selected="selected"' : '' ?>>CHF</option>
+                    <option value="EUR" <?php echo key_exists("fak_waluta", $faktura) && $faktura['fak_waluta'] == 'EUR' ? 'selected="selected"' : '' ?>>EUR</option>
+                    <option value="GBP" <?php echo key_exists("fak_waluta", $faktura) && $faktura['fak_waluta'] == 'GBP' ? 'selected="selected"' : '' ?>>GBP</option>
+                    <option value="JPY" <?php echo key_exists("fak_waluta", $faktura) && $faktura['fak_waluta'] == 'JPY' ? 'selected="selected"' : '' ?>>JPY</option>
+                    <option value="PLN" <?php echo key_exists("fak_waluta", $faktura) && $faktura['fak_waluta'] == 'PLN' ? 'selected="selected"' : '' ?>>PLN</option>
+                    <option value="RUB" <?php echo key_exists("fak_waluta", $faktura) && $faktura['fak_waluta'] == 'RUB' ? 'selected="selected"' : '' ?>>RUB</option>
+                    <option value="USD" <?php echo key_exists("fak_waluta", $faktura) && $faktura['fak_waluta'] == 'USD' ? 'selected="selected"' : '' ?>>USD</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="zl_stawka">Stawka</label>
-                <input type="text" class="form-control" id="zl_stawka" name="zl_stawka" value="<?php echo key_exists("zl_stawka", $zlecenie) ? $zlecenie['zl_stawka'] : '' ?>">
-            </div>
-            <div class="form-group">
-                <label for="zl_jednostka">Jednostka</label>
-                <select class="form-control" id="zl_jednostka" name="zl_jednostka">
+                <label for="fak_platnosc">Płatność</label>
+                <select class="form-control" id="fak_platnosc" name="fak_platnosc">
                     <option value=""></option>
-                    <option value="Kilometry" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'Kilometry' ? 'selected="selected"' : '' ?>>Kilometry</option>
-                    <option value="Fracht" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'Fracht' ? 'selected="selected"' : '' ?>>Fracht</option>
-                    <option value="Paleta" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'Paleta' ? 'selected="selected"' : '' ?>>Paleta</option>
-                    <option value="Godzina" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'Godzina' ? 'selected="selected"' : '' ?>>Godzina</option>
-                    <option value="Tony"> <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'Tony' ? 'selected="selected"' : '' ?>Tony</option>
-                    <option value="M3" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'M3' ? 'selected="selected"' : '' ?>>M3</option>
-                    <option value="Kilogramy" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'Kilogramy' ? 'selected="selected"' : '' ?>>Kilogramy</option>
-                    <option value="LBM" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'LBM' ? 'selected="selected"' : '' ?>>LBM</option>
-                    <option value="Sztuki" <?php echo key_exists("zl_jednostka", $zlecenie) && $zlecenie['zl_jednostka'] == 'Sztuki' ? 'selected="selected"' : '' ?>>Sztuki</option>
+                    <option value="odroczono" <?php echo key_exists("fak_platnosc", $faktura) && $faktura['fak_platnosc'] == 'odroczono' ? 'selected="selected"' : '' ?>>odroczono</option>
+                    <option value="zapłacono z góry" <?php echo key_exists("fak_platnosc", $faktura) && $faktura['fak_platnosc'] == 'zapłacono z góry' ? 'selected="selected"' : '' ?>>zapłacono z góry</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="zl_ilosc">Ilość</label>
-                <input type="text" class="form-control" id="zl_ilosc" name="zl_ilosc" value="<?php echo key_exists("zl_ilosc", $zlecenie) ? $zlecenie['zl_ilosc'] : '' ?>">
-            </div>
-            <div class="form-group">
-                <label for="zl_wartosc">Wartość</label>
-                <input type="text" class="form-control" id="zl_wartosc" name="zl_wartosc" value="<?php echo key_exists("zl_wartosc", $zlecenie) ? $zlecenie['zl_wartosc'] : '' ?>">
-            </div>
-            <div class="form-group">
-                <label for="zl_waluta">Waluta</label>
-                <select class="form-control" id="zl_waluta" name="zl_waluta">
+                <label for="fak_metoda_platnosci">Metoda płatności</label>
+                <select class="form-control" id="fak_metoda_platnosci" name="fak_metoda_platnosci">
                     <option value=""></option>
-                    <option value="CHF" <?php echo key_exists("zl_waluta", $zlecenie) && $zlecenie['zl_waluta'] == 'CHF' ? 'selected="selected"' : '' ?>>CHF</option>
-                    <option value="EUR" <?php echo key_exists("zl_waluta", $zlecenie) && $zlecenie['zl_waluta'] == 'EUR' ? 'selected="selected"' : '' ?>>EUR</option>
-                    <option value="GBP" <?php echo key_exists("zl_waluta", $zlecenie) && $zlecenie['zl_waluta'] == 'GBP' ? 'selected="selected"' : '' ?>>GBP</option>
-                    <option value="JPY" <?php echo key_exists("zl_waluta", $zlecenie) && $zlecenie['zl_waluta'] == 'JPY' ? 'selected="selected"' : '' ?>>JPY</option>
-                    <option value="PLN" <?php echo key_exists("zl_waluta", $zlecenie) && $zlecenie['zl_waluta'] == 'PLN' ? 'selected="selected"' : '' ?>>PLN</option>
-                    <option value="RUB" <?php echo key_exists("zl_waluta", $zlecenie) && $zlecenie['zl_waluta'] == 'RUB' ? 'selected="selected"' : '' ?>>RUB</option>
-                    <option value="USD" <?php echo key_exists("zl_waluta", $zlecenie) && $zlecenie['zl_waluta'] == 'USD' ? 'selected="selected"' : '' ?>>USD</option>
+                    <option value="gotówka" <?php echo key_exists("fak_metoda_platnosci", $faktura) && $faktura['fak_metoda_platnosci'] == 'gotówka' ? 'selected="selected"' : '' ?>>gotówka</option>
+                    <option value="przelew" <?php echo key_exists("fak_metoda_platnosci", $faktura) && $faktura['fak_metoda_platnosci'] == 'przelew' ? 'selected="selected"' : '' ?>>przelew</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="zl_kilometry">Kilometry</label>
-                <input type="text" class="form-control" id="zl_kilometry" name="zl_kilometry" value="<?php echo key_exists("zl_kilometry", $zlecenie) ? $zlecenie['zl_kilometry'] : '' ?>">
+                <label for="fak_termin_platnosci">Termin płatności</label>
+                <input type="text" class="form-control" id="fak_termin_platnosci" name="fak_termin_platnosci" value="<?php echo key_exists("fak_termin_platnosci", $faktura) ? $faktura['fak_termin_platnosci'] : '' ?>">
             </div>
             <div class="form-group">
-                <label for="zl_temperatura">Temperatura</label>
-                <input type="text" class="form-control" id="zl_temperatura" name="zl_temperatura" value="<?php echo key_exists("zl_temperatura", $zlecenie) ? $zlecenie['zl_temperatura'] : '' ?>">
+                <label for="fak_rachunek_bankowy">Rachunek bankowy</label>
+                <input type="text" class="form-control" id="fak_rachunek_bankowy" name="fak_rachunek_bankowy" value="<?php echo key_exists("fak_rachunek_bankowy", $faktura) ? $faktura['fak_rachunek_bankowy'] : '' ?>">
             </div>
             <div class="form-group">
-                <label for="zl_temperatura_jednostka">Temperatura jednostka</label>
-                <select class="form-control" id="zl_temperatura_jednostka" name="zl_temperatura_jednostka">
-                    <option value=""></option>
-                    <option value="C" <?php echo key_exists("zl_temperatura_jednostka", $zlecenie) && $zlecenie['zl_temperatura_jednostka'] == 'C' ? 'selected="selected"' : '' ?>>C</option>
-                    <option value="K" <?php echo key_exists("zl_temperatura_jednostka", $zlecenie) && $zlecenie['zl_temperatura_jednostka'] == 'K' ? 'selected="selected"' : '' ?>>K</option>
-                </select>
+                <label for="fak_rachunek_bankowy_vat">Rachunek bankowy VAT</label>
+                <input type="text" class="form-control" id="fak_rachunek_bankowy_vat" name="fak_rachunek_bankowy_vat" value="<?php echo key_exists("fak_rachunek_bankowy_vat", $faktura) ? $faktura['fak_rachunek_bankowy_vat'] : '' ?>">
             </div>
             <div class="form-group">
-                <label for="zl_uwagi">Uwagi</label>
-                <textarea class="form-control" id="zl_uwagi" name="zl_uwagi"><?php echo key_exists("zl_uwagi", $zlecenie) ? $zlecenie['zl_uwagi'] : '' ?></textarea>
+                <label for="fak_opis">Uwagi</label>
+                <textarea class="form-control" id="fak_opis" name="fak_opis"><?php echo key_exists("fak_opis", $faktura) ? $faktura['fak_opis'] : '' ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Zapisz</button>
-             <?php $url = Url::toRoute(['zlecenia/index']); ?>
-                <a href="<?php echo $url; ?>">
-                    <button type="button" class="btn btn-primary">Anuluj</button>
-                </a>
-            <?php if (!empty($zlecenie['zl_id'])): ?>
-                <?php $url = Url::toRoute(['zlecenia/usun', 'id' => $zlecenie['zl_id']]); ?>
-                <a href="<?php echo $url; ?>">
-                    <button type="button" class="btn btn-primary">Usuń</button>
-                </a>
-                <?php $url = Url::toRoute(['zlecenia/kopiuj', 'id' => $zlecenie['zl_id']]); ?>
-                <a href="<?php echo $url; ?>">
-                    <button type="button" class="btn btn-primary">Kopiuj</button>
-                </a>
-                <?php $url = Url::toRoute(['dokumenty/index', 'id' => $zlecenie['zl_id']]); ?>
-                <a href="<?php echo $url; ?>">
-                    <button type="button" class="btn btn-primary">Dokumenty</button>
-                </a>
+            <?php $url = Url::toRoute(['faktury/index']); ?>
+            <a href="<?php echo $url; ?>">
+                <button type="button" class="btn btn-primary">Anuluj</button>
+            </a>
+             <?php if (!empty($faktura['fak_id'])): ?>
+                <?php $link = Url::toRoute(['faktury/usun', 'id' => $faktura['fak_id']]); ?>
+                <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Usuń</button></a>
             <?php endif; ?>
         </form>
     </div>

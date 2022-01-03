@@ -5,8 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
-use app\models\Zlecenia;
-use app\models\Adresy;
+use app\models\Faktury;
 use yii\data\Pagination;
 
 class FakturyController extends Controller {
@@ -30,7 +29,7 @@ class FakturyController extends Controller {
 
     public function actionIndex() {
         $get = Yii::$app->request->get();
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazzlecenia.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazfakture.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $faktury = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('faktury')
@@ -55,14 +54,14 @@ class FakturyController extends Controller {
     }
 
     public function actionDodaj() {
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajzlecenie.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfakture.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
                 //->where(['last_name' => 'Smith'])
                 ->orderBy('kh_symbol ASC')
                 ->all();
-        return $this->render('dodaj', ['zlecenie' => [], 'kontrahenci' => $kontrahenci]);
+        return $this->render('dodaj', ['faktura' => [], 'kontrahenci' => $kontrahenci]);
     }
 
     public function actionZapisz() {
@@ -71,9 +70,9 @@ class FakturyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-        $zlecenia = new Zlecenia();
+        $zlecenia = new Faktury();
         $zlecenia->zapisz($post);
-        $this->redirect(['zlecenia/index']);
+        $this->redirect(['faktury/index']);
     }
 
     public function actionUsun() {
@@ -82,17 +81,17 @@ class FakturyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-        $zlecenie = Zlecenia::find()
-                ->where(['zl_id' => $get['id']])
+        $zlecenie = Faktury::find()
+                ->where(['fak_id' => $get['id']])
                 ->one();
-        $zlecenie->zl_widocznosc = 0;
+        $zlecenie->fak_widocznosc = 0;
         $zlecenie->save();
 
-        $this->redirect(['zlecenia/index']);
+        $this->redirect(['faktury/index']);
     }
 
     public function actionEdycja() {
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajzlecenie.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfaktury.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $get = Yii::$app->request->get();
         if (empty($get['id'])) {
             echo 'Nieuprawniony dostep';
@@ -100,8 +99,8 @@ class FakturyController extends Controller {
         }
         $query = (new \yii\db\Query());
         $query->select(['*']);
-        $query->from('zlecenia');
-        $query->where(["zl_id" => $get['id']]);
+        $query->from('faktury');
+        $query->where(["fak_id" => $get['id']]);
         $query->limit(1);
         $wynik = $query->one();
         $kontrahenci = (new \yii\db\Query())
@@ -110,7 +109,7 @@ class FakturyController extends Controller {
                 //->where(['last_name' => 'Smith'])
                 ->orderBy('kh_symbol ASC')
                 ->all();
-        return $this->render('dodaj', ['zlecenie' => $wynik, 'kontrahenci' => $kontrahenci]);
+        return $this->render('dodaj', ['faktura' => $wynik, 'kontrahenci' => $kontrahenci]);
     }
 
     public function actionError() {
@@ -118,41 +117,6 @@ class FakturyController extends Controller {
         if ($exception !== null) {
             return $this->render('error', ['exception' => $exception]);
         }
-    }
-
-    public function actionKopiuj() {
-        $get = Yii::$app->request->get();
-        if (empty($get['id'])) {
-            echo 'Nieuprawniony dostep';
-            exit;
-        }
-        $zlecenie = Zlecenia::find()
-                ->where(['zl_id' => $get['id']])
-                ->one();
-        $kopia = new Zlecenia();
-        foreach ($zlecenie as $key => $value) {
-            $kopia->$key = $value;
-        }
-        unset($kopia->zl_id);
-        $kopia->zl_data_utworzenia = date('Y-m-d H:i:s');
-        $kopia->save();
-        $zl_id = $kopia->getAttribute("zl_id");
-        $adresy = (new \yii\db\Query())
-                        ->select(['*'])
-                        ->from('adresy')
-                        ->where(['zl_id' => $get['id']])->all();
-
-        foreach ($adresy as $key => $adres) {
-            $kopia = new Adresy();
-            foreach ($adres as $key2 => $value) {
-                $kopia->$key2 = $value;
-            }
-            $kopia->zl_id = $zl_id;
-            unset($kopia->adres_id);
-            $kopia->save();
-        }
-
-        $this->redirect(['zlecenia/index']);
     }
 
 }
