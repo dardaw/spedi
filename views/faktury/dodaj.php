@@ -24,19 +24,6 @@ $this->title = 'Dodawanie faktury';
                 </select>
             </div>
             <div class="form-group">
-                <label for="fak_miejsce_wystawienia">Miejsce wystawienia</label>
-                <input type="text" class="form-control" id="fak_miejsce_wystawienia" name="fak_miejsce_wystawienia" value="<?php echo key_exists("fak_miejsce_wystawienia", $faktura) ? $faktura['fak_miejsce_wystawienia'] : '' ?>">
-            </div>
-            <div class="form-group input-group date" style="width: 100%">
-                <label for="fak_data_wystawienia">Data wystawienia</label>
-                <input type="text" class="form-control datepicker" id="fak_data_wystawienia" name="fak_data_wystawienia" value="<?php echo key_exists("fak_data_wystawienia", $faktura) ? $faktura['fak_data_wystawienia'] : '' ?>">
-            </div>
-            <div class="form-group input-group date" style="width: 100%">
-                <label for="fak_data_zakonczenia">Data zakończenia</label>
-                <input type="text" class="form-control datepicker" id="fak_data_zakonczenia" name="fak_data_zakonczenia" value="<?php echo key_exists("fak_data_zakonczenia", $faktura) ? $faktura['fak_data_zakonczenia'] : '' ?>">
-
-            </div>
-            <div class="form-group">
                 <label for="fak_nabywca_nazwa">Nabywca nazwa</label>
                 <input type="text" class="form-control" id="fak_nabywca_nazwa" name="fak_nabywca_nazwa" value="<?php echo key_exists("fak_nabywca_nazwa", $faktura) ? $faktura['fak_nabywca_nazwa'] : '' ?>">
             </div>
@@ -55,6 +42,19 @@ $this->title = 'Dodawanie faktury';
             <div class="form-group">
                 <label for="fak_nabywca_nip">NIP</label>
                 <input type="text" class="form-control" id="fak_nabywca_nip" name="fak_nabywca_nip" value="<?php echo key_exists("fak_nabywca_nip", $faktura) ? $faktura['fak_nabywca_nip'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="fak_miejsce_wystawienia">Miejsce wystawienia</label>
+                <input type="text" class="form-control" id="fak_miejsce_wystawienia" name="fak_miejsce_wystawienia" value="<?php echo key_exists("fak_miejsce_wystawienia", $faktura) ? $faktura['fak_miejsce_wystawienia'] : '' ?>">
+            </div>
+            <div class="form-group input-group date" style="width: 100%">
+                <label for="fak_data_wystawienia">Data wystawienia</label>
+                <input type="text" class="form-control datepicker" id="fak_data_wystawienia" name="fak_data_wystawienia" value="<?php echo key_exists("fak_data_wystawienia", $faktura) ? $faktura['fak_data_wystawienia'] : '' ?>">
+            </div>
+            <div class="form-group input-group date" style="width: 100%">
+                <label for="fak_data_zakonczenia">Data zakończenia</label>
+                <input type="text" class="form-control datepicker" id="fak_data_zakonczenia" name="fak_data_zakonczenia" value="<?php echo key_exists("fak_data_zakonczenia", $faktura) ? $faktura['fak_data_zakonczenia'] : '' ?>">
+
             </div>
             <div class="form-group">
                 <label for="fak_wystawil">Wystawił</label>
@@ -122,9 +122,11 @@ $this->title = 'Dodawanie faktury';
             <a href="<?php echo $url; ?>">
                 <button type="button" class="btn btn-primary">Anuluj</button>
             </a>
-             <?php if (!empty($faktura['fak_id'])): ?>
+            <?php if (!empty($faktura['fak_id'])): ?>
                 <?php $link = Url::toRoute(['faktury/usun', 'id' => $faktura['fak_id']]); ?>
                 <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Usuń</button></a>
+                <?php $link = Url::toRoute(['faktury/dodajpozycje', 'id' => $faktura['fak_id']]); ?>
+                <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Dodaj pozycję</button></a>
             <?php endif; ?>
         </form>
     </div>

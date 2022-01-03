@@ -33,6 +33,19 @@ class AjaxController extends Controller {
         echo json_encode(['kh_blokada' => $wynik['kh_blokada']]); exit;
     }
 
+    public function actionPobierzdanekontrahenta() {
+        $get = Yii::$app->request->getQueryParams();
+        if(empty($get['kh_id'])){
+            exit;
+        }
+         $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('kontrahenci');
+        $query->where(["kh_id" => $get['kh_id']]);
+        $query->limit(1);
+        $wynik = $query->one();
+        echo json_encode($wynik); exit;
+    }
     
 
 }

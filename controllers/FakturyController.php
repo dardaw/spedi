@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\Faktury;
+use app\models\FakturyPozycje;
 use yii\data\Pagination;
 
 class FakturyController extends Controller {
@@ -91,7 +92,7 @@ class FakturyController extends Controller {
     }
 
     public function actionEdycja() {
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfaktury.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfakture.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
         $get = Yii::$app->request->get();
         if (empty($get['id'])) {
             echo 'Nieuprawniony dostep';
@@ -117,6 +118,62 @@ class FakturyController extends Controller {
         if ($exception !== null) {
             return $this->render('error', ['exception' => $exception]);
         }
+    }
+
+    public function actionDodajpozycje() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazfakturapozycje.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('faktury_pozycje');
+        $query->where(["fak_id" => $get['id']]);
+        $wynik = $query->all();
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+
+        return $this->render('dodajpozycje', ['faktura_pozycje' => $wynik, 'pages' => $pages, 'id' => $get['id']]);
+    }
+
+    public function actionDodajpozycjedodaj() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => [], 'id' => $get['id']]);
+    }
+
+    public function actionZapiszpozycje() {
+        $post = Yii::$app->request->post();
+        if (count($post) == 0) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $zlecenia = new FakturyPozycje();
+        $zlecenia->zapiszpozycje($post);
+        $this->redirect(['faktury/dodajpozycje', 'id' => $post['fak_id']]);
+    }
+
+    public function actionDodajpozycjeedytuj() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id']) || empty($get['poz_id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('faktury_pozycje');
+        $query->where(["poz_id" => $get['poz_id']]);
+        $query->limit(1);
+        $wynik = $query->one();
+
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => $wynik, 'id' => $get['id']]);
     }
 
 }

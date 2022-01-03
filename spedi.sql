@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 03 Sty 2022, 11:47
+-- Czas generowania: 03 Sty 2022, 15:23
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -117,7 +117,8 @@ CREATE TABLE `faktury` (
 --
 
 INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_numer_pelny`, `kh_id`, `fak_widocznosc`, `fak_miejsce_wystawienia`, `fak_data_wystawienia`, `fak_data_zakonczenia`, `fak_nabywca_nazwa`, `fak_nabywca_ulica`, `fak_nabywca_kod_pocztowy`, `fak_nabywca_miasto`, `fak_nabywca_nip`, `fak_wystawil`, `fak_wartosc_netto`, `fak_wartosc_vat`, `fak_wartosc_brutto`, `fak_waluta`, `fak_platnosc`, `fak_metoda_platnosci`, `fak_termin_platnosci`, `fak_rachunek_bankowy`, `fak_rachunek_bankowy_vat`, `fak_opis`) VALUES
-(1, 1, 1, 2022, '1', 9, 0, 'E', '2022-01-04', '2022-01-03', 'e', 'e', 'e', 'e', 'e', 'e', '11.00', '1.00', '11.00', 'PLN', 'zapłacono z góry', 'przelew', 1, '1', '1', '1');
+(1, 1, 1, 2022, '1', 9, 0, 'E', '2022-01-04', '2022-01-03', 'e', 'e', 'e', 'e', 'e', 'e', '11.00', '1.00', '11.00', 'PLN', 'zapłacono z góry', 'przelew', 1, '1', '1', '1'),
+(2, 1, 1, 2022, '1', 9, 1, '', '2022-01-03', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', NULL, NULL, '10.22', 'PLN', '', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -128,7 +129,8 @@ INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_num
 CREATE TABLE `faktury_pozycje` (
   `poz_id` int(11) NOT NULL,
   `poz_nazwa` varchar(255) DEFAULT NULL,
-  `zł_id` int(11) DEFAULT NULL,
+  `zl_id` int(11) DEFAULT NULL,
+  `fak_id` int(11) DEFAULT NULL,
   `poz_jednostka` varchar(255) DEFAULT NULL,
   `poz_ilosc` decimal(10,2) DEFAULT NULL,
   `poz_cena_netto` decimal(10,2) DEFAULT NULL,
@@ -137,13 +139,20 @@ CREATE TABLE `faktury_pozycje` (
   `poz_wartosc_brutto` decimal(10,2) DEFAULT NULL,
   `poz_cena_netto_waluta` decimal(10,2) DEFAULT NULL,
   `poz_wartosc_netto_waluta` decimal(10,2) DEFAULT NULL,
-  `poz_vat_waluta` int(11) DEFAULT NULL,
   `poz_wartosc_brutto_waluta` decimal(10,2) DEFAULT NULL,
   `poz_waluta` varchar(255) DEFAULT NULL,
-  `poz_waluta_zrodlowa` varchar(255) NOT NULL,
+  `poz_waluta_zrodlowa` varchar(255) DEFAULT NULL,
   `poz_kurs_wartosc` decimal(10,4) DEFAULT NULL,
-  `poz_kurs_data` date DEFAULT NULL
+  `poz_kurs_data` date DEFAULT NULL,
+  `poz_opis` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `faktury_pozycje`
+--
+
+INSERT INTO `faktury_pozycje` (`poz_id`, `poz_nazwa`, `zl_id`, `fak_id`, `poz_jednostka`, `poz_ilosc`, `poz_cena_netto`, `poz_wartosc_netto`, `poz_vat`, `poz_wartosc_brutto`, `poz_cena_netto_waluta`, `poz_wartosc_netto_waluta`, `poz_wartosc_brutto_waluta`, `poz_waluta`, `poz_waluta_zrodlowa`, `poz_kurs_wartosc`, `poz_kurs_data`, `poz_opis`) VALUES
+(10, '1', NULL, 2, '1', '1.00', '1.00', '1.00', 23, '1.00', '1.00', '1.00', '1.00', 'PLN', '', NULL, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -200,7 +209,7 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `
 (6, NULL, '6', 6, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:36', ''),
 (7, NULL, '7', 7, 'c', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:39:59', ''),
 (8, NULL, '8', 8, 'b', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:05', ''),
-(9, 1, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:32', '');
+(9, 1, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', '', '77-100', 'Miastko', 'ul. Leśna 10', '', '', '', '', '103 132 096', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:32', '');
 
 -- --------------------------------------------------------
 
@@ -390,13 +399,13 @@ ALTER TABLE `dokumenty`
 -- AUTO_INCREMENT dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
-  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `faktury_pozycje`
 --
 ALTER TABLE `faktury_pozycje`
-  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT dla tabeli `kontrahenci`
