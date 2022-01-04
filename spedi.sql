@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 03 Sty 2022, 15:23
+-- Czas generowania: 04 Sty 2022, 15:35
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -118,7 +118,8 @@ CREATE TABLE `faktury` (
 
 INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_numer_pelny`, `kh_id`, `fak_widocznosc`, `fak_miejsce_wystawienia`, `fak_data_wystawienia`, `fak_data_zakonczenia`, `fak_nabywca_nazwa`, `fak_nabywca_ulica`, `fak_nabywca_kod_pocztowy`, `fak_nabywca_miasto`, `fak_nabywca_nip`, `fak_wystawil`, `fak_wartosc_netto`, `fak_wartosc_vat`, `fak_wartosc_brutto`, `fak_waluta`, `fak_platnosc`, `fak_metoda_platnosci`, `fak_termin_platnosci`, `fak_rachunek_bankowy`, `fak_rachunek_bankowy_vat`, `fak_opis`) VALUES
 (1, 1, 1, 2022, '1', 9, 0, 'E', '2022-01-04', '2022-01-03', 'e', 'e', 'e', 'e', 'e', 'e', '11.00', '1.00', '11.00', 'PLN', 'zapłacono z góry', 'przelew', 1, '1', '1', '1'),
-(2, 1, 1, 2022, '1', 9, 1, '', '2022-01-03', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', NULL, NULL, '10.22', 'PLN', '', '', NULL, '', '', '');
+(2, 1, 1, 2022, '1', 9, 0, '', '2022-01-03', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', NULL, NULL, '10.22', 'PLN', '', '', NULL, '', '', ''),
+(3, 1, 1, 2022, '1', 9, 1, '1', '2022-01-04', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '1', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,7 @@ CREATE TABLE `faktury_pozycje` (
   `poz_ilosc` decimal(10,2) DEFAULT NULL,
   `poz_cena_netto` decimal(10,2) DEFAULT NULL,
   `poz_wartosc_netto` decimal(10,2) DEFAULT NULL,
-  `poz_vat` int(11) DEFAULT NULL,
+  `poz_vat` varchar(255) DEFAULT NULL,
   `poz_wartosc_brutto` decimal(10,2) DEFAULT NULL,
   `poz_cena_netto_waluta` decimal(10,2) DEFAULT NULL,
   `poz_wartosc_netto_waluta` decimal(10,2) DEFAULT NULL,
@@ -152,7 +153,8 @@ CREATE TABLE `faktury_pozycje` (
 --
 
 INSERT INTO `faktury_pozycje` (`poz_id`, `poz_nazwa`, `zl_id`, `fak_id`, `poz_jednostka`, `poz_ilosc`, `poz_cena_netto`, `poz_wartosc_netto`, `poz_vat`, `poz_wartosc_brutto`, `poz_cena_netto_waluta`, `poz_wartosc_netto_waluta`, `poz_wartosc_brutto_waluta`, `poz_waluta`, `poz_waluta_zrodlowa`, `poz_kurs_wartosc`, `poz_kurs_data`, `poz_opis`) VALUES
-(10, '1', NULL, 2, '1', '1.00', '1.00', '1.00', 23, '1.00', '1.00', '1.00', '1.00', 'PLN', '', NULL, NULL, '1');
+(14, 'a', NULL, 3, 'g', '111.00', '1.19', '132.09', '24', '163.79', '22.00', '2442.00', '3028.08', 'PLN', 'RUB', '0.0540', '2022-01-04', ''),
+(15, 'a', NULL, 3, 'f', '1.00', '4.57', '4.57', 'np', '4.57', '1.00', '1.00', '1.00', 'PLN', 'EUR', '4.5737', '2022-01-04', '');
 
 -- --------------------------------------------------------
 
@@ -210,6 +212,61 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `
 (7, NULL, '7', 7, 'c', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:39:59', ''),
 (8, NULL, '8', 8, 'b', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:05', ''),
 (9, 1, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', '', '77-100', 'Miastko', 'ul. Leśna 10', '', '', '', '', '103 132 096', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:32', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `kurs`
+--
+
+CREATE TABLE `kurs` (
+  `kurs_id` int(11) NOT NULL,
+  `kurs_kod` varchar(255) DEFAULT NULL,
+  `kurs_data` date DEFAULT NULL,
+  `kurs_nazwa` varchar(255) DEFAULT NULL,
+  `kurs_wartosc` decimal(10,4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `kurs`
+--
+
+INSERT INTO `kurs` (`kurs_id`, `kurs_kod`, `kurs_data`, `kurs_nazwa`, `kurs_wartosc`) VALUES
+(110, 'USD', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '4.0468'),
+(111, 'AUD', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '2.9185'),
+(112, 'HKD', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.5191'),
+(113, 'CAD', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '3.1750'),
+(114, 'NZD', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '2.7505'),
+(115, 'SGD', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '2.9859'),
+(116, 'EUR', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '4.5737'),
+(117, 'HUF', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0125'),
+(118, 'CHF', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '4.4090'),
+(119, 'GBP', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '5.4677'),
+(120, 'UAH', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.1482'),
+(121, 'JPY', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0349'),
+(122, 'CZK', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.1845'),
+(123, 'DKK', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.6149'),
+(124, 'ISK', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0310'),
+(125, 'NOK', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.4566'),
+(126, 'SEK', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.4451'),
+(127, 'HRK', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.6082'),
+(128, 'RON', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.9243'),
+(129, 'BGN', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '2.3385'),
+(130, 'TRY', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.3056'),
+(131, 'ILS', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '1.3073'),
+(132, 'CLP', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0048'),
+(133, 'PHP', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0789'),
+(134, 'MXN', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.1970'),
+(135, 'ZAR', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.2535'),
+(136, 'BRL', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.7122'),
+(137, 'MYR', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.9668'),
+(138, 'RUB', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0540'),
+(139, 'IDR', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0003'),
+(140, 'INR', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0543'),
+(141, 'KRW', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.0034'),
+(142, 'CNY', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.6349'),
+(143, 'XDR', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '5.6430'),
+(144, 'THB', '2022-01-04', 'Tabela nr 002/A/NBP/2022 z dnia 2022-01-04', '0.1216');
 
 -- --------------------------------------------------------
 
@@ -362,6 +419,12 @@ ALTER TABLE `kontrahenci`
   ADD PRIMARY KEY (`kh_id`);
 
 --
+-- Indeksy dla tabeli `kurs`
+--
+ALTER TABLE `kurs`
+  ADD PRIMARY KEY (`kurs_id`);
+
+--
 -- Indeksy dla tabeli `trasy`
 --
 ALTER TABLE `trasy`
@@ -399,19 +462,25 @@ ALTER TABLE `dokumenty`
 -- AUTO_INCREMENT dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
-  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `faktury_pozycje`
 --
 ALTER TABLE `faktury_pozycje`
-  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
   MODIFY `kh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT dla tabeli `kurs`
+--
+ALTER TABLE `kurs`
+  MODIFY `kurs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT dla tabeli `trasy`
