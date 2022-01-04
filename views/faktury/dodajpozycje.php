@@ -14,6 +14,8 @@ $this->title = 'Pozycje faktury';
 
         <?php $dodaj = Url::toRoute(['faktury/dodajpozycjedodaj', 'id' => $id]); ?>
         <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Dodaj pozycję faktury</button></a>
+          <?php $dodaj = Url::toRoute(['faktury/edycja', 'id' => $id]); ?>
+        <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Wróć do faktury</button></a>
         <br />
         <br />
         <div class="row">

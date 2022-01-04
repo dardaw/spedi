@@ -14,11 +14,6 @@ class FakturyPozycje extends ActiveRecord {
     }
 
       public function zapiszpozycje($post) {
-        $query = (new \yii\db\Query());
-        $query->select(['*']);
-        $query->from('faktury_pozycje');
-        $query->limit(1);
-        $wynik = $query->one();
         if (empty($post['poz_id'])) {
             $faktura = $this;
         } else {

@@ -176,4 +176,16 @@ class FakturyController extends Controller {
         return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => $wynik, 'id' => $get['id']]);
     }
 
+    public function actionUsunpozycje() {
+        $get = Yii::$app->request->get();
+        if (empty($get['poz_id']) || empty($get['fak_id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $faktury_pozycje = FakturyPozycje::findOne($get['poz_id']);
+        $faktury_pozycje->delete();
+
+        $this->redirect(['faktury/dodajpozycje', 'id' => $get['fak_id']]);
+    }
+
 }

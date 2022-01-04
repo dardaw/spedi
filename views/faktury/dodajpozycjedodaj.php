@@ -7,7 +7,7 @@ $this->title = 'Dodawanie pozycji faktury';
 ?>
 <div class="site-index">
 
-
+<button type="button" class="btn btn-primary" id="wybierz_zlecenie">Wybierz zlecenie</button>
 
     <div class="body-content">
         <?php $url = Url::toRoute(['faktury/zapiszpozycje']); ?>
@@ -28,7 +28,7 @@ $this->title = 'Dodawanie pozycji faktury';
             </div>
             <div class="form-group">
                 <label for="poz_ilosc">Ilość</label>
-                <input type="text" class="form-control" id="poz_ilosc" name="poz_ilosc" value="<?php echo key_exists("poz_ilosc", $dodajpozycjefakturydodaj) ? $dodajpozycjefakturydodaj['poz_ilosc'] : '' ?>">
+                <input type="text" class="form-control" id="poz_ilosc" name="poz_ilosc" value="<?php echo key_exists("poz_ilosc", $dodajpozycjefakturydodaj) ? $dodajpozycjefakturydodaj['poz_ilosc'] : '1.00' ?>">
             </div>
             <div class="form-group">
                 <label for="poz_cena_netto">Cena netto PLN</label>
@@ -40,7 +40,7 @@ $this->title = 'Dodawanie pozycji faktury';
             </div>
             <div class="form-group">
                 <label for="poz_vat">VAT</label>
-                <input type="text" class="form-control" id="poz_vat" name="poz_vat" value="<?php echo key_exists("poz_vat", $dodajpozycjefakturydodaj) ? $dodajpozycjefakturydodaj['poz_vat'] : '' ?>">
+                <input type="text" class="form-control" id="poz_vat" name="poz_vat" value="<?php echo key_exists("poz_vat", $dodajpozycjefakturydodaj) ? $dodajpozycjefakturydodaj['poz_vat'] : '23' ?>">
             </div>
             <div class="form-group">
                 <label for="poz_wartosc_brutto">Wartość brutto PLN</label>
@@ -102,7 +102,7 @@ $this->title = 'Dodawanie pozycji faktury';
                 <button type="button" class="btn btn-primary">Anuluj</button>
             </a>
             <?php if (!empty($dodajpozycjefakturydodaj['fak_id'])): ?>
-                <?php $link = Url::toRoute(['faktury/usun', 'id' => $dodajpozycjefakturydodaj['fak_id']]); ?>
+                <?php $link = Url::toRoute(['faktury/usunpozycje', 'fak_id' => $dodajpozycjefakturydodaj['fak_id'], 'poz_id' => $dodajpozycjefakturydodaj['poz_id']]); ?>
                 <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Usuń</button></a>
             <?php endif; ?>
         </form>

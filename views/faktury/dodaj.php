@@ -126,7 +126,7 @@ $this->title = 'Dodawanie faktury';
                 <?php $link = Url::toRoute(['faktury/usun', 'id' => $faktura['fak_id']]); ?>
                 <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Usuń</button></a>
                 <?php $link = Url::toRoute(['faktury/dodajpozycje', 'id' => $faktura['fak_id']]); ?>
-                <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Dodaj pozycję</button></a>
+                <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Pozycje faktury</button></a>
             <?php endif; ?>
         </form>
     </div>
