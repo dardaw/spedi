@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use app\models\Faktury;
 use app\models\FakturyPozycje;
+use app\models\Zlecenia;
 use yii\data\Pagination;
 
 class FakturyController extends Controller {
@@ -144,7 +145,7 @@ class FakturyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => [], 'id' => $get['id']]);
     }
 
@@ -172,7 +173,7 @@ class FakturyController extends Controller {
         $query->limit(1);
         $wynik = $query->one();
 
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => $wynik, 'id' => $get['id']]);
     }
 
@@ -182,8 +183,20 @@ class FakturyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
+        $query = (new \yii\db\Query());
+        $query->select(['zl_id']);
+        $query->from('faktury_pozycje');
+        $query->where(["poz_id" => $get['poz_id']]);
+        $query->limit(1);
+        $wynik = $query->one();
+
         $faktury_pozycje = FakturyPozycje::findOne($get['poz_id']);
         $faktury_pozycje->delete();
+        if (!empty($wynik['zl_id'])) {
+            $zlecenie = Zlecenia::findOne(['zl_id' => $wynik['zl_id']]);
+            $zlecenie->zl_faktura = NULL;
+            $zlecenie->save();
+        }
 
         $this->redirect(['faktury/dodajpozycje', 'id' => $get['fak_id']]);
     }

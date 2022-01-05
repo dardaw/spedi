@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use app\models\Zlecenia;
 
 class FakturyPozycje extends ActiveRecord {
 
@@ -13,7 +14,7 @@ class FakturyPozycje extends ActiveRecord {
         return '{{faktury_pozycje}}';
     }
 
-      public function zapiszpozycje($post) {
+    public function zapiszpozycje($post) {
         if (empty($post['poz_id'])) {
             $faktura = $this;
         } else {
@@ -23,7 +24,31 @@ class FakturyPozycje extends ActiveRecord {
         }
         $faktura->poz_id = $post['poz_id'];
         $faktura->poz_nazwa = $post['poz_nazwa'];
+        $zl_id_poprzednie = $faktura->zl_id;
         $faktura->zl_id = $post['zl_id'];
+        if (!empty($post['zl_id'])) {
+            $query = (new \yii\db\Query());
+            $query->select(['fak_numer_pelny']);
+            $query->from('faktury');
+            $query->where(["fak_id" => $post['fak_id']]);
+            $query->limit(1);
+            $wynik = $query->one();
+
+            $zlecenie = Zlecenia::find()
+                    ->where(['zl_id' => $post['zl_id']])
+                    ->one();
+            $zlecenie->zl_faktura = $wynik['fak_numer_pelny'];
+            $zlecenie->save();
+
+
+            if ($zl_id_poprzednie != $post['zl_id'] && !empty($zl_id_poprzednie)) {
+                $zlecenie_poprzednie = Zlecenia::find()
+                        ->where(['zl_id' => $zl_id_poprzednie])
+                        ->one();
+                $zlecenie_poprzednie->zl_faktura = NULL;
+                $zlecenie_poprzednie->save();
+            }
+        }
         $faktura->fak_id = $post['fak_id'];
         $faktura->poz_jednostka = $post['poz_jednostka'];
         $faktura->poz_ilosc = $post['poz_ilosc'];
@@ -41,6 +66,5 @@ class FakturyPozycje extends ActiveRecord {
         $faktura->poz_opis = $post['poz_opis'];
         $faktura->save();
     }
-   
 
 }

@@ -11,7 +11,7 @@ $this->title = 'Dodawanie pozycji faktury';
 
     <div class="body-content">
         <?php $url = Url::toRoute(['faktury/zapiszpozycje']); ?>
-        <form action ="<?php echo $url; ?>" method="POST">
+        <form action ="<?php echo $url; ?>" method="POST" id='formularz_dodawania_pozycji'>
             <div class="form-group">
                 <input type="hidden" class="form-control" id="poz_id" name="poz_id" value="<?php echo key_exists("poz_id", $dodajpozycjefakturydodaj) ? $dodajpozycjefakturydodaj['poz_id'] : '' ?>">
                 <input type="hidden" class="form-control" id="zl_id" name="zl_id" value="<?php echo key_exists("zl_id", $dodajpozycjefakturydodaj) ? $dodajpozycjefakturydodaj['zl_id'] : '' ?>">
@@ -108,3 +108,5 @@ $this->title = 'Dodawanie pozycji faktury';
         </form>
     </div>
 </div>
+
+<?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/faktury/wyborzlecenia.php'); ?>
