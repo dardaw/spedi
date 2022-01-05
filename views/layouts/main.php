@@ -59,7 +59,7 @@ AppAsset::register($this);
         <input type="hidden" id="action_name" value="<?php echo Yii::$app->controller->action->id; ?>" />
 
         <?php $this->endBody() ?>
-        <script src="<?php echo Url::base() ?>/js/system.js?md=<?php echo rand(1, 100); ?>"></script>
+        <script src="<?php echo Url::base() ?>/js/system.js?md=<?php echo rand(1, 1000000); ?>"></script>
     </body>
 </html>
 <?php $this->endPage() ?>

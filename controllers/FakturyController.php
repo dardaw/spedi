@@ -31,10 +31,11 @@ class FakturyController extends Controller {
 
     public function actionIndex() {
         $get = Yii::$app->request->get();
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazfakture.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazfakture.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $faktury = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('faktury')
+                 ->leftJoin("kontrahenci", "kontrahenci.kh_id = faktury.kh_id")
                 ->where(['fak_widocznosc' => 1]);
 
         if (count($get) != 0) {
@@ -56,7 +57,7 @@ class FakturyController extends Controller {
     }
 
     public function actionDodaj() {
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfakture.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfakture.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
@@ -93,7 +94,7 @@ class FakturyController extends Controller {
     }
 
     public function actionEdycja() {
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfakture.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajfakture.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $get = Yii::$app->request->get();
         if (empty($get['id'])) {
             echo 'Nieuprawniony dostep';

@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 use app\models\Zlecenia;
+use app\models\Faktury;
 
 class FakturyPozycje extends ActiveRecord {
 
@@ -40,7 +41,6 @@ class FakturyPozycje extends ActiveRecord {
             $zlecenie->zl_faktura = $wynik['fak_numer_pelny'];
             $zlecenie->save();
 
-
             if ($zl_id_poprzednie != $post['zl_id'] && !empty($zl_id_poprzednie)) {
                 $zlecenie_poprzednie = Zlecenia::find()
                         ->where(['zl_id' => $zl_id_poprzednie])
@@ -65,6 +65,34 @@ class FakturyPozycje extends ActiveRecord {
         $faktura->poz_kurs_data = $post['poz_kurs_data'];
         $faktura->poz_opis = $post['poz_opis'];
         $faktura->save();
+
+        $pozycje_faktury = self::find()
+                ->where(['fak_id' => $post['fak_id']])
+                ->all();
+
+        $faktura_glowna = Faktury::find()
+                ->where(['fak_id' => $post['fak_id']])
+                ->one();
+
+        $wartosc_netto = 0;
+        $wartosc_vat = 0;
+        $wartosc_brutto = 0;
+        foreach ($pozycje_faktury as $pozycja) {
+            if ($faktura_glowna['fak_waluta'] == 'PLN') {
+                $wartosc_netto += $pozycja['poz_wartosc_netto'];
+                $wartosc_brutto += $pozycja['poz_wartosc_brutto'];
+                $wartosc_vat += $pozycja['poz_wartosc_brutto'] - $pozycja['poz_wartosc_netto'];
+            } else {
+                $wartosc_netto += $pozycja['poz_wartosc_netto_waluta'];
+                $wartosc_brutto += $pozycja['poz_wartosc_brutto_waluta'];
+                $wartosc_vat += $pozycja['poz_wartosc_brutto_waluta'] - $pozycja['poz_wartosc_netto_waluta'];
+            }
+        }
+
+        $faktura_glowna->fak_wartosc_netto = $wartosc_netto;
+        $faktura_glowna->fak_wartosc_vat = $wartosc_vat;
+        $faktura_glowna->fak_wartosc_brutto = $wartosc_brutto;
+        $faktura_glowna->save();
     }
 
 }

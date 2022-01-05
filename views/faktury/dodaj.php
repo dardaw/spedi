@@ -4,6 +4,8 @@
 use yii\helpers\Url;
 
 $this->title = 'Dodawanie faktury';
+$session = Yii::$app->session;
+
 ?>
 <div class="site-index">
 
@@ -11,7 +13,7 @@ $this->title = 'Dodawanie faktury';
 
     <div class="body-content">
         <?php $url = Url::toRoute(['faktury/zapisz']); ?>
-        <form action ="<?php echo $url; ?>" method="POST">
+        <form action ="<?php echo $url; ?>" method="POST" id='formularz_faktury'>
             <div class="form-group">
                 <input type="hidden" class="form-control" id="fak_id" name="fak_id" value="<?php echo key_exists("fak_id", $faktura) ? $faktura['fak_id'] : '' ?>">
                 <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->getCsrfToken() ?>" />
@@ -58,7 +60,7 @@ $this->title = 'Dodawanie faktury';
             </div>
             <div class="form-group">
                 <label for="fak_wystawil">Wystawił</label>
-                <input type="text" class="form-control" id="fak_wystawil" name="fak_wystawil" value="<?php echo key_exists("fak_wystawil", $faktura) ? $faktura['fak_wystawil'] : '' ?>">
+                <input type="text" class="form-control" id="fak_wystawil" name="fak_wystawil" value="<?php echo key_exists("fak_wystawil", $faktura) ? $faktura['fak_wystawil'] : $session['uz_imie'] . ' ' . $session['uz_nazwisko']  ?>">
             </div>
             <div class="form-group">
                 <label for="fak_wartosc_netto">Wartość netto</label>

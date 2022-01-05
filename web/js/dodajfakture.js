@@ -8,7 +8,7 @@ $('document').ready(function () {
 
         $.ajax({
             type: "POST",
-            url:base_url + "/index.php?r=ajax/pobierzdanekontrahenta&" + "kh_id=" + $('#kh_id').val(),
+            url: base_url + "/index.php?r=ajax/pobierzdanekontrahenta&" + "kh_id=" + $('#kh_id').val(),
             success: function (data) {
                 $('#fak_nabywca_nazwa').val(data['kh_nazwa_pelna']);
                 $('#fak_nabywca_ulica').val(data['kh_ulica']);
@@ -19,6 +19,17 @@ $('document').ready(function () {
             },
             dataType: "json"
         });
+    });
+    
+    $("#formularz_faktury").submit(function (event) {
+        if ($("#fak_waluta").val() == '') {
+            alert("Wybierz walutę faktury.");
+            return false;
+        }
+        if ($("#kh_id").val() == 0) {
+            alert("Wybierz klienta.");
+            return false;
+        }
     });
 
 })

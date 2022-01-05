@@ -32,6 +32,8 @@ class LogowanieController extends Controller {
             $wynik = $logowanie->all();
             if (count($wynik) != 0) {
                 $session->set('spedi_zalogowany', 1);
+                $session->set('uz_imie', $wynik[0]['uz_imie']);
+                $session->set('uz_nazwisko', $wynik[0]['uz_nazwisko']);
                 $this->redirect(['zlecenia/index']);
             }
         }
