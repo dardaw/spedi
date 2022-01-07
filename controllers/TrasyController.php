@@ -17,10 +17,11 @@ class TrasyController extends Controller {
         }
         $zlecenia = new Trasy();
         $zlecenia->zapisz($post);
-        $this->redirect(['trasy/edycja','id' => $post['zl_id']]);
+        $this->redirect(['trasy/edycja', 'id' => $post['zl_id']]);
     }
 
     public function actionEdycja() {
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajtrase.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $get = Yii::$app->request->get();
         if (empty($get['id'])) {
             echo 'Nieuprawniony dostep';
@@ -32,8 +33,7 @@ class TrasyController extends Controller {
         $query->where(["zl_id" => $get['id']]);
         $query->limit(1);
         $wynik = $query->one();
-        if(empty($wynik))
-        {
+        if (empty($wynik)) {
             $wynik = [];
         }
         $kontrahenci = (new \yii\db\Query())

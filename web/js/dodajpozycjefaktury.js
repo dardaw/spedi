@@ -94,9 +94,7 @@ $('document').ready(function () {
         $('#poz_wartosc_brutto_waluta').val(parseFloat($('#poz_wartosc_netto_waluta').val() * vat).toFixed(2));
     });
 
-    $(document.body).delegate("#wybierz_zlecenie", "click", function () {
-        $('#wybor_zlecenia').modal('show');
-
+    function wybierz_zlecenie() {
         $('#tabela_zlecen tbody').html("");
 
         $.ajax({
@@ -112,6 +110,15 @@ $('document').ready(function () {
             },
             dataType: "json"
         });
+    }
+
+    $(document.body).delegate("#wybierz_zlecenie", "click", function () {
+        $('#wybor_zlecenia').modal('show');
+        wybierz_zlecenie();
+    });
+
+    $('#zl_numer_pelny').keyup(function () {
+        wybierz_zlecenie();
     });
 
     $(document.body).delegate("#tabela_zlecen tbody tr", "click", function () {

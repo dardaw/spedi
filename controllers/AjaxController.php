@@ -9,6 +9,23 @@ use app\models\Adresy;
 use yii\data\Pagination;
 
 class AjaxController extends Controller {
+    
+     public function beforeAction($action) {
+        // your custom code here, if you want the code to run before action filters,
+        // which are triggered on the [[EVENT_BEFORE_ACTION]] event, e.g. PageCache or AccessControl
+
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        $session = Yii::$app->session;
+        if ($session->get('spedi_zalogowany') != 1) {
+            $this->redirect(['logowanie/index']);
+        }
+        // other custom code here
+
+        return true; // or false to not run the action
+    }
 
     /**
      * Displays homepage.
@@ -84,7 +101,7 @@ class AjaxController extends Controller {
         $query->where(["kh_id" => $kh_id['kh_id']]);
         $query->andWhere(["zl_widocznosc" => 1]);
         if (!empty($get['zl_numer_pelny'])) {
-            $query->andWhere(["zl_numer_pelny" => $get['zl_numer_pelny']]);
+            $query->andWhere(['like', 'zl_numer_pelny', '%' . $get['zl_numer_pelny'] . '%', false]);
         }
         $query->andFilterWhere(['is', 'zl_faktura', $null])->limit(10);
         $wynik = $query->all();

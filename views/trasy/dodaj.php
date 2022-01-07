@@ -10,10 +10,10 @@ $this->title = 'Dodawanie/edycja trasy';
 
 
     <div class="body-content">
-           <?php if (!empty($get['id'])): ?>
+        <?php if (!empty($get['id'])): ?>
             <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/zleceniemenu.php', ['zl_id' => $get['id']]); ?>
         <?php endif; ?>
-        
+
         <?php $url = Url::toRoute(['trasy/zapisz']); ?>
         <form action ="<?php echo $url; ?>" method="POST">
             <div class="form-group">
@@ -34,7 +34,7 @@ $this->title = 'Dodawanie/edycja trasy';
             </div>
             <div class="form-group">
                 <label for="tr_kierowca_imie">Kierowca imię</label>
-                 <input type="text" class="form-control" id="tr_kierowca_imie" name="tr_kierowca_imie" value="<?php echo key_exists("tr_kierowca_imie", $trasa) ? $trasa['tr_kierowca_imie'] : '' ?>">
+                <input type="text" class="form-control" id="tr_kierowca_imie" name="tr_kierowca_imie" value="<?php echo key_exists("tr_kierowca_imie", $trasa) ? $trasa['tr_kierowca_imie'] : '' ?>">
             </div>
             <div class="form-group">
                 <label for="tr_kierowca_nazwisko">Kierowca nazwisko</label>
@@ -54,7 +54,7 @@ $this->title = 'Dodawanie/edycja trasy';
             </div>
             <div class="form-group">
                 <label for="tr_jednostka">Jednostka</label>
-                 <select class="form-control" id="tr_jednostka" name="tr_jednostka">
+                <select class="form-control" id="tr_jednostka" name="tr_jednostka">
                     <option value=""></option>
                     <option value="Kilometry" <?php echo key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Kilometry' ? 'selected="selected"' : '' ?>>Kilometry</option>
                     <option value="Fracht" <?php echo key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Fracht' ? 'selected="selected"' : '' ?>>Fracht</option>
@@ -93,6 +93,9 @@ $this->title = 'Dodawanie/edycja trasy';
                 <textarea class="form-control" id="tr_uwagi" name="tr_uwagi"><?php echo key_exists("tr_uwagi", $trasa) ? $trasa['tr_uwagi'] : '' ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Zapisz</button>
+            <?php if (!empty($trasa['tr_id'])): ?>
+                <button type="button" class="btn btn-primary">Wydruk</button>
+            <?php endif; ?>
         </form>
     </div>
 </div>
