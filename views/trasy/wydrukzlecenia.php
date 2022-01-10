@@ -17,16 +17,24 @@ use yii\helpers\Url;
             <form action ="" method="GET" id='filtr_okno_formularz'>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="kh_symbol">Termin płatności</label>
-                        <input type="text" id="kh_symbol" class="form-control" name="wydruk_termin_platnosci"/>
+                        <label for="wydruk_fracht">Fracht przewoźnika</label>
+                        <input type="text" id="wydruk_fracht" class="form-control" name="wydruk_fracht"/>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                    <button type="submit" class="btn btn-primary">Wydruk</button>
-                    <?php $link = Url::toRoute(['wydruk/zlecenie']); ?>
-                    <a href="<?php echo $link ?>" target="_blank">
+                    <button type="button" class="btn btn-primary" id="przycisk_wydruk_zlecenia">Wydruk</button>
+                    <?php $link_pl = Url::toRoute(['wydruk/zlecenie', 'id' => $zl_id, 'jezyk' => 'PL']); ?>
+                    <?php $link_en = Url::toRoute(['wydruk/zlecenie', 'id' => $zl_id, 'jezyk' => 'EN']); ?>
+                    <?php $link_de = Url::toRoute(['wydruk/zlecenie', 'id' => $zl_id, 'jezyk' => 'DE']); ?>
+                    <a href="<?php echo $link_pl ?>" target="_blank" style="display: none;" class="przyciski_wydrukow" link_staly="<?php echo $link_pl ?>">
                         <button type="button" class="btn btn-primary">PL</button>
+                    </a>
+                    <a href="<?php echo $link_en ?>" target="_blank" style="display: none;" class="przyciski_wydrukow" link_staly="<?php echo $link_en ?>">
+                        <button type="button" class="btn btn-primary">EN</button>
+                    </a>
+                    <a href="<?php echo $link_de ?>" target="_blank" style="display: none;" class="przyciski_wydrukow" link_staly="<?php echo $link_de ?>">
+                        <button type="button" class="btn btn-primary">DE</button>
                     </a>
                 </div>
             </form>

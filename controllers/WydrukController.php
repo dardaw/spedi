@@ -5,6 +5,9 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
+use app\models\Zlecenia;
+use app\models\Trasy;
+use app\models\Kontrahenci;
 
 class WydrukController extends Controller {
 
@@ -27,7 +30,45 @@ class WydrukController extends Controller {
 
     public function actionZlecenie() {
 
-        $html = $this->render('zlecenie');
+        $get = Yii::$app->request->get();
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('zlecenia');
+        $query->where(["zl_id" => $get['id']]);
+        $query->limit(1);
+        $zlecenie = $query->one();
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('trasy');
+        $query->where(["zl_id" => $get['id']]);
+        $query->limit(1);
+        $trasa = $query->one();
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('kontrahenci');
+        $query->where(['kh_id' => $trasa['przew_id']]);
+        $query->limit(1);
+        $kontrahent = $query->one();
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('adresy');
+        $query->where(["zl_id" => $get['id']]);
+        $query->limit(1);
+        $adresy = $query->all();
+
+        if ($kontrahent['kh_glowny'] == 1) {
+            $naglowek = "ZLECENIE TRANSPORTOWE";
+        } else {
+            $naglowek = "ZLECENIE SPEDYCYJNE";
+        }
+        $zlecenie['naglowek'] = $naglowek;
+
+        if (!empty($get['fracht'])) {
+            $fracht = $get['fracht'];
+        } else {
+            $fracht = '';
+        }
+        $html = $this->render('zlecenie', ['zlecenie' => $zlecenie, 'kontrahent' => $kontrahent, 'trasa' => $trasa, 'adresy' => $adresy, 'fracht' => $fracht]);
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($html);
         $mpdf->Output();

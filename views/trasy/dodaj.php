@@ -95,7 +95,7 @@ $this->title = 'Dodawanie/edycja trasy';
             <button type="submit" class="btn btn-primary">Zapisz</button>
             <?php if (!empty($trasa['tr_id'])): ?>
                 <button type="button" class="btn btn-primary" id='wydruk_zlecenia'>Wydruk</button>
-                <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/trasy/wydrukzlecenia.php'); ?>
+                <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/trasy/wydrukzlecenia.php', ['zl_id' => $get['id']]); ?>
             <?php endif; ?>
         </form>
     </div>
