@@ -13,6 +13,8 @@ $('document').ready(function () {
             var odnosnik = $(this).attr('link_staly');
             if (odnosnik.indexOf('fracht') === -1)
                 odnosnik = odnosnik + '&fracht=' + $('#wydruk_fracht').val();
+            if (odnosnik.indexOf('termin_platnosci') === -1)
+                odnosnik = odnosnik + '&termin_platnosci=' + $('#wydruk_termin_platnosci').val();
             $(this).prop('href', odnosnik);
         });
         $('.przyciski_wydrukow').toggle();

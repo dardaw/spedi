@@ -10,6 +10,9 @@ $this->title = 'Dodawanie kontrahenta';
 
 
     <div class="body-content">
+          <?php if (!empty($kontrahent['kh_id'])): ?>
+            <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/kontrahentmenu.php', ['kh_id' => $kontrahent['kh_id']]); ?>
+        <?php endif; ?>
 
         <?php if (!empty($kontrahent['kh_data_utworzenia'])): ?>
             Data utworzenia &nbsp;<?php echo $kontrahent['kh_data_utworzenia']; ?>&nbsp;Numer &nbsp;<?php echo $kontrahent['kh_numer_pelny']; ?> 

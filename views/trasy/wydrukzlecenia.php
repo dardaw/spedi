@@ -17,6 +17,10 @@ use yii\helpers\Url;
             <form action ="" method="GET" id='filtr_okno_formularz'>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="wydruk_termin_platnosci">Termin płatności</label>
+                        <input type="text" id="wydruk_termin_platnosci" class="form-control" name="wydruk_termin_platnosci"/>
+                    </div>
+                    <div class="form-group">
                         <label for="wydruk_fracht">Fracht przewoźnika</label>
                         <input type="text" id="wydruk_fracht" class="form-control" name="wydruk_fracht"/>
                     </div>

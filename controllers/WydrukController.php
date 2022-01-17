@@ -68,7 +68,12 @@ class WydrukController extends Controller {
         } else {
             $fracht = '';
         }
-        $html = $this->render('zlecenie', ['zlecenie' => $zlecenie, 'kontrahent' => $kontrahent, 'trasa' => $trasa, 'adresy' => $adresy, 'fracht' => $fracht]);
+        if (!empty($get['termin_platnosci'])) {
+            $termin_platnosci = $get['termin_platnosci'];
+        } else {
+            $termin_platnosci = '';
+        }
+        $html = $this->render('zlecenie', ['zlecenie' => $zlecenie, 'kontrahent' => $kontrahent, 'trasa' => $trasa, 'adresy' => $adresy, 'fracht' => $fracht, 'termin_platnosci' => $termin_platnosci]);
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($html);
         $mpdf->Output();

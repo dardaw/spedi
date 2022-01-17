@@ -41,7 +41,7 @@ class ZleceniaController extends Controller {
         if (count($get) != 0) {
             foreach ($get as $klucz => $wartosc) {
                 if (!empty($wartosc)) {
-                    if ($klucz != 'r') {
+                    if ($klucz != 'r' && $klucz != 'page') {
                         $zlecenia->andWhere([$klucz => $wartosc]);
                     }
                 }

@@ -35,13 +35,14 @@ class FakturyController extends Controller {
         $faktury = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('faktury')
-                 ->leftJoin("kontrahenci", "kontrahenci.kh_id = faktury.kh_id")
-                ->where(['fak_widocznosc' => 1]);
+                ->leftJoin("kontrahenci", "kontrahenci.kh_id = faktury.kh_id")
+                ->where(['fak_widocznosc' => 1])
+                ->orderBy('fak_id DESC');
 
         if (count($get) != 0) {
             foreach ($get as $klucz => $wartosc) {
                 if (!empty($wartosc)) {
-                    if ($klucz != 'r') {
+                    if ($klucz != 'r' && $klucz != 'page') {
                         $faktury->andWhere([$klucz => $wartosc]);
                     }
                 }

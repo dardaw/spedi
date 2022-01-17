@@ -34,8 +34,12 @@
             <?php endforeach; ?>
         <?php endif; ?>
         <hr />
-        <?php if (!empty($fracht)): ?>
+         <?php if (!empty($fracht)): ?>
             <div>Fracht przewoźnika: <?php echo $fracht ?></div>
+            <hr />
+        <?php endif; ?>
+        <?php if (!empty($termin_platnosci)): ?>
+            <div>Termin płatności: <?php echo $termin_platnosci ?></div>
             <hr />
         <?php endif; ?>
         <div>Warunki zlecenia:</div>

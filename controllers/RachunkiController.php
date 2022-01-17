@@ -6,9 +6,9 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\data\Pagination;
-use app\models\Kontrahenci;
+use app\models\Rachunki;
 
-class KontrahenciController extends Controller {
+class RachunkiController extends Controller {
 
     public function beforeAction($action) {
         // your custom code here, if you want the code to run before action filters,
@@ -29,38 +29,45 @@ class KontrahenciController extends Controller {
 
     public function actionIndex() {
         $get = Yii::$app->request->get();
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazkontrahenci.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-        $kontrahenci = (new \yii\db\Query())
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $get = Yii::$app->request->get();
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazrachunki.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        $rachunki = (new \yii\db\Query())
                 ->select(['*'])
-                ->from('kontrahenci')
+                ->from('rachunki')
+                ->where(['kh_id' => $get['id']])
                 ->orderBy('kh_id DESC');
         if (count($get) != 0) {
             $ktory = 0;
             foreach ($get as $klucz => $wartosc) {
                 if (!empty($wartosc)) {
-                    if ($klucz != 'r' && $klucz != 'page') {
-                        if ($ktory == 0) {
-                            $kontrahenci->Where([$klucz => $wartosc]);
-                        } else {
-                            $kontrahenci->andWhere([$klucz => $wartosc]);
-                        }
+                    if ($klucz != 'r' && $klucz != 'id') {
+                        $rachunki->andWhere([$klucz => $wartosc]);
                         $ktory++;
                     }
                 }
             }
         }
 
-        $countQuery = clone $kontrahenci;
+        $countQuery = clone $rachunki;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
-        $kontrahenci = $kontrahenci->offset($pages->offset)
+        $rachunki = $rachunki->offset($pages->offset)
                 ->limit($pages->limit)
                 ->all();
-        return $this->render('index', ['kontrahenci' => $kontrahenci, 'pages' => $pages]);
+        return $this->render('index', ['rachunki' => $rachunki, 'pages' => $pages, 'get' => $get]);
     }
 
     public function actionDodaj() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
 
-        return $this->render('dodaj', ['kontrahent' => []]);
+        return $this->render('dodaj', ['rachunek' => [], 'get' => $get]);
     }
 
     public function actionZapisz() {
@@ -69,9 +76,9 @@ class KontrahenciController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-        $zlecenia = new Kontrahenci();
+        $zlecenia = new Rachunki();
         $zlecenia->zapisz($post);
-        $this->redirect(['kontrahenci/index']);
+        $this->redirect(['rachunki/index', 'id' => $post['kh_id']]);
     }
 
     public function actionEdycja() {
@@ -82,11 +89,11 @@ class KontrahenciController extends Controller {
         }
         $query = (new \yii\db\Query());
         $query->select(['*']);
-        $query->from('kontrahenci');
-        $query->where(["kh_id" => $get['id']]);
+        $query->from('rachunki');
+        $query->where(["rach_id" => $get['rach_id']]);
         $query->limit(1);
         $wynik = $query->one();
-        return $this->render('dodaj', ['kontrahent' => $wynik]);
+        return $this->render('dodaj', ['rachunek' => $wynik,'get' => $get]);
     }
 
 }
