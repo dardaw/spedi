@@ -30,12 +30,12 @@ class Faktury extends ActiveRecord {
         }
         if (empty($post['fak_id'])) {
             if (empty($wynik['fak_numer_pelny'])) {
-                $faktura->fak_numer_pelny = 1;
+                $faktura->fak_numer_pelny = 'FS ' . 1;
                 $faktura->fak_numer = 1;
                 $faktura->fak_rok = date('Y');
                 $faktura->fak_miesiac = date('m');
             } else {
-                $faktura->fak_numer_pelny = ($wynik['fak_numer'] + 1) . '/' . $wynik['fak_miesiac'] . '/' . $wynik['fak_rok'];
+                $faktura->fak_numer_pelny = 'FS ' . ($wynik['fak_numer'] + 1) . '/' . $wynik['fak_miesiac'] . '/' . $wynik['fak_rok'];
                 $faktura->fak_numer = $wynik['fak_numer'] + 1;
                 $faktura->fak_rok = date('Y');
                 $faktura->fak_miesiac = date('m');
@@ -64,7 +64,5 @@ class Faktury extends ActiveRecord {
         $faktura->fak_widocznosc = 1;
         $faktura->save();
     }
-
- 
 
 }

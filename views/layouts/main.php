@@ -34,16 +34,21 @@ AppAsset::register($this);
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <?php $url = Url::toRoute(['zlecenia/index']); ?>
-                                <li><a href="<?php echo $url; ?>">Zlecenia</a></li>
-                                  <?php $url = Url::toRoute(['faktury/index']); ?>
-                                <li><a href="<?php echo $url; ?>">Faktury</a></li>
+                                <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Zlecenia</a></li>
+                                <?php $url = Url::toRoute(['faktury/index']); ?>
+                                <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>Faktury</a></li>
+                                <?php $url = Url::toRoute(['rozrachunki/index']); ?>
+                                <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Rozrachunki</a></li>
                                 <?php $url = Url::toRoute(['kontrahenci/index']); ?>
-                                <li><a href="<?php echo $url; ?>">Kontrahenci</a></li>
+                                <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Kontrahenci</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#" id="filtr_przycisk">Filtr</a></li>
-                                  <?php $url = Url::toRoute(['logowanie/wyloguj']); ?>
-                                <li><a href="<?php echo $url; ?>">Wyloguj</a></li>
+                                <?php $spedi_zalogowany = Yii::$app->session->get('spedi_zalogowany'); ?>
+                                <?php if ($spedi_zalogowany == 1): ?>
+                                    <li><a href="#" id="filtr_przycisk"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Filtr</a></li>
+                                    <?php $url = Url::toRoute(['logowanie/wyloguj']); ?>
+                                    <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Wyloguj</a></li>
+                                <?php endif; ?>
                             </ul>
                         </div>
                     </div><!--/.container-fluid -->

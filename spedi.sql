@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 17 Sty 2022, 12:57
+-- Czas generowania: 18 Sty 2022, 13:34
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -142,7 +142,8 @@ INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_num
 (20, 18, 1, 2022, '18/1/2022', 15, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'CHF', 'zapłacono z góry', '', NULL, '', '', ''),
 (21, 19, 1, 2022, '19/1/2022', 16, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', ''),
 (22, 20, 1, 2022, '20/1/2022', 18, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', ''),
-(23, 21, 1, 2022, '21/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '');
+(23, 21, 1, 2022, '21/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', ''),
+(24, 22, 1, 2022, 'FS 22/1/2022', 16, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -323,6 +324,28 @@ INSERT INTO `rachunki` (`rach_id`, `kh_id`, `rach_nazwa_banku`, `rach_numer_rach
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `rozrachunki`
+--
+
+CREATE TABLE `rozrachunki` (
+  `roz_id` int(11) NOT NULL,
+  `roz_typ` varchar(255) DEFAULT NULL,
+  `roz_data_powstania` date DEFAULT NULL,
+  `roz_data_sprzedazy` date DEFAULT NULL,
+  `roz_data_wystawienia` date DEFAULT NULL,
+  `roz_termin_platnosci` int(11) DEFAULT NULL,
+  `roz_numer_faktury` varchar(255) DEFAULT NULL,
+  `kh_id` int(11) DEFAULT NULL,
+  `roz_waluta` varchar(255) DEFAULT NULL,
+  `roz_kwota_netto` decimal(10,2) NOT NULL,
+  `roz_vat` varchar(255) NOT NULL,
+  `roz_kwota_brutto` decimal(10,2) NOT NULL,
+  `roz_pozostalo_do_zaplaty` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `trasy`
 --
 
@@ -480,6 +503,12 @@ ALTER TABLE `rachunki`
   ADD PRIMARY KEY (`rach_id`);
 
 --
+-- Indeksy dla tabeli `rozrachunki`
+--
+ALTER TABLE `rozrachunki`
+  ADD PRIMARY KEY (`roz_id`);
+
+--
 -- Indeksy dla tabeli `trasy`
 --
 ALTER TABLE `trasy`
@@ -517,7 +546,7 @@ ALTER TABLE `dokumenty`
 -- AUTO_INCREMENT dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
-  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT dla tabeli `faktury_pozycje`
@@ -542,6 +571,12 @@ ALTER TABLE `kurs`
 --
 ALTER TABLE `rachunki`
   MODIFY `rach_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT dla tabeli `rozrachunki`
+--
+ALTER TABLE `rozrachunki`
+  MODIFY `roz_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `trasy`
