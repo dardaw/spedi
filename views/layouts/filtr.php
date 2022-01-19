@@ -94,6 +94,38 @@ use yii\helpers\Url;
                     </div>
                 </form>
             <?php endif; ?>
+            <?php if (Yii::$app->controller->id == 'rozrachunki'): ?>
+                <?php $url = Url::toRoute(['rozrachunki/index']); ?>
+                <form action ="<?php echo $url; ?>" method="GET" id='filtr_okno_formularz'>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="r" value="<?php echo "rozrachunki/index"; ?>" />
+                            <label for="kh_symbol">Kontrahent symbol</label>
+                            <input type="text" id="kh_symbol" class="form-control" name="kh_symbol"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="roz_typ">Typ</label>
+                            <input type="text" id="roz_typ" class="form-control" name="roz_typ" placeholder="N lub Z"/>
+                        </div>
+                          <div class="form-group">
+                            <label for="roz_numer_faktury">Dokument</label>
+                            <input type="text" id="roz_numer_faktury" class="form-control" name="roz_numer_faktury" />
+                        </div>
+                           <div class="form-group">
+                            <label for="roz_waluta">Waluta</label>
+                            <input type="text" id="roz_waluta" class="form-control" name="roz_waluta" />
+                        </div>
+                            <div class="form-group">
+                            <label for="roz_numer_zlecenia">Nr zlecenia</label>
+                            <input type="text" id="roz_numer_zlecenia" class="form-control" name="roz_numer_zlecenia" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                        <button type="submit" class="btn btn-primary">Szukaj</button>
+                    </div>
+                </form>
+            <?php endif; ?>
         </div>
     </div>
 </div>
