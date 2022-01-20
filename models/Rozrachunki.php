@@ -32,7 +32,11 @@ class Rozrachunki extends ActiveRecord {
         $kontrahent->roz_kwota_netto = $post['roz_kwota_netto'];
         $kontrahent->roz_vat = $post['roz_vat'];
         $kontrahent->roz_kwota_brutto = $post['roz_kwota_brutto'];
+        $kontrahent->roz_kwota_brutto_waluta = $post['roz_kwota_brutto_waluta'];
         $kontrahent->roz_pozostalo_do_zaplaty = $post['roz_pozostalo_do_zaplaty'];
+        $kontrahent->roz_pozostalo_do_zaplaty_waluta = $post['roz_pozostalo_do_zaplaty_waluta'];
+        $kontrahent->roz_data_kursu = $post['roz_data_kursu'];
+        $kontrahent->roz_wartosc_kursu = $post['roz_wartosc_kursu'];
         $kontrahent->save();
     }
 

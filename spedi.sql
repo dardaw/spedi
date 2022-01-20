@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 19 Sty 2022, 14:42
+-- Czas generowania: 20 Sty 2022, 12:12
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -340,19 +340,23 @@ CREATE TABLE `rozrachunki` (
   `roz_kwota_netto` decimal(10,2) DEFAULT NULL,
   `roz_vat` varchar(255) DEFAULT NULL,
   `roz_kwota_brutto` decimal(10,2) DEFAULT NULL,
+  `roz_kwota_brutto_waluta` decimal(10,2) DEFAULT NULL,
   `roz_pozostalo_do_zaplaty` decimal(10,2) DEFAULT NULL,
+  `roz_pozostalo_do_zaplaty_waluta` decimal(10,2) DEFAULT NULL,
   `roz_numer_zlecenia` varchar(255) DEFAULT NULL,
   `roz_data_ostatniej_splaty` date DEFAULT NULL,
   `roz_kwota_ostatniej_splaty` decimal(10,2) DEFAULT NULL,
-  `roz_status` int(11) DEFAULT NULL
+  `roz_status` int(11) DEFAULT NULL,
+  `roz_data_kursu` date DEFAULT NULL,
+  `roz_wartosc_kursu` decimal(10,4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Zrzut danych tabeli `rozrachunki`
 --
 
-INSERT INTO `rozrachunki` (`roz_id`, `roz_typ`, `roz_data_powstania`, `roz_data_sprzedazy`, `roz_data_wystawienia`, `roz_termin_platnosci`, `roz_numer_faktury`, `kh_id`, `roz_waluta`, `roz_kwota_netto`, `roz_vat`, `roz_kwota_brutto`, `roz_pozostalo_do_zaplaty`, `roz_numer_zlecenia`, `roz_data_ostatniej_splaty`, `roz_kwota_ostatniej_splaty`, `roz_status`) VALUES
-(1, 'N', '2022-01-19', '2022-01-20', '2022-01-21', 1, 'FS 1', 17, 'PLN', '13.00', '22', '33.00', '1.00', NULL, NULL, NULL, NULL);
+INSERT INTO `rozrachunki` (`roz_id`, `roz_typ`, `roz_data_powstania`, `roz_data_sprzedazy`, `roz_data_wystawienia`, `roz_termin_platnosci`, `roz_numer_faktury`, `kh_id`, `roz_waluta`, `roz_kwota_netto`, `roz_vat`, `roz_kwota_brutto`, `roz_kwota_brutto_waluta`, `roz_pozostalo_do_zaplaty`, `roz_pozostalo_do_zaplaty_waluta`, `roz_numer_zlecenia`, `roz_data_ostatniej_splaty`, `roz_kwota_ostatniej_splaty`, `roz_status`, `roz_data_kursu`, `roz_wartosc_kursu`) VALUES
+(1, 'N', '2022-01-19', '2022-01-20', '2022-01-21', 1, 'FS 1', 17, 'EUR', '13.00', '22', '33.00', '44.00', '1.00', '2.00', NULL, NULL, NULL, NULL, '2022-01-04', '4.5737');
 
 -- --------------------------------------------------------
 

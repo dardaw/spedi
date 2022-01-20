@@ -4,7 +4,7 @@
 use yii\helpers\Url;
 use \yii\widgets\LinkPager;
 
-$this->title = 'Rachunki bankowe';
+$this->title = 'Rozrachunki';
 ?>
 <div class="site-index">
 

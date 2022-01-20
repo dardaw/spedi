@@ -27,7 +27,7 @@ $this->title = 'Dodawanie rozrachunku';
             <div class="form-group">
                 <div class='input-group date form-date' style="width: 100%">
                     <label for="roz_data_powstania">Data powstania/otrzymania</label>
-                <input type="text" class="form-control datepicker" id="roz_data_powstania" name="roz_data_powstania" value="<?php echo key_exists("roz_data_powstania", $rozrachunek) ? $rozrachunek['roz_data_powstania'] : '' ?>">
+                    <input type="text" class="form-control datepicker" id="roz_data_powstania" name="roz_data_powstania" value="<?php echo key_exists("roz_data_powstania", $rozrachunek) ? $rozrachunek['roz_data_powstania'] : '' ?>">
                 </div>
             </div>
             <div class="form-group">
@@ -74,7 +74,7 @@ $this->title = 'Dodawanie rozrachunku';
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="roz_kwota_netto">Kwota netto</label>
+                    <label for="roz_kwota_netto">Kwota netto PLN</label>
                     <input type="text" class="form-control" id="roz_kwota_netto" name="roz_kwota_netto" value="<?php echo key_exists("roz_kwota_netto", $rozrachunek) ? $rozrachunek['roz_kwota_netto'] : '' ?>">
                 </div>
                 <div class="form-group">
@@ -82,15 +82,39 @@ $this->title = 'Dodawanie rozrachunku';
                     <input type="text" class="form-control" id="roz_vat" name="roz_vat" value="<?php echo key_exists("roz_vat", $rozrachunek) ? $rozrachunek['roz_vat'] : '' ?>">
                 </div>
                 <div class="form-group">
-                    <label for="roz_kwota_brutto">Kwota brutto</label>
+                    <label for="roz_kwota_brutto">Kwota brutto PLN</label>
                     <input type="text" class="form-control" id="roz_kwota_brutto" name="roz_kwota_brutto" value="<?php echo key_exists("roz_kwota_brutto", $rozrachunek) ? $rozrachunek['roz_kwota_brutto'] : '' ?>">
+                </div>
+                <div class="form-group">
+                    <label for="roz_kwota_brutto_waluta">Kwota brutto w walucie</label>
+                    <input type="text" class="form-control" id="roz_kwota_brutto_waluta" name="roz_kwota_brutto_waluta" value="<?php echo key_exists("roz_kwota_brutto_waluta", $rozrachunek) ? $rozrachunek['roz_kwota_brutto_waluta'] : '' ?>">
                 </div>
                 <div class="form-group">
                     <label for="roz_pozostalo_do_zaplaty">Pozostało do zapłaty</label>
                     <input type="text" class="form-control" id="roz_pozostalo_do_zaplaty" name="roz_pozostalo_do_zaplaty" value="<?php echo key_exists("roz_pozostalo_do_zaplaty", $rozrachunek) ? $rozrachunek['roz_pozostalo_do_zaplaty'] : '' ?>">
                 </div>
+                <div class="form-group">
+                    <label for="roz_pozostalo_do_zaplaty_waluta">Pozostało do zapłaty w walucie</label>
+                    <input type="text" class="form-control" id="roz_pozostalo_do_zaplaty_waluta" name="roz_pozostalo_do_zaplaty_waluta" value="<?php echo key_exists("roz_pozostalo_do_zaplaty_waluta", $rozrachunek) ? $rozrachunek['roz_pozostalo_do_zaplaty_waluta'] : '' ?>">
+                </div>
+                <div class="form-group">
+                    <div class='input-group date form-date' style="width: 100%">
+                        <label for="roz_data_kursu">Data kursu</label>
+                        <input type="text" class="form-control datepicker" id="roz_data_kursu" name="roz_data_kursu" value="<?php echo key_exists("roz_data_kursu", $rozrachunek) ? $rozrachunek['roz_data_kursu'] : '' ?>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="roz_wartosc_kursu">Wartość kursu</label>
+                    <input type="text" class="form-control" id="roz_wartosc_kursu" name="roz_wartosc_kursu" value="<?php echo key_exists("roz_wartosc_kursu", $rozrachunek) ? $rozrachunek['roz_wartosc_kursu'] : '' ?>">
+                </div>
 
                 <button type="submit" class="btn btn-primary">Zapisz</button>
+                <?php if (!empty($rozrachunek['roz_id'])): ?>
+                    <?php $url = Url::toRoute(['rozliczenia/index', 'id' => $rozrachunek['roz_id']]); ?>
+                    <a href="<?php echo $url; ?>">
+                        <button type="button" class="btn btn-primary">Rozliczenia</button>
+                    </a>
+                <?php endif; ?>
         </form>
     </div>
 </div>

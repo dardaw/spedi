@@ -60,6 +60,7 @@ class RozrachunkiController extends Controller {
     }
 
     public function actionDodaj() {
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajrozrachunek.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
@@ -81,6 +82,7 @@ class RozrachunkiController extends Controller {
     }
 
     public function actionEdycja() {
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajrozrachunek.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $get = Yii::$app->request->get();
         if (empty($get['roz_id'])) {
             echo 'Nieuprawniony dostep';
@@ -100,7 +102,7 @@ class RozrachunkiController extends Controller {
                 ->all();
 
         $wynik = $query->one();
-        return $this->render('dodaj', ['rozrachunek' => $wynik,'kontrahenci' => $kontrahenci]);
+        return $this->render('dodaj', ['rozrachunek' => $wynik, 'kontrahenci' => $kontrahenci]);
     }
 
 }
