@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 20 Sty 2022, 12:12
+-- Czas generowania: 04 Kwi 2022, 14:01
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -324,6 +324,34 @@ INSERT INTO `rachunki` (`rach_id`, `kh_id`, `rach_nazwa_banku`, `rach_numer_rach
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `rozliczenia`
+--
+
+CREATE TABLE `rozliczenia` (
+  `rozl_id` int(11) NOT NULL,
+  `rozl_data` date DEFAULT NULL,
+  `roz_id` int(11) DEFAULT NULL,
+  `rozl_wartosc` decimal(10,2) DEFAULT NULL,
+  `rozl_waluta` varchar(255) DEFAULT NULL,
+  `rozl_opis` text DEFAULT NULL,
+  `uz_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `rozliczenia`
+--
+
+INSERT INTO `rozliczenia` (`rozl_id`, `rozl_data`, `roz_id`, `rozl_wartosc`, `rozl_waluta`, `rozl_opis`, `uz_id`) VALUES
+(1, '2022-04-04', 1, '22.00', 'PLN', '22', 1),
+(2, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
+(3, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
+(4, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
+(5, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
+(6, '2022-04-04', 1, '1.00', 'PLN', '1', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `rozrachunki`
 --
 
@@ -519,6 +547,12 @@ ALTER TABLE `rachunki`
   ADD PRIMARY KEY (`rach_id`);
 
 --
+-- Indeksy dla tabeli `rozliczenia`
+--
+ALTER TABLE `rozliczenia`
+  ADD PRIMARY KEY (`rozl_id`);
+
+--
 -- Indeksy dla tabeli `rozrachunki`
 --
 ALTER TABLE `rozrachunki`
@@ -587,6 +621,12 @@ ALTER TABLE `kurs`
 --
 ALTER TABLE `rachunki`
   MODIFY `rach_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT dla tabeli `rozliczenia`
+--
+ALTER TABLE `rozliczenia`
+  MODIFY `rozl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `rozrachunki`
