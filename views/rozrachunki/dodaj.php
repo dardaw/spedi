@@ -110,7 +110,7 @@ $this->title = 'Dodawanie rozrachunku';
 
                 <button type="submit" class="btn btn-primary">Zapisz</button>
                 <?php if (!empty($rozrachunek['roz_id'])): ?>
-                    <?php $url = Url::toRoute(['rozliczenia/index', 'id' => $rozrachunek['roz_id']]); ?>
+                    <?php $url = Url::toRoute(['rozliczenia/index', 'roz_id' => $rozrachunek['roz_id']]); ?>
                     <a href="<?php echo $url; ?>">
                         <button type="button" class="btn btn-primary">Rozliczenia</button>
                     </a>
