@@ -48,6 +48,12 @@ $this->title = 'Rozrachunki';
                     <td scope="col"> 
                         Kwota ostatniej spłaty
                     </td>
+                    <td scope="col"> 
+                        Pozostało do zapłaty PLN
+                    </td>
+                    <td scope="col"> 
+                        Pozostało do zapłaty waluta
+                    </td>
                 </tr>
                 <?php foreach ($rozrachunki as $roz): ?>      
                     <?php $url = Url::toRoute(['rozrachunki/edycja', 'roz_id' => $roz['roz_id']]); ?>
@@ -85,7 +91,7 @@ $this->title = 'Rozrachunki';
                                 $teraz = new DateTime("NOW");
                                 $dni_spoznienia = $data_termin_platnosci->diff($teraz);
                                 $dni = $dni_spoznienia->days;
-                                if($dni_spoznienia->invert == 1)
+                                if ($dni_spoznienia->invert == 1)
                                     $dni = '-' . $dni;
                                 ?>
                                 <?php echo $dni; ?>
@@ -96,6 +102,12 @@ $this->title = 'Rozrachunki';
                         </td>
                         <td>
                             <?php echo $roz['roz_kwota_ostatniej_splaty']; ?>
+                        </td>
+                        <td>
+                            <?php echo $roz['roz_pozostalo_do_zaplaty']; ?>
+                        </td>
+                        <td>
+                            <?php echo $roz['roz_pozostalo_do_zaplaty_waluta']; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

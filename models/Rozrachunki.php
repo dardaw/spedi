@@ -44,18 +44,39 @@ class Rozrachunki extends ActiveRecord {
         $rozrachunki = self::find()
                 ->where(['roz_id' => $post['roz_id']])
                 ->one();
-        if (!empty($rozrachunki->roz_wartosc_kursu)) {
-            if ($post['rozl_waluta'] == 'PLN') {
-                
+        if ($post['rozl_waluta'] == 'PLN') {
+            $pozostalo_do_zaplaty_pln = $rozrachunki->roz_pozostalo_do_zaplaty - $post['rozl_wartosc'];
+            if ($rozrachunki->roz_waluta != 'PLN') {
+                $pozostalo_do_zaplaty_waluta = $rozrachunki->roz_pozostalo_do_zaplaty_waluta - $post['rozl_wartosc'] / $rozrachunki->roz_wartosc_kursu;
             } else {
-                
+                $pozostalo_do_zaplaty_waluta = $pozostalo_do_zaplaty_pln;
             }
+            if ($pozostalo_do_zaplaty_pln <= 0) {
+                $pozostalo_do_zaplaty_pln = 0;
+            }
+            $rozrachunki->roz_pozostalo_do_zaplaty = $pozostalo_do_zaplaty_pln;
+            $rozrachunki->roz_pozostalo_do_zaplaty_waluta = $pozostalo_do_zaplaty_waluta;
         } else {
-            
+            $pozostalo_do_zaplaty_pln = $rozrachunki->roz_pozostalo_do_zaplaty - $post['rozl_wartosc'] * $rozrachunki->roz_wartosc_kursu;
+            if ($pozostalo_do_zaplaty_pln <= 0) {
+                $pozostalo_do_zaplaty_pln = 0;
+            }
+            $pozostalo_do_zaplaty_waluta = $rozrachunki->roz_pozostalo_do_zaplaty_waluta - $post['rozl_wartosc'];
+
+            if ($pozostalo_do_zaplaty_waluta <= 0) {
+                $pozostalo_do_zaplaty_waluta = 0;
+            }
+            $rozrachunki->roz_pozostalo_do_zaplaty = $pozostalo_do_zaplaty_pln;
+            $rozrachunki->roz_pozostalo_do_zaplaty_waluta = $pozostalo_do_zaplaty_waluta;
         }
-        echo $rozrachunki->roz_wartosc_kursu . 1;
-        exit;
-        $rozrachunki->roz_data_kursu = $post['roz_data_kursu'];
+
+        if ($pozostalo_do_zaplaty_pln == 0) {
+            $rozrachunki->roz_status = 1;
+        } else {
+            $rozrachunki->roz_status = 2;
+        }
+        $rozrachunki->roz_data_ostatniej_splaty = $post['rozl_data'];
+        $rozrachunki->roz_kwota_ostatniej_splaty = $post['rozl_wartosc'];
 
         $rozrachunki->save();
     }
