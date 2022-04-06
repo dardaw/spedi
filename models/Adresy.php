@@ -30,8 +30,8 @@ class Adresy extends ActiveRecord {
         $adres->adres_data = $post['adres_data'];
         $adres->adres_godzina = $post['adres_godzina'];
         $adres->adres_typ = $post['adres_typ'];
-        $adres->	adres_ladunek = $post['adres_ladunek'];
-        $adres->	adres_waga = $post['adres_waga'];
+        $adres->adres_ladunek = $post['adres_ladunek'];
+        $adres->adres_waga = $post['adres_waga'];
         $adres->adres_waga_jednostka = $post['adres_waga_jednostka'];
         $adres->adres_uwagi = $post['adres_uwagi'];
         $adres->save();

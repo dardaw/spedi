@@ -13,6 +13,8 @@ $this->title = 'Rozliczenia rozrachunku';
     <div class="body-content">
         <?php $dodaj = Url::toRoute(['rozliczenia/dodaj', 'roz_id' => $get['roz_id']]); ?>
         <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Rozlicz</button></a>
+        <?php $dodaj = Url::toRoute(['rozrachunki/edycja', 'roz_id' => $get['roz_id']]); ?>
+        <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Wróć do rozrachunku</button></a>
         <br />
         <br />
         <div class="row">
