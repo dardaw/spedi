@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\Trasy;
+use app\models\Rozrachunki;
 
 class TrasyController extends Controller {
 
@@ -15,8 +16,10 @@ class TrasyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-        $zlecenia = new Trasy();
-        $zlecenia->zapisz($post);
+        $trasy = new Trasy();
+        $tr_id = $trasy->zapisz($post);
+        $rozrachunki = new Rozrachunki();
+        $rozrachunki->zapiszRozrachunekzTrasy($post, $tr_id);
         $this->redirect(['trasy/edycja', 'id' => $post['zl_id']]);
     }
 

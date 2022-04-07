@@ -74,11 +74,11 @@ $this->title = 'Dodawanie rozrachunku';
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="roz_kwota_netto">Kwota netto PLN</label>
+                    <label for="roz_kwota_netto">Kwota netto (Stawka)</label>
                     <input type="text" class="form-control" id="roz_kwota_netto" name="roz_kwota_netto" value="<?php echo key_exists("roz_kwota_netto", $rozrachunek) ? $rozrachunek['roz_kwota_netto'] : '' ?>">
                 </div>
                 <div class="form-group">
-                    <label for="roz_vat">VAT</label>
+                    <label for="roz_vat">VAT %</label>
                     <input type="text" class="form-control" id="roz_vat" name="roz_vat" value="<?php echo key_exists("roz_vat", $rozrachunek) ? $rozrachunek['roz_vat'] : '' ?>">
                 </div>
                 <div class="form-group">

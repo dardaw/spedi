@@ -35,6 +35,8 @@ class Trasy extends ActiveRecord {
         $trasa->tr_waluta = $post['tr_waluta'];
         $trasa->tr_uwagi = $post['tr_uwagi'];
         $trasa->save();
+        $id = $trasa->tr_id;
+        return $id;
     }
 
 }

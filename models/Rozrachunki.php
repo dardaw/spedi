@@ -81,4 +81,39 @@ class Rozrachunki extends ActiveRecord {
         $rozrachunki->save();
     }
 
+    public function zapiszRozrachunekzTrasy($post, $tr_id) {
+        if (empty($post['tr_id'])) {
+            $rozrachunki = $this;
+        } else {
+            $rozrachunki = self::find()
+                    ->where(['tr_id' => $post['tr_id']])
+                    ->one();
+        }
+        if (empty($rozrachunki->roz_termin_platnosci)) {
+            $rozrachunki->kh_id = $post['przew_id'];
+            $rozrachunki->roz_typ = "Z";
+            $rozrachunki->tr_id = $tr_id;
+            $query = (new \yii\db\Query());
+            $query->select(['*']);
+            $query->from('adresy');
+            $query->where(["zl_id" => $post['zl_id']]);
+            $adresy = $query->all();
+            $nazwa_dokumentu = 'Trasa: ';
+            $ktory_adres = 0;
+            if (count($adresy) != 0) {
+                foreach ($adresy as $adres) {
+                    $nazwa_dokumentu .= $adres['adres_miasto'] . ' ';
+                    if ((count($adresy) - 1) != $ktory_adres) {
+                        $nazwa_dokumentu .= '- ';
+                    }
+                    $ktory_adres++;
+                }
+            }
+            $rozrachunki->roz_numer_faktury = $nazwa_dokumentu;
+            $rozrachunki->roz_waluta = $post['tr_waluta'];
+            $rozrachunki->roz_kwota_netto = $post['tr_wartosc'];
+            $rozrachunki->save();
+        }
+    }
+
 }

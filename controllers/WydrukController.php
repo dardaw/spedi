@@ -53,7 +53,6 @@ class WydrukController extends Controller {
         $query->select(['*']);
         $query->from('adresy');
         $query->where(["zl_id" => $get['id']]);
-        $query->limit(1);
         $adresy = $query->all();
 
         if ($kontrahent['kh_glowny'] == 1) {
