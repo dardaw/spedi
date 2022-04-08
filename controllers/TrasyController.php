@@ -40,7 +40,7 @@ class TrasyController extends Controller {
             $wynik = [];
         }
         $kontrahenci = (new \yii\db\Query())
-                ->select(['kh_id', 'kh_symbol'])
+                ->select(['kh_id', 'kh_symbol', 'kh_glowny'])
                 ->from('kontrahenci')
                 //->where(['last_name' => 'Smith'])
                 ->orderBy('kh_symbol ASC')

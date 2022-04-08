@@ -19,5 +19,9 @@ $('document').ready(function () {
         });
         $('.przyciski_wydrukow').toggle();
     });
+
+    $('#trasa_transport_wlasny').click(function () {
+        $('#przew_id option[kh_glowny=1]').prop('selected', 'selected');
+    });
 });
 

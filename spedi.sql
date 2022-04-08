@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 04 Kwi 2022, 14:01
+-- Czas generowania: 08 Kwi 2022, 11:05
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 7.4.25
 
@@ -55,7 +55,10 @@ INSERT INTO `adresy` (`adres_id`, `zl_id`, `adres_nazwa`, `adres_kraj`, `adres_m
 (4, 30, 'a', 'Polska', '', '', '', NULL, NULL, '', '', NULL, '', ''),
 (5, 31, 'Miastko', '', 'Miastko', '', '', NULL, NULL, '', '', NULL, '', ''),
 (6, 31, 'Wrocław', '', 'Wrocław', '', '', NULL, NULL, '', '', NULL, '', ''),
-(7, 31, 'Przemyśl', '', 'Przemyśl', '', '', NULL, NULL, '', '', NULL, '', '');
+(7, 31, 'Przemyśl', '', 'Przemyśl', '', '', NULL, NULL, '', '', NULL, '', ''),
+(8, 50, 'a', 'b', 'c', 'd', 'e', '2022-04-07', '08:58:00', 'ZAL', '', NULL, '', ''),
+(9, 50, 'f', 'g', 'e', 'r', 't', '2022-04-07', NULL, 'ROZ', '', NULL, '', ''),
+(10, 50, 'f', 'f', 'f', 'f', 'f', '2022-04-07', NULL, 'ROZ', '', NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -142,8 +145,8 @@ INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_num
 (20, 18, 1, 2022, '18/1/2022', 15, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'CHF', 'zapłacono z góry', '', NULL, '', '', ''),
 (21, 19, 1, 2022, '19/1/2022', 16, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', ''),
 (22, 20, 1, 2022, '20/1/2022', 18, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', ''),
-(23, 21, 1, 2022, '21/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', ''),
-(24, 22, 1, 2022, 'FS 22/1/2022', 16, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '');
+(23, 21, 1, 2022, '21/1/2022', 9, 0, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', ''),
+(24, 22, 1, 2022, 'FS 22/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', '11.00', '11.00', '22.00', 'PLN', '', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -347,7 +350,15 @@ INSERT INTO `rozliczenia` (`rozl_id`, `rozl_data`, `roz_id`, `rozl_wartosc`, `ro
 (3, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
 (4, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
 (5, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
-(6, '2022-04-04', 1, '1.00', 'PLN', '1', 1);
+(6, '2022-04-04', 1, '1.00', 'PLN', '1', 1),
+(7, '2022-04-05', 1, '33.00', 'PLN', '', 1),
+(8, '2022-04-05', 1, '33.00', 'PLN', '', 1),
+(9, '2022-04-05', 1, '1.00', 'PLN', '1', 1),
+(10, '2022-04-05', 1, '11.00', 'EUR', '', 1),
+(11, '2022-01-01', 1, '22.00', 'EUR', '', 1),
+(12, '2022-04-05', 1, '1.00', 'PLN', '1', 1),
+(13, '2022-04-05', 1, '1.00', 'PLN', '2', 1),
+(14, '2022-04-06', 2, '11.00', 'PLN', '11', 1);
 
 -- --------------------------------------------------------
 
@@ -358,6 +369,7 @@ INSERT INTO `rozliczenia` (`rozl_id`, `rozl_data`, `roz_id`, `rozl_wartosc`, `ro
 CREATE TABLE `rozrachunki` (
   `roz_id` int(11) NOT NULL,
   `roz_typ` varchar(255) DEFAULT NULL,
+  `tr_id` int(11) DEFAULT NULL,
   `roz_data_powstania` date DEFAULT NULL,
   `roz_data_sprzedazy` date DEFAULT NULL,
   `roz_data_wystawienia` date DEFAULT NULL,
@@ -383,8 +395,11 @@ CREATE TABLE `rozrachunki` (
 -- Zrzut danych tabeli `rozrachunki`
 --
 
-INSERT INTO `rozrachunki` (`roz_id`, `roz_typ`, `roz_data_powstania`, `roz_data_sprzedazy`, `roz_data_wystawienia`, `roz_termin_platnosci`, `roz_numer_faktury`, `kh_id`, `roz_waluta`, `roz_kwota_netto`, `roz_vat`, `roz_kwota_brutto`, `roz_kwota_brutto_waluta`, `roz_pozostalo_do_zaplaty`, `roz_pozostalo_do_zaplaty_waluta`, `roz_numer_zlecenia`, `roz_data_ostatniej_splaty`, `roz_kwota_ostatniej_splaty`, `roz_status`, `roz_data_kursu`, `roz_wartosc_kursu`) VALUES
-(1, 'N', '2022-01-19', '2022-01-20', '2022-01-21', 1, 'FS 1', 17, 'EUR', '13.00', '22', '33.00', '44.00', '1.00', '2.00', NULL, NULL, NULL, NULL, '2022-01-04', '4.5737');
+INSERT INTO `rozrachunki` (`roz_id`, `roz_typ`, `tr_id`, `roz_data_powstania`, `roz_data_sprzedazy`, `roz_data_wystawienia`, `roz_termin_platnosci`, `roz_numer_faktury`, `kh_id`, `roz_waluta`, `roz_kwota_netto`, `roz_vat`, `roz_kwota_brutto`, `roz_kwota_brutto_waluta`, `roz_pozostalo_do_zaplaty`, `roz_pozostalo_do_zaplaty_waluta`, `roz_numer_zlecenia`, `roz_data_ostatniej_splaty`, `roz_kwota_ostatniej_splaty`, `roz_status`, `roz_data_kursu`, `roz_wartosc_kursu`) VALUES
+(1, 'N', NULL, '2022-01-19', '2022-01-20', '2022-01-21', 1, 'FS 1', 17, 'EUR', '13.00', '22', '33.00', '44.00', '0.00', '10.34', NULL, '2022-04-05', '1.00', 1, '2022-01-04', '4.5737'),
+(2, 'N', NULL, '2022-04-06', '2022-04-06', '2022-04-06', 11, 'FS 1 1', 9, 'PLN', '11.00', '12', '23.00', NULL, '12.00', '12.00', NULL, '2022-04-06', '11.00', 2, '2022-04-06', NULL),
+(6, 'Z', 13, '2022-04-07', '2022-04-07', '2022-04-07', 11, 'Trasa: c - e ', 19, 'PLN', '111.00', 'test 223', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'Z', 14, NULL, NULL, NULL, NULL, 'Trasa: Miastko - Wrocław - Przemyśl ', 9, 'PLN', '11.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -414,9 +429,8 @@ CREATE TABLE `trasy` (
 --
 
 INSERT INTO `trasy` (`tr_id`, `zl_id`, `przew_id`, `tr_rodzaj_pojazdu`, `tr_kierowca_imie`, `tr_kierowca_nazwisko`, `tr_samochod`, `tr_naczepa`, `tr_stawka`, `tr_jednostka`, `tr_ilosc`, `tr_wartosc`, `tr_waluta`, `tr_uwagi`) VALUES
-(1, 30, 9, '', '', '', '', '', NULL, '', NULL, NULL, '', ''),
-(2, 31, 9, 'Chłodnia', 'Jan', 'Kowalski', 'P2432N', 'T4442', '3000.00', 'Fracht', '1.00', '3000.00', 'PLN', 'test'),
-(3, 50, 9, 'F', 'G', 'E', 'R', 'T', '22.00', 'Fracht', '22.00', '22.00', 'PLN', '');
+(13, 50, 9, '', '', '', '', '', '111.00', 'Fracht', '11.00', '111.00', 'PLN', ''),
+(14, 31, 9, '', '', '', '', '', '11.00', 'Fracht', '11.00', '11.00', 'PLN', '');
 
 -- --------------------------------------------------------
 
@@ -493,12 +507,12 @@ INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, 
 (42, 1, '13/1/2022/MIA', 13, 1, 2022, 'MIA', 21, '', '', '2022-01-17 12:22:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
 (43, 1, '14/1/2022/MIA', 14, 1, 2022, 'MIA', 14, '', '', '2022-01-17 12:22:15', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
 (44, 1, '15/1/2022/MIA', 15, 1, 2022, 'MIA', 7, '', '', '2022-01-17 12:22:18', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
-(45, 1, '16/1/2022/MIA', 16, 1, 2022, 'MIA', 8, '', '', '2022-01-17 12:22:25', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
+(45, 1, '16/1/2022/MIA', 16, 1, 2022, 'MIA', 8, '', '', '2022-01-17 12:22:25', NULL, '', NULL, '', NULL, NULL, 'GBP', NULL, NULL, '', '', NULL),
 (46, 1, '17/1/2022/MIA', 17, 1, 2022, 'MIA', 21, '', '', '2022-01-17 12:22:28', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
 (47, 1, '18/1/2022/MIA', 18, 1, 2022, 'MIA', 13, '', '', '2022-01-17 12:22:31', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
 (48, 1, '19/1/2022/MIA', 19, 1, 2022, 'MIA', 15, '', '', '2022-01-17 12:22:36', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
 (49, 1, '20/1/2022/MIA', 20, 1, 2022, 'MIA', 20, '', '', '2022-01-17 12:22:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL),
-(50, 1, '21/1/2022/MIA', 21, 1, 2022, 'MIA', 7, '', '', '2022-01-17 12:22:44', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL);
+(50, 1, '21/1/2022/MIA', 21, 1, 2022, 'MIA', 7, '', '', '2022-01-17 12:22:44', NULL, '', '11.00', 'Fracht', '11.00', '111.00', 'PLN', NULL, NULL, '', '', NULL);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -584,7 +598,7 @@ ALTER TABLE `zlecenia`
 -- AUTO_INCREMENT dla tabeli `adresy`
 --
 ALTER TABLE `adresy`
-  MODIFY `adres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `adres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT dla tabeli `dokumenty`
@@ -626,19 +640,19 @@ ALTER TABLE `rachunki`
 -- AUTO_INCREMENT dla tabeli `rozliczenia`
 --
 ALTER TABLE `rozliczenia`
-  MODIFY `rozl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `rozl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT dla tabeli `rozrachunki`
 --
 ALTER TABLE `rozrachunki`
-  MODIFY `roz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `roz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `trasy`
 --
 ALTER TABLE `trasy`
-  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT dla tabeli `uzytkownicy`

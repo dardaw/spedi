@@ -21,10 +21,11 @@ $this->title = 'Dodawanie/edycja trasy';
                 <input type="hidden" class="form-control" id="zl_id" name="zl_id" value="<?php echo key_exists("id", $get) ? $get['id'] : '' ?>">
                 <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->getCsrfToken() ?>" />
                 <label for="kh_id">Kontrahent</label>
+                <button type="button" class="btn btn-info" id="trasa_transport_wlasny">Transport własny</button>
                 <select class="form-control" id="przew_id" name="przew_id">
                     <option value="0" <?php echo key_exists("przew_id", $trasa) && 0 == $trasa['przew_id'] ? 'selected="selected"' : '' ?>></option>
                     <?php foreach ($kontrahenci as $kontrahent): ?>
-                        <option value="<?php echo $kontrahent['kh_id'] ?>" <?php echo key_exists("przew_id", $trasa) && $kontrahent['kh_id'] == $trasa['przew_id'] ? 'selected="selected"' : '' ?>><?php echo $kontrahent['kh_symbol'] ?></option>
+                        <option value="<?php echo $kontrahent['kh_id'] ?>" kh_glowny="<?php echo $kontrahent['kh_glowny'] ?>" <?php echo key_exists("przew_id", $trasa) && $kontrahent['kh_id'] == $trasa['przew_id'] ? 'selected="selected"' : '' ?>><?php echo $kontrahent['kh_symbol'] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

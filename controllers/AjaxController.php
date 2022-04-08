@@ -9,8 +9,8 @@ use app\models\Adresy;
 use yii\data\Pagination;
 
 class AjaxController extends Controller {
-    
-     public function beforeAction($action) {
+
+    public function beforeAction($action) {
         // your custom code here, if you want the code to run before action filters,
         // which are triggered on the [[EVENT_BEFORE_ACTION]] event, e.g. PageCache or AccessControl
 
@@ -129,30 +129,31 @@ class AjaxController extends Controller {
         $adresy = $query->all();
         $adresy_miasta = [];
         foreach ($adresy as $adres) {
-            if(in_array($adres['adres_miasto'], $adresy_miasta) === false){
+            if (in_array($adres['adres_miasto'], $adresy_miasta) === false) {
                 $adresy_miasta[] = $adres['adres_miasto'];
             }
         }
         $zlecenie['nazwa'] = implode(" - ", $adresy_miasta);
-        
-         $query = (new \yii\db\Query());
+
+        $query = (new \yii\db\Query());
         $query->select(['przew_id']);
         $query->from('trasy');
         $query->where(["zl_id" => $get['zl_id']]);
         $trasa = $query->one();
-        
-         $query = (new \yii\db\Query());
-        $query->select(['kh_glowny']);
-        $query->from('kontrahenci');
-        $query->where(["kh_id" =>  $trasa['przew_id']]);
-        $kontrahent = $query->one();
-        
-        if($kontrahent['kh_glowny'] == 1){
-            $zlecenie['usluga'] = "Usługa transportowa";
-        } else {
-            $zlecenie['usluga'] = "Usługa spedycyjna";
+        if ($trasa) {
+            $query = (new \yii\db\Query());
+            $query->select(['kh_glowny']);
+            $query->from('kontrahenci');
+            $query->where(["kh_id" => $trasa['przew_id']]);
+            $kontrahent = $query->one();
+
+            if ($kontrahent['kh_glowny'] == 1) {
+                $zlecenie['usluga'] = "Usługa transportowa";
+            } else {
+                $zlecenie['usluga'] = "Usługa spedycyjna";
+            }
         }
-        
+
         echo json_encode($zlecenie);
         exit;
     }
