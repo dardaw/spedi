@@ -126,8 +126,7 @@ class AjaxController extends Controller {
         $query->select(['adres_miasto']);
         $query->from('adresy');
         $query->where(["zl_id" => $get['zl_id']]);
-        $adresy = $query->all();
-        $adresy_miasta = [];
+        $adresy = $adresy_miasta = [];
         foreach ($adresy as $adres) {
             if (in_array($adres['adres_miasto'], $adresy_miasta) === false) {
                 $adresy_miasta[] = $adres['adres_miasto'];
@@ -155,6 +154,70 @@ class AjaxController extends Controller {
         }
 
         echo json_encode($zlecenie);
+        exit;
+    }
+
+    public function actionKredytkupiecki() {
+        $get = Yii::$app->request->getQueryParams();
+        if (empty($get['kh_id'])) {
+            exit;
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['kh_kredyt_kupiecki']);
+        $query->from('kontrahenci');
+        $query->where(['kh_id' => $get['kh_id']]);
+        $kontrahent = $query->one();
+        if ($kontrahent['kh_kredyt_kupiecki'] == null) {
+            echo json_encode(['kredyt_kontrahenta' => 0]);
+            exit;
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['roz_pozostalo_do_zaplaty']);
+        $query->from('rozrachunki');
+        $query->where(["roz_typ" => "N", 'kh_id' => $get['kh_id']]);
+        $query->andWhere(['!=', 'roz_status', 1]);
+        $rozrachunki = $query->all();
+        $kwota = 0;
+        foreach ($rozrachunki as $roz) {
+            $kwota += $roz['roz_pozostalo_do_zaplaty'];
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['zl_wartosc', 'zl_waluta', 'zl_data_utworzenia']);
+        $query->from('zlecenia');
+        $query->where(["kh_id" => $get['kh_id'], "zl_widocznosc" => 1]);
+        $query->andWhere('zl_faktura IS NULL');
+        $zlecenia_bez_faktur = $query->all();
+
+        $wartosc_zlecen_bez_faktur = 0;
+        foreach ($zlecenia_bez_faktur as $zlec) {
+            if ($zlec['zl_waluta'] != "PLN") {
+                if ($zlec['zl_waluta'] == 'EUR')
+                    $kurs['kurs_stan'] = '3.14';
+                else {
+                    $zlec['zl_data_utworzenia'] = new \DateTime($zlec['zl_data_utworzenia']);
+                    $data = $zlec['zl_data_utworzenia']->modify('-1 days')->format('Y-m-d');
+                    $query = (new \yii\db\Query());
+                    $query->select(['*']);
+                    $query->from('kurs');
+                    $query->where(["kurs_data" => $data, 'kurs_kod' => $zlec['zl_waluta']]);
+                    $query->limit(1);
+                    $wynik = $query->one();
+                    if (!$wynik) {
+                        $kurs['kurs_stan'] = '3.14';
+                    } else {
+                        $kurs['kurs_stan'] = $wynik['kurs_wartosc'];
+                    }
+                }
+                $zlec['zl_wartosc'] *= $kurs['kurs_stan'];
+            }
+            $wartosc_zlecen_bez_faktur += $zlec['zl_wartosc'];
+        }
+        if ($kontrahent['kh_kredyt_kupiecki'] != null) {
+            $zwrot['kredyt_kontrahenta'] = 1;
+        }
+        $zwrot['przekroczono'] = $kontrahent['kh_kredyt_kupiecki'] < ($wartosc_zlecen_bez_faktur + $kwota);
+        $zwrot['ile'] = abs($wartosc_zlecen_bez_faktur + $kwota - $kontrahent['kh_kredyt_kupiecki']);
+        echo json_encode($zwrot);
         exit;
     }
 

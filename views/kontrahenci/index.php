@@ -18,12 +18,15 @@ $this->title = 'Kontrahenci';
         <br />
         <div class="row">
             <table class="table table-bordered">
-                 <tr class="pierwsza">
+                <tr class="pierwsza">
                     <td scope="col">
                         Numer kontrahenta
                     </td>
                     <td scope="col"> 
                         Data utworzenia
+                    </td>
+                    <td scope="col"> 
+                        Symbol
                     </td>
                     <td scope="col"> 
                         Nazwa pełna
@@ -37,6 +40,9 @@ $this->title = 'Kontrahenci';
                         </td>
                         <td>
                             <?php echo $kontrahent['kh_data_utworzenia']; ?>
+                        </td>
+                        <td>
+                            <?php echo $kontrahent['kh_symbol']; ?>
                         </td>
                         <td>
                             <?php echo $kontrahent['kh_nazwa_pelna']; ?>

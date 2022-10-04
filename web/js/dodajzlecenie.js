@@ -8,11 +8,25 @@ $('document').ready(function () {
 
         $.ajax({
             type: "POST",
-            url:base_url + "/index.php?r=ajax/czykontrahentzablokowany&" + "kh_id=" + $('#kh_id').val(),
+            url: base_url + "/index.php?r=ajax/czykontrahentzablokowany&" + "kh_id=" + $('#kh_id').val(),
             success: function (data) {
-                if(data['kh_blokada'] == 1){
+                if (data['kh_blokada'] == 1) {
                     $("#kh_id").val("0");
                     alert('Kontrahent zablokowany');
+                }
+            },
+            dataType: "json"
+        });
+
+        $.ajax({
+            type: "POST",
+            url: base_url + "/index.php?r=ajax/kredytkupiecki&" + "kh_id=" + $('#kh_id').val(),
+            success: function (data) {
+                if (data['kredyt_kontrahenta'] == 1) {
+                    if (data['przekroczono'] == true) {
+                        $("#kh_id").val("0");
+                        alert('Przekroczono kredyt kupiecki dla tego kontrahenta o kwotę ' + data['ile'] + ' PLN');
+                    }
                 }
             },
             dataType: "json"
