@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use Yii;
 
 class Faktury extends ActiveRecord {
 
@@ -42,6 +43,7 @@ class Faktury extends ActiveRecord {
             }
         }
         $faktura->kh_id = $post['kh_id'];
+        $faktura->firma_id = Yii::$app->session->get('firma_id');
         $faktura->fak_miejsce_wystawienia = $post['fak_miejsce_wystawienia'];
         $faktura->fak_data_wystawienia = $post['fak_data_wystawienia'];
         $faktura->fak_data_zakonczenia = $post['fak_data_zakonczenia'];

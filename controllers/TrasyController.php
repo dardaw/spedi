@@ -33,7 +33,7 @@ class TrasyController extends Controller {
         $query = (new \yii\db\Query());
         $query->select(['*']);
         $query->from('trasy');
-        $query->where(["zl_id" => $get['id']]);
+        $query->where(["zl_id" => $get['id'], 'firma_id' => Yii::$app->session->get('firma_id')]);
         $query->limit(1);
         $wynik = $query->one();
         if (empty($wynik)) {

@@ -33,17 +33,14 @@ class KontrahenciController extends Controller {
         $kontrahenci = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('kontrahenci')
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_id DESC');
         if (count($get) != 0) {
             $ktory = 0;
             foreach ($get as $klucz => $wartosc) {
                 if (!empty($wartosc)) {
                     if ($klucz != 'r' && $klucz != 'page') {
-                        if ($ktory == 0) {
-                            $kontrahenci->Where([$klucz => $wartosc]);
-                        } else {
-                            $kontrahenci->andWhere([$klucz => $wartosc]);
-                        }
+                        $kontrahenci->andWhere([$klucz => $wartosc]);
                         $ktory++;
                     }
                 }

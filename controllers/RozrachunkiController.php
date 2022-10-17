@@ -34,17 +34,14 @@ class RozrachunkiController extends Controller {
                 ->select(['*'])
                 ->from('rozrachunki')
                 ->leftJoin("kontrahenci", "kontrahenci.kh_id = rozrachunki.kh_id")
+                ->where(['rozrachunki.firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('roz_id DESC');
         if (count($get) != 0) {
             $ktory = 0;
             foreach ($get as $klucz => $wartosc) {
                 if (!empty($wartosc)) {
                     if ($klucz != 'r' && $klucz != 'id' && $klucz != 'page') {
-                        if ($ktory == 0) {
-                            $rozrachunki->where([$klucz => $wartosc]);
-                        } else {
-                            $rozrachunki->andWhere([$klucz => $wartosc]);
-                        }
+                        $rozrachunki->andWhere([$klucz => $wartosc]);
                         $ktory++;
                     }
                 }

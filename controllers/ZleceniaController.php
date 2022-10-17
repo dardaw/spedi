@@ -35,7 +35,7 @@ class ZleceniaController extends Controller {
                 ->select(['*'])
                 ->from('zlecenia')
                 ->leftJoin("kontrahenci", "kontrahenci.kh_id = zlecenia.kh_id")
-                ->where(['zl_widocznosc' => 1])
+                ->where(['zl_widocznosc' => 1, 'zlecenia.firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('zl_id DESC');
 
         if (count($get) != 0) {

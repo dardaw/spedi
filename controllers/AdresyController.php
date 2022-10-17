@@ -21,7 +21,7 @@ class AdresyController extends Controller {
         $adresy = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('adresy')
-                ->where(['zl_id' => $get['id']]);
+                ->where(['zl_id' => $get['id'], 'firma_id' => Yii::$app->session->get('firma_id')]);
         $countQuery = clone $adresy;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $adresy = $adresy->offset($pages->offset)

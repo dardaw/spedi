@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use Yii;
 
 class Zlecenia extends ActiveRecord {
 
@@ -45,6 +46,7 @@ class Zlecenia extends ActiveRecord {
             $zlecenie->zl_data_utworzenia = date("Y-m-d H:i:s");
         }
         $zlecenie->kh_id = $post['kh_id'];
+        $zlecenie->firma_id = Yii::$app->session->get('firma_id');
         $zlecenie->zl_order = $post['zl_order'];
         $zlecenie->zl_ladunek = $post['zl_ladunek'];
         $zlecenie->zl_waga = $post['zl_waga'];

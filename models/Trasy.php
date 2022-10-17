@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use Yii;
 
 class Trasy extends ActiveRecord {
 
@@ -22,6 +23,7 @@ class Trasy extends ActiveRecord {
                     ->one();
         }
         $trasa->zl_id = $post['zl_id'];
+        $trasa->firma_id = Yii::$app->session->get('firma_id');
         $trasa->przew_id = $post['przew_id'];
         $trasa->tr_rodzaj_pojazdu = $post['tr_rodzaj_pojazdu'];
         $trasa->tr_kierowca_imie = $post['tr_kierowca_imie'];

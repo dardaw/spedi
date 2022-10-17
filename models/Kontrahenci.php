@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use Yii;
 
 class Kontrahenci extends ActiveRecord {
 
@@ -37,6 +38,7 @@ class Kontrahenci extends ActiveRecord {
             }
             $kontrahent->kh_data_utworzenia = date("Y-m-d H:i:s");
         }
+        $kontrahent->firma_id = Yii::$app->session->get('firma_id');
         $kontrahent->kh_symbol = $post['kh_symbol'];
         $kontrahent->kh_typ = $post['kh_typ'];
         $kontrahent->kh_rodzaj = $post['kh_rodzaj'];

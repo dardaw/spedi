@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use Yii;
 
 class Adresy extends ActiveRecord {
 
@@ -22,6 +23,7 @@ class Adresy extends ActiveRecord {
                     ->one();
         }
         $adres->zl_id = $post['zl_id'];
+        $adres->firma_id = Yii::$app->session->get('firma_id');
         $adres->adres_nazwa = $post['adres_nazwa'];
         $adres->adres_kraj = $post['adres_kraj'];
         $adres->adres_miasto = $post['adres_miasto'];

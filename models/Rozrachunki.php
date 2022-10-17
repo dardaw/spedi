@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use Yii;
 
 class Rozrachunki extends ActiveRecord {
 
@@ -22,6 +23,7 @@ class Rozrachunki extends ActiveRecord {
                     ->one();
         }
         $rozrachunki->kh_id = $post['kh_id'];
+        $rozrachunki->firma_id = Yii::$app->session->get('firma_id');
         $rozrachunki->roz_typ = $post['roz_typ'];
         $rozrachunki->roz_data_powstania = $post['roz_data_powstania'];
         $rozrachunki->roz_data_sprzedazy = $post['roz_data_sprzedazy'];
@@ -112,6 +114,7 @@ class Rozrachunki extends ActiveRecord {
             $rozrachunki->roz_numer_faktury = $nazwa_dokumentu;
             $rozrachunki->roz_waluta = $post['tr_waluta'];
             $rozrachunki->roz_kwota_netto = $post['tr_wartosc'];
+            $rozrachunki->firma_id = Yii::$app->session->get('firma_id');
             $rozrachunki->save();
         }
     }

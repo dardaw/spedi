@@ -36,7 +36,7 @@ class FakturyController extends Controller {
                 ->select(['*'])
                 ->from('faktury')
                 ->leftJoin("kontrahenci", "kontrahenci.kh_id = faktury.kh_id")
-                ->where(['fak_widocznosc' => 1])
+                ->where(['fak_widocznosc' => 1, 'faktury.firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('fak_id DESC');
 
         if (count($get) != 0) {
