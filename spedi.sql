@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Paź 2022, 09:24
+-- Czas generowania: 17 Paź 2022, 12:19
 -- Wersja serwera: 10.4.25-MariaDB
 -- Wersja PHP: 7.4.30
 
@@ -181,10 +181,10 @@ CREATE TABLE `faktury_pozycje` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `firma`
+-- Struktura tabeli dla tabeli `firmy`
 --
 
-CREATE TABLE `firma` (
+CREATE TABLE `firmy` (
   `firma_id` int(11) NOT NULL,
   `firma_symbol` varchar(255) DEFAULT NULL,
   `firma_nazwa` varchar(255) DEFAULT NULL,
@@ -198,11 +198,17 @@ CREATE TABLE `firma` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Zrzut danych tabeli `firma`
+-- Zrzut danych tabeli `firmy`
 --
 
-INSERT INTO `firma` (`firma_id`, `firma_symbol`, `firma_nazwa`, `firma_nip`, `firma_kraj`, `firma_kod_pocztowy`, `firma_miasto`, `firma_ulica`, `firma_telefon`, `firma_email`) VALUES
-(1, 'Test', 'Test Trans', '1242123123', 'Polska', '77-200', 'Miastko', 'ul. Długa', '123 456 789', NULL);
+INSERT INTO `firmy` (`firma_id`, `firma_symbol`, `firma_nazwa`, `firma_nip`, `firma_kraj`, `firma_kod_pocztowy`, `firma_miasto`, `firma_ulica`, `firma_telefon`, `firma_email`) VALUES
+(1, 'Test', 'Test Trans', '1242123123', 'Polska', '77-200', 'Miastko', 'ul. Długa', '123 456 789', NULL),
+(2, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
+(3, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
+(4, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
+(5, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
+(6, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
+(7, 'aabcd', 'bbd', 'ccd', 'ddd', 'eed', 'ffd', 'ggd', 'hhd', 'iid');
 
 -- --------------------------------------------------------
 
@@ -272,7 +278,13 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `
 (18, NULL, '18', 18, 'yt', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:03', '', NULL),
 (19, NULL, '19', 19, 'uu', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:06', '', NULL),
 (20, NULL, '20', 20, 'i', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:08', '', NULL),
-(21, NULL, '21', 21, 'y', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:11', '', 1);
+(21, NULL, '21', 21, 'y', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:11', '', 1),
+(22, 1, '1', 1, 'a', '', '', 0, 'b', 'd', 'e', 'f', 'g', 'h', '', 'i', '', 'c', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-17 12:06:34', '', 1),
+(23, 1, '1', 1, 'a', NULL, NULL, NULL, 'b', 'd', 'e', 'f', 'g', 'h', NULL, 'i', NULL, 'c', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:18', NULL, 1),
+(24, 1, '1', 1, 'aa', NULL, NULL, NULL, 'b', 'd', 'e', 'f', 'g', 'h', NULL, 'i', NULL, 'c', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:21', NULL, 1),
+(25, 1, '1', 1, 'aab', NULL, NULL, NULL, 'bb', 'dd', 'ee', 'ff', 'gg', 'hh', NULL, 'ii', NULL, 'cc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:30', NULL, 1),
+(26, 1, '1', 1, 'aabc', NULL, NULL, NULL, 'bb', 'dd', 'ee', 'ff', 'gg', 'hh', NULL, 'ii', NULL, 'cc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:12:01', NULL, 1),
+(27, 1, '1', 1, 'aabcd', NULL, NULL, NULL, 'bbd', 'ddd', 'eed', 'ffd', 'ggd', 'hhd', NULL, 'iid', NULL, 'ccd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:18:17', NULL, 7);
 
 -- --------------------------------------------------------
 
@@ -574,9 +586,9 @@ ALTER TABLE `faktury_pozycje`
   ADD PRIMARY KEY (`poz_id`);
 
 --
--- Indeksy dla tabeli `firma`
+-- Indeksy dla tabeli `firmy`
 --
-ALTER TABLE `firma`
+ALTER TABLE `firmy`
   ADD PRIMARY KEY (`firma_id`);
 
 --
@@ -656,16 +668,16 @@ ALTER TABLE `faktury_pozycje`
   MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT dla tabeli `firma`
+-- AUTO_INCREMENT dla tabeli `firmy`
 --
-ALTER TABLE `firma`
-  MODIFY `firma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `firmy`
+  MODIFY `firma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
-  MODIFY `kh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `kh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT dla tabeli `kurs`

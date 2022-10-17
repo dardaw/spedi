@@ -70,4 +70,35 @@ class Kontrahenci extends ActiveRecord {
         $kontrahent->save();
     }
 
+    public function zapiszKontrahentaGlownego($post) {
+        $query = (new \yii\db\Query());
+        $query->select(['kh_id']);
+        $query->from('kontrahenci');
+        $query->where(['firma_id' => $post['firma_id'], 'kh_glowny' => 1]);
+        $query->limit(1);
+        $wynik = $query->one();
+        if (!$wynik) {
+            $kontrahent = $this;
+        } else {
+            $kontrahent = self::find()
+                    ->where(['firma_id' => $post['firma_id'], 'kh_glowny' => 1])
+                    ->one();
+        }
+        $kontrahent->kh_numer_pelny = 1;
+        $kontrahent->kh_numer = 1;
+        $kontrahent->kh_data_utworzenia = date("Y-m-d H:i:s");
+        $kontrahent->firma_id = $post['firma_id'];
+        $kontrahent->kh_symbol = $post['firma_symbol'];
+        $kontrahent->kh_nazwa_pelna = $post['firma_nazwa'];
+        $kontrahent->kh_nip = $post['firma_nip'];
+        $kontrahent->kh_kraj = $post['firma_kraj'];
+        $kontrahent->kh_kod_pocztowy = $post['firma_kod_pocztowy'];
+        $kontrahent->kh_miasto = $post['firma_miasto'];
+        $kontrahent->kh_ulica = $post['firma_ulica'];
+        $kontrahent->kh_telefon = $post['firma_telefon'];
+        $kontrahent->kh_email = $post['firma_email'];
+        $kontrahent->kh_glowny = 1;
+        $kontrahent->save();
+    }
+
 }

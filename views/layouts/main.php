@@ -41,6 +41,8 @@ AppAsset::register($this);
                                 <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Rozrachunki</a></li>
                                 <?php $url = Url::toRoute(['kontrahenci/index']); ?>
                                 <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Kontrahenci</a></li>
+                                  <?php $url = Url::toRoute(['administracja/index']); ?>
+                                <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span> Administracja</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <?php $spedi_zalogowany = Yii::$app->session->get('spedi_zalogowany'); ?>
