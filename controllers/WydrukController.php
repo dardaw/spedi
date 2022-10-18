@@ -62,13 +62,13 @@ class WydrukController extends Controller {
         }
         $zlecenie['naglowek'] = $naglowek;
 
-        if (!empty($get['fracht'])) {
-            $fracht = $get['fracht'];
+        if (!empty($get['wydruk_fracht'])) {
+            $fracht = $get['wydruk_fracht'];
         } else {
             $fracht = '';
         }
-        if (!empty($get['termin_platnosci'])) {
-            $termin_platnosci = $get['termin_platnosci'];
+        if (!empty($get['wydruk_termin_platnosci'])) {
+            $termin_platnosci = $get['wydruk_termin_platnosci'];
         } else {
             $termin_platnosci = '';
         }

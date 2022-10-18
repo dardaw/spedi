@@ -48,5 +48,14 @@ class TrasyController extends Controller {
 
         return $this->render('dodaj', ['trasa' => $wynik, 'get' => $get, 'kontrahenci' => $kontrahenci]);
     }
+    
+    public function actionWydrukzlecenia() {
+         $get = Yii::$app->request->get();
+        if (empty($get['id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+         return $this->render('wydrukzlecenia', ['zl_id' => $get['id']]);
+    }
 
 }
