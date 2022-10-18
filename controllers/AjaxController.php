@@ -98,7 +98,7 @@ class AjaxController extends Controller {
         $query = (new \yii\db\Query());
         $query->select(['*']);
         $query->from('zlecenia');
-        $query->where(["kh_id" => $kh_id['kh_id']]);
+        $query->where(["kh_id" => $kh_id['kh_id'], 'zlecenia.firma_id' => Yii::$app->session->get('firma_id')]);
         $query->andWhere(["zl_widocznosc" => 1]);
         if (!empty($get['zl_numer_pelny'])) {
             $query->andWhere(['like', 'zl_numer_pelny', '%' . $get['zl_numer_pelny'] . '%', false]);
@@ -151,6 +151,8 @@ class AjaxController extends Controller {
             } else {
                 $zlecenie['usluga'] = "Usługa spedycyjna";
             }
+        } else {
+            $zlecenie['usluga'] = "Brak trasy";
         }
 
         echo json_encode($zlecenie);

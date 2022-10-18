@@ -129,6 +129,10 @@ $('document').ready(function () {
             url: base_url + "/index.php?r=ajax/danezleceniadofaktury&" + "zl_id=" + zl_id,
             success: function (data) {
                 if (data !== false) {
+                    if (data['usluga'] == "Brak trasy") {
+                        alert("Brak trasy, nie można zafakturować");
+                        return false;
+                    }
                     przelicz_vat();
 
                     $('#formularz_dodawania_pozycji').find('#zl_id').val(data['zl_id']);

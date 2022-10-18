@@ -4,7 +4,7 @@
 use yii\helpers\Url;
 use \yii\widgets\LinkPager;
 
-$this->title = 'Firmy';
+$this->title = 'Użytkownicy';
 ?>
 <div class="site-index">
 
@@ -12,40 +12,34 @@ $this->title = 'Firmy';
 
     <div class="body-content">
 
-        <?php $dodaj = Url::toRoute(['firmy/dodaj']); ?>
-        <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Dodaj firmę</button></a>
+        <?php $dodaj = Url::toRoute(['uzytkownicy/dodaj']); ?>
+        <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Dodaj użytkownika</button></a>
         <br />
         <br />
         <div class="row">
             <table class="table table-bordered">
                 <tr class="pierwsza">
                     <td scope="col">
-                        Id
-                    </td>
-                    <td scope="col">
-                        Symbol
+                        Nazwisko
                     </td>
                     <td scope="col"> 
-                        Nazwa firmy
+                        Imię
                     </td>
                     <td scope="col"> 
-                        NIP
+                        Login
                     </td>
                 </tr>
-                <?php foreach ($firmy as $firma): ?>      
-                    <?php $url = Url::toRoute(['firmy/edycja', 'id' => $firma['firma_id']]); ?>
+                <?php foreach ($uzytkownicy as $uzytkownik): ?>      
+                    <?php $url = Url::toRoute(['uzytkownicy/edycja', 'id' => $uzytkownik['uz_id']]); ?>
                     <tr gdzie="<?php echo $url; ?>">
                         <td scope="row">
-                            <?php echo $firma['firma_id']; ?>
-                        </td>
-                        <td scope="row">
-                            <?php echo $firma['firma_symbol']; ?>
+                            <?php echo $uzytkownik['uz_nazwisko']; ?>
                         </td>
                         <td>
-                            <?php echo $firma['firma_nazwa']; ?>
+                            <?php echo $uzytkownik['uz_imie']; ?>
                         </td>
                         <td>
-                            <?php echo $firma['firma_nip']; ?>
+                            <?php echo $uzytkownik['uz_login']; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

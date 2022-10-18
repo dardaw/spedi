@@ -26,7 +26,18 @@ $this->title = 'Administracja';
                         </button>
                     </td>
                     <td scope="col"> 
-                       Dodawanie lub edycja nowej firmy
+                        Dodawanie lub edycja nowej firmy
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">
+                        <?php $url = Url::toRoute(['uzytkownicy/index']); ?>
+                        <button type="button" class="btn btn-default btn-lg">
+                            <a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"> Użytkownicy</span></a>
+                        </button>
+                    </td>
+                    <td scope="col"> 
+                        Dodawanie lub edycja użytkownika do firmy
                     </td>
                 </tr>
             </table>
