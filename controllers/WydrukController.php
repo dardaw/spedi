@@ -72,7 +72,47 @@ class WydrukController extends Controller {
         } else {
             $termin_platnosci = '';
         }
-        $html = $this->render('zlecenie', ['zlecenie' => $zlecenie, 'kontrahent' => $kontrahent, 'trasa' => $trasa, 'adresy' => $adresy, 'fracht' => $fracht, 'termin_platnosci' => $termin_platnosci]);
+
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "warunki_zlecenia_pl", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $pl = $query->one();
+
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "warunki_zlecenia_en", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $en = $query->one();
+
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "warunki_zlecenia_de", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $de = $query->one();
+
+        if ($get['jezyk'] == 'PL') {
+            $jezyk = $pl;
+        } elseif ($get['jezyk'] == 'EN') {
+            $jezyk = $en;
+        } elseif ($get['jezyk'] == 'DE') {
+            $jezyk = $de;
+        }
+        if (!$jezyk) {
+            $jezyk = [];
+        }
+        $html = $this->render('zlecenie',
+                ['zlecenie' => $zlecenie,
+                    'kontrahent' => $kontrahent,
+                    'trasa' => $trasa,
+                    'adresy' => $adresy,
+                    'fracht' => $fracht,
+                    'termin_platnosci' => $termin_platnosci,
+                    'jezyk' => $jezyk]
+        );
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($html);
         $mpdf->Output();

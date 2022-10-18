@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Paź 2022, 11:55
+-- Czas generowania: 18 Paź 2022, 13:34
 -- Wersja serwera: 10.4.25-MariaDB
 -- Wersja PHP: 7.4.30
 
@@ -487,6 +487,28 @@ INSERT INTO `trasy` (`tr_id`, `zl_id`, `przew_id`, `tr_rodzaj_pojazdu`, `tr_kier
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `ustawienia_globalne`
+--
+
+CREATE TABLE `ustawienia_globalne` (
+  `ust_id` int(11) NOT NULL,
+  `ust_nazwa` varchar(255) DEFAULT NULL,
+  `ust_wartosc` text DEFAULT NULL,
+  `firma_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `ustawienia_globalne`
+--
+
+INSERT INTO `ustawienia_globalne` (`ust_id`, `ust_nazwa`, `ust_wartosc`, `firma_id`) VALUES
+(15, 'warunki_zlecenia_pl', '1', 1),
+(16, 'warunki_zlecenia_en', '2', 1),
+(17, 'warunki_zlecenia_de', '3', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `uzytkownicy`
 --
 
@@ -640,6 +662,12 @@ ALTER TABLE `trasy`
   ADD PRIMARY KEY (`tr_id`);
 
 --
+-- Indeksy dla tabeli `ustawienia_globalne`
+--
+ALTER TABLE `ustawienia_globalne`
+  ADD PRIMARY KEY (`ust_id`);
+
+--
 -- Indeksy dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
@@ -720,6 +748,12 @@ ALTER TABLE `rozrachunki`
 --
 ALTER TABLE `trasy`
   MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT dla tabeli `ustawienia_globalne`
+--
+ALTER TABLE `ustawienia_globalne`
+  MODIFY `ust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT dla tabeli `uzytkownicy`

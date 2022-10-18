@@ -34,7 +34,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
         <hr />
-         <?php if (!empty($fracht)): ?>
+        <?php if (!empty($fracht)): ?>
             <div>Fracht przewoźnika: <?php echo $fracht ?></div>
             <hr />
         <?php endif; ?>
@@ -44,28 +44,33 @@
         <?php endif; ?>
         <div>Warunki zlecenia:</div>
         <div>
-            1. Przewoźnik zobowiązany jest do pisemnego potwierdzenia przyjęcia
-            zlecenia w terminie 0,5 godziny od chwili jego wydania , brak odmowy
-            w ciągu 0,5 godziny skutkuje przyjęciem zlecenia.Kierowca realizujący zlecenie zobowiązany jest posiadać ze sobą aktywny telefon komórkowy
-            a jego nr przekazać spedytorowi prowadzącemu
-            przed rozpoczęciem realizacji usługi.
-            3. Zleceniobiorca przyjmując zlecenie do realizacji potwierdza, że jest uprawnionym do świadczenia usług transportowych przewoźnikiem i
-            posiada ubezpieczenie oc i ocp !!!
-            4. W przypadku zmiany trasy przewozu zastrzegany sobie prawo zmiany stawki.
-            O wszelkich problemach związanych z realizacją zlecenia
-            należy zawiadomić zleceniodawcę niezwłocznie po ich zaistnieniu.
-            5. Niemniejsze zlecenie jest umowa o ochronie klienta. Podjecie
-            jakichkolwiek pertraktacji z klientem jest prawnie zabronione pod
-            rygorem kary umownej w wysokości 50.000PLN.
-            6. Za nieterminowe podstawienie samochodu pod załadunek/rozładunek zleceniodawca obciąża zleceniobiorcę równowartością 10% ustalonego
-            frachtu za każdą godzinę.
-            7. Za niepodjęcie ładunku kwota obciążenia będzie równa dwukrotnej
-            wartości ustalonej stawki frachtowej
-            8. W razie jakichkolwiek opóźnień, kłopotów w trakcie realizacji
-            zlecenia - prosimy o kontakt na tel.
-            9. Wymagamy przedłożenia dokumentów dot. Realizacji transportu w nieprzekraczalnym terminie 10 dni od momentu wykonania usługi.
-            10.Płatne w ciągu 45 dni od daty otrzymania faktury wraz z oryginalnym potwierdzonym listem przewozowym (CMR) wz, fakturą kserokopia dokumentu EX. Fracht płatny w PLN wg tabeli NBP po kursie średnim z dnia załadunku jednoczesnie oświadczamy ze nasz firma jest płatnikiem
-            podatku VAT i upoważniamy państwa do wystawienia faktur VAT bez
+            <?php if (key_exists("ust_wartosc", $jezyk)): ?>
+                <?php echo $jezyk['ust_wartosc']; ?>
+            <?php endif; ?>
+            <?php if (!key_exists("ust_wartosc", $jezyk)): ?>
+                1. Przewoźnik zobowiązany jest do pisemnego potwierdzenia przyjęcia
+                zlecenia w terminie 0,5 godziny od chwili jego wydania , brak odmowy
+                w ciągu 0,5 godziny skutkuje przyjęciem zlecenia.Kierowca realizujący zlecenie zobowiązany jest posiadać ze sobą aktywny telefon komórkowy
+                a jego nr przekazać spedytorowi prowadzącemu
+                przed rozpoczęciem realizacji usługi.
+                3. Zleceniobiorca przyjmując zlecenie do realizacji potwierdza, że jest uprawnionym do świadczenia usług transportowych przewoźnikiem i
+                posiada ubezpieczenie oc i ocp !!!
+                4. W przypadku zmiany trasy przewozu zastrzegany sobie prawo zmiany stawki.
+                O wszelkich problemach związanych z realizacją zlecenia
+                należy zawiadomić zleceniodawcę niezwłocznie po ich zaistnieniu.
+                5. Niemniejsze zlecenie jest umowa o ochronie klienta. Podjecie
+                jakichkolwiek pertraktacji z klientem jest prawnie zabronione pod
+                rygorem kary umownej w wysokości 50.000PLN.
+                6. Za nieterminowe podstawienie samochodu pod załadunek/rozładunek zleceniodawca obciąża zleceniobiorcę równowartością 10% ustalonego
+                frachtu za każdą godzinę.
+                7. Za niepodjęcie ładunku kwota obciążenia będzie równa dwukrotnej
+                wartości ustalonej stawki frachtowej
+                8. W razie jakichkolwiek opóźnień, kłopotów w trakcie realizacji
+                zlecenia - prosimy o kontakt na tel.
+                9. Wymagamy przedłożenia dokumentów dot. Realizacji transportu w nieprzekraczalnym terminie 10 dni od momentu wykonania usługi.
+                10.Płatne w ciągu 45 dni od daty otrzymania faktury wraz z oryginalnym potwierdzonym listem przewozowym (CMR) wz, fakturą kserokopia dokumentu EX. Fracht płatny w PLN wg tabeli NBP po kursie średnim z dnia załadunku jednoczesnie oświadczamy ze nasz firma jest płatnikiem
+                podatku VAT i upoważniamy państwa do wystawienia faktur VAT bez
+            <?php endif; ?>
         </div>
     </body>
 </html>

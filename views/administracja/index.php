@@ -40,6 +40,17 @@ $this->title = 'Administracja';
                         Dodawanie lub edycja użytkownika do firmy
                     </td>
                 </tr>
+                <tr>
+                    <td scope="col">
+                        <?php $url = Url::toRoute(['ustawienia/wydrukzlecenia']); ?>
+                        <button type="button" class="btn btn-default btn-lg">
+                            <a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"> Wydruk zlecenia</span></a>
+                        </button>
+                    </td>
+                    <td scope="col"> 
+                        Edycja ustawień do wydruku zlecenia
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
