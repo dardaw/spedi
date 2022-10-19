@@ -4,15 +4,15 @@
         <h2 style="font-weight: bold; text-align: center"><?php echo $zlecenie['naglowek'] . ' ' . $zlecenie['zl_numer_pelny'] ?></h2>
         <hr />
         <div> Zleceniodawca:</div>
-        <div>nazwa</div>
-        <div>ulica</div>
-        <div>kod p miasto</div>
-        <div>nip</div>
-        <div>kom</div>
-        <div>Spedytor: </div>
-        <div>tel: </div>
-        <div>fax: </div>
-        <div>Trans: </div>
+        <div><?php echo $kontrahent_glowny['kh_nazwa_pelna'] ?></div>
+        <div><?php echo $kontrahent_glowny['kh_ulica'] ?></div>
+        <div><?php echo $kontrahent_glowny['kh_kod_pocztowy'] . ' ' . $kontrahent_glowny['kh_miasto'] ?></div>
+        <div>NIP: <?php echo $kontrahent_glowny['kh_nip'] ?></div>
+        <div>tel. <?php echo $kontrahent_glowny['kh_telefon'] ?></div>
+        <div>Spedytor: <?php echo $zlecenie['uz_imie'] . ' ' . $zlecenie['uz_nazwisko'] ?></div>
+        <div>tel: <?php echo $zlecenie['uz_telefon'] ?></div>
+        <div>fax: <?php echo $zlecenie['uz_fax'] ?></div>
+        <div>Trans: <?php echo $zlecenie['uz_trans'] ?></div>
         <hr />
         <div> Zleceniobiorca:</div>
         <div><?php echo $kontrahent['kh_nazwa_pelna'] ?></div>

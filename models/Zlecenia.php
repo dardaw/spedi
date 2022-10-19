@@ -37,7 +37,7 @@ class Zlecenia extends ActiveRecord {
                 $zlecenie->zl_miesiac = date('m');
                 $zlecenie->zl_oddzial = "MIA";
             } else {
-                $zlecenie->zl_numer_pelny = ($wynik['zl_numer'] + 1) . '/' . $wynik['zl_miesiac'] . '/' . $wynik['zl_rok'] . '/' . $wynik['zl_oddzial'];
+                $zlecenie->zl_numer_pelny = ($wynik['zl_numer'] + 1) . '/' . date('m') . '/' . date('Y') . '/' . $wynik['zl_oddzial'];
                 $zlecenie->zl_numer = $wynik['zl_numer'] + 1;
                 $zlecenie->zl_rok = date('Y');
                 $zlecenie->zl_miesiac = date('m');
@@ -61,6 +61,7 @@ class Zlecenia extends ActiveRecord {
         $zlecenie->zl_temperatura_jednostka = $post['zl_temperatura_jednostka'];
         $zlecenie->zl_uwagi = $post['zl_uwagi'];
         $zlecenie->zl_widocznosc = 1;
+        $zlecenie->uz_id = $post['uz_id'];
         $zlecenie->save();
     }
 

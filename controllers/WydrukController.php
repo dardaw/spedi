@@ -34,6 +34,7 @@ class WydrukController extends Controller {
         $query = (new \yii\db\Query());
         $query->select(['*']);
         $query->from('zlecenia');
+        $query->leftJoin("uzytkownicy", "uzytkownicy.uz_id = zlecenia.uz_id");
         $query->where(["zl_id" => $get['id']]);
         $query->limit(1);
         $zlecenie = $query->one();
@@ -104,6 +105,14 @@ class WydrukController extends Controller {
         if (!$jezyk) {
             $jezyk = [];
         }
+
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('kontrahenci');
+        $query->where(['firma_id' => Yii::$app->session->get('firma_id'), 'kh_glowny' => 1]);
+        $query->limit(1);
+        $kontrahent_glowny = $query->one();
+
         $html = $this->render('zlecenie',
                 ['zlecenie' => $zlecenie,
                     'kontrahent' => $kontrahent,
@@ -111,7 +120,8 @@ class WydrukController extends Controller {
                     'adresy' => $adresy,
                     'fracht' => $fracht,
                     'termin_platnosci' => $termin_platnosci,
-                    'jezyk' => $jezyk]
+                    'jezyk' => $jezyk,
+                    'kontrahent_glowny' => $kontrahent_glowny]
         );
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($html);

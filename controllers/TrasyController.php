@@ -42,20 +42,20 @@ class TrasyController extends Controller {
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol', 'kh_glowny'])
                 ->from('kontrahenci')
-                //->where(['last_name' => 'Smith'])
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_symbol ASC')
                 ->all();
 
         return $this->render('dodaj', ['trasa' => $wynik, 'get' => $get, 'kontrahenci' => $kontrahenci]);
     }
-    
+
     public function actionWydrukzlecenia() {
-         $get = Yii::$app->request->get();
+        $get = Yii::$app->request->get();
         if (empty($get['id'])) {
             echo 'Nieuprawniony dostep';
             exit;
         }
-         return $this->render('wydrukzlecenia', ['zl_id' => $get['id']]);
+        return $this->render('wydrukzlecenia', ['zl_id' => $get['id']]);
     }
 
 }

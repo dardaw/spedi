@@ -62,7 +62,7 @@ class FakturyController extends Controller {
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
-                //->where(['last_name' => 'Smith'])
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_symbol ASC')
                 ->all();
         return $this->render('dodaj', ['faktura' => [], 'kontrahenci' => $kontrahenci]);
@@ -110,7 +110,7 @@ class FakturyController extends Controller {
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
-                //->where(['last_name' => 'Smith'])
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_symbol ASC')
                 ->all();
         return $this->render('dodaj', ['faktura' => $wynik, 'kontrahenci' => $kontrahenci]);

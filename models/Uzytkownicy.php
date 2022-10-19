@@ -26,6 +26,9 @@ class Uzytkownicy extends ActiveRecord {
         $uzytkownik->uz_haslo = $post['uz_haslo'];
         $uzytkownik->uz_imie = $post['uz_imie'];
         $uzytkownik->uz_nazwisko = $post['uz_nazwisko'];
+        $uzytkownik->uz_telefon = $post['uz_telefon'];
+        $uzytkownik->uz_fax = $post['uz_fax'];
+        $uzytkownik->uz_trans = $post['uz_trans'];
         $uzytkownik->firma_id = $post['firma_id'];
         $uzytkownik->save();
     }

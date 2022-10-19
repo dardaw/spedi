@@ -31,6 +31,17 @@ $this->title = 'Dodawanie zlecenia';
                 </select>
             </div>
             <div class="form-group">
+                 <label for="uz_id">Spedytor</label>
+                <select class="form-control" id="uz_id" name="uz_id">
+                    <option value="0" <?php echo key_exists("uz_id", $zlecenie) && 0 == $zlecenie['uz_id'] ? 'selected="selected"' : '' ?>></option>
+                    <?php foreach ($uzytkownicy as $uzytkownik): ?>
+                        <option value="<?php echo $uzytkownik['uz_id'] ?>" <?php echo (key_exists("uz_id", $zlecenie) && $uzytkownik['uz_id'] == $zlecenie['uz_id']) || (!key_exists("uz_id", $zlecenie) && $uzytkownik['uz_id'] == Yii::$app->session->get('uz_id')) ? 'selected="selected"' : '' ?>>
+                            <?php echo $uzytkownik['uz_nazwisko'] . ' ' . $uzytkownik['uz_imie'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="zl_order">Nr order</label>
                 <input type="text" class="form-control" id="zl_order" name="zl_order" value="<?php echo key_exists("zl_order", $zlecenie) ? $zlecenie['zl_order'] : '' ?>">
             </div>
@@ -112,10 +123,10 @@ $this->title = 'Dodawanie zlecenia';
                 <textarea class="form-control" id="zl_uwagi" name="zl_uwagi"><?php echo key_exists("zl_uwagi", $zlecenie) ? $zlecenie['zl_uwagi'] : '' ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Zapisz</button>
-             <?php $url = Url::toRoute(['zlecenia/index']); ?>
-                <a href="<?php echo $url; ?>">
-                    <button type="button" class="btn btn-primary">Anuluj</button>
-                </a>
+            <?php $url = Url::toRoute(['zlecenia/index']); ?>
+            <a href="<?php echo $url; ?>">
+                <button type="button" class="btn btn-primary">Anuluj</button>
+            </a>
             <?php if (!empty($zlecenie['zl_id'])): ?>
                 <?php $url = Url::toRoute(['zlecenia/usun', 'id' => $zlecenie['zl_id']]); ?>
                 <a href="<?php echo $url; ?>">

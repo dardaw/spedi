@@ -61,10 +61,16 @@ class ZleceniaController extends Controller {
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
-                //->where(['last_name' => 'Smith'])
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_symbol ASC')
                 ->all();
-        return $this->render('dodaj', ['zlecenie' => [], 'kontrahenci' => $kontrahenci]);
+        $uzytkownicy = (new \yii\db\Query())
+                ->select(['uz_id', 'uz_imie', 'uz_nazwisko'])
+                ->from('uzytkownicy')
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
+                ->orderBy('uz_nazwisko ASC')
+                ->all();
+        return $this->render('dodaj', ['zlecenie' => [], 'kontrahenci' => $kontrahenci, 'uzytkownicy' => $uzytkownicy]);
     }
 
     public function actionZapisz() {
@@ -109,10 +115,16 @@ class ZleceniaController extends Controller {
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
-                //->where(['last_name' => 'Smith'])
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_symbol ASC')
                 ->all();
-        return $this->render('dodaj', ['zlecenie' => $wynik, 'kontrahenci' => $kontrahenci]);
+        $uzytkownicy = (new \yii\db\Query())
+                ->select(['uz_id', 'uz_imie', 'uz_nazwisko'])
+                ->from('uzytkownicy')
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
+                ->orderBy('uz_nazwisko ASC')
+                ->all();
+        return $this->render('dodaj', ['zlecenie' => $wynik, 'kontrahenci' => $kontrahenci, 'uzytkownicy' => $uzytkownicy]);
     }
 
     public function actionError() {
