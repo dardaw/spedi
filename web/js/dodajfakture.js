@@ -20,7 +20,7 @@ $('document').ready(function () {
             dataType: "json"
         });
     });
-    
+
     $("#formularz_faktury").submit(function (event) {
         if ($("#fak_waluta").val() == '') {
             alert("Wybierz walutę faktury.");
@@ -30,6 +30,15 @@ $('document').ready(function () {
             alert("Wybierz klienta.");
             return false;
         }
+    });
+
+    $("#fak_waluta").change(function () {
+        var waluta = $(this).val();
+        $('#fak_rachunek_bankowy option').each(function () {
+            $(this).removeAttr("selected");
+        });
+        if (waluta != '')
+            $('#fak_rachunek_bankowy option[waluta="' + waluta + '"]').attr("selected", 'selected');
     });
 
 })

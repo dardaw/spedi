@@ -5,7 +5,6 @@ use yii\helpers\Url;
 
 $this->title = 'Dodawanie faktury';
 $session = Yii::$app->session;
-
 ?>
 <div class="site-index">
 
@@ -60,7 +59,7 @@ $session = Yii::$app->session;
             </div>
             <div class="form-group">
                 <label for="fak_wystawil">Wystawił</label>
-                <input type="text" class="form-control" id="fak_wystawil" name="fak_wystawil" value="<?php echo key_exists("fak_wystawil", $faktura) ? $faktura['fak_wystawil'] : $session['uz_imie'] . ' ' . $session['uz_nazwisko']  ?>">
+                <input type="text" class="form-control" id="fak_wystawil" name="fak_wystawil" value="<?php echo key_exists("fak_wystawil", $faktura) ? $faktura['fak_wystawil'] : $session['uz_imie'] . ' ' . $session['uz_nazwisko'] ?>">
             </div>
             <div class="form-group">
                 <label for="fak_wartosc_netto">Wartość netto</label>
@@ -108,8 +107,15 @@ $session = Yii::$app->session;
                 <input type="text" class="form-control" id="fak_termin_platnosci" name="fak_termin_platnosci" value="<?php echo key_exists("fak_termin_platnosci", $faktura) ? $faktura['fak_termin_platnosci'] : '' ?>">
             </div>
             <div class="form-group">
-                <label for="fak_rachunek_bankowy">Rachunek bankowy</label>
-                <input type="text" class="form-control" id="fak_rachunek_bankowy" name="fak_rachunek_bankowy" value="<?php echo key_exists("fak_rachunek_bankowy", $faktura) ? $faktura['fak_rachunek_bankowy'] : '' ?>">
+                <label for="fak_rachunek_bankowy">Numer rachunku</label>
+                <select class="form-control" id="fak_rachunek_bankowy" name="fak_rachunek_bankowy">
+                    <option value=""></option>
+                    <?php foreach ($rachunki as $rachunek) : ?>
+                        <option waluta="<?php echo $rachunek['rach_waluta'] ?>" value="<?php echo $rachunek['rach_numer_rachunku'] ?>" <?php echo key_exists("fak_rachunek_bankowy", $faktura) && $faktura['fak_rachunek_bankowy'] ==  $rachunek['rach_numer_rachunku'] ? 'selected="selected"' : '' ?>>
+                             <?php echo $rachunek['rach_numer_rachunku'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <div class="form-group">
                 <label for="fak_rachunek_bankowy_vat">Rachunek bankowy VAT</label>

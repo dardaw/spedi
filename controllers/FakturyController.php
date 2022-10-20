@@ -65,7 +65,17 @@ class FakturyController extends Controller {
                 ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_symbol ASC')
                 ->all();
-        return $this->render('dodaj', ['faktura' => [], 'kontrahenci' => $kontrahenci]);
+        $kontrahent_glowny = (new \yii\db\Query())
+                ->select(['kh_id'])
+                ->from('kontrahenci')
+                ->where(['firma_id' => Yii::$app->session->get('firma_id'), 'kh_glowny' => 1])
+                ->one();
+        $rachunki = (new \yii\db\Query())
+                ->select(['*'])
+                ->from('rachunki')
+                ->where(['kh_id' => $kontrahent_glowny['kh_id']])
+                ->all();
+        return $this->render('dodaj', ['faktura' => [], 'kontrahenci' => $kontrahenci, 'rachunki' => $rachunki]);
     }
 
     public function actionZapisz() {
@@ -113,7 +123,18 @@ class FakturyController extends Controller {
                 ->where(['firma_id' => Yii::$app->session->get('firma_id')])
                 ->orderBy('kh_symbol ASC')
                 ->all();
-        return $this->render('dodaj', ['faktura' => $wynik, 'kontrahenci' => $kontrahenci]);
+        $kontrahent_glowny = (new \yii\db\Query())
+                ->select(['kh_id'])
+                ->from('kontrahenci')
+                ->where(['firma_id' => Yii::$app->session->get('firma_id'), 'kh_glowny' => 1])
+                ->one();
+        $rachunki = (new \yii\db\Query())
+                ->select(['*'])
+                ->from('rachunki')
+                ->where(['kh_id' => $kontrahent_glowny['kh_id']])
+                ->all();
+
+        return $this->render('dodaj', ['faktura' => $wynik, 'kontrahenci' => $kontrahenci, 'rachunki' => $rachunki]);
     }
 
     public function actionError() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Paź 2022, 13:34
+-- Czas generowania: 20 Paź 2022, 13:05
 -- Wersja serwera: 10.4.25-MariaDB
 -- Wersja PHP: 7.4.30
 
@@ -149,7 +149,7 @@ INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_num
 (21, 19, 1, 2022, '19/1/2022', 16, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
 (22, 20, 1, 2022, '20/1/2022', 18, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
 (23, 21, 1, 2022, '21/1/2022', 9, 0, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
-(24, 22, 1, 2022, 'FS 22/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', '3.00', '0.00', '3.00', 'PLN', '', '', NULL, '', '', '', 1);
+(24, 22, 1, 2022, 'FS 22/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', '3.00', '0.00', '3.00', 'EUR', '', '', NULL, '1', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -215,7 +215,8 @@ INSERT INTO `firmy` (`firma_id`, `firma_symbol`, `firma_nazwa`, `firma_nip`, `fi
 (4, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
 (5, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
 (6, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
-(7, 'aabcd', 'bbd', 'ccd', 'ddd', 'eed', 'ffd', 'ggd', 'hhd', 'iid');
+(7, 'aabcd', 'bbd', 'ccd', 'ddd', 'eed', 'ffd', 'ggd', 'hhd', 'iid'),
+(8, 'nowy', 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', '', '');
 
 -- --------------------------------------------------------
 
@@ -273,7 +274,7 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `
 (6, NULL, '6', 6, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:38:36', '', NULL),
 (7, NULL, '7', 7, 'c', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', '4000.00', NULL, NULL, '2020-05-06 15:39:59', '', NULL),
 (8, NULL, '8', 8, 'b', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2020-05-06 15:40:05', '', NULL),
-(9, 1, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', 'Polska', '77-100', 'Miastko', 'ul. Leśna 10', '', '', '', '', '103 132 096', '', '', '', '', '', 0, NULL, NULL, '', 'GBP', NULL, NULL, NULL, '2020-05-06 15:40:32', '', NULL),
+(9, 1, '9', 9, 'a', 'Firma', 'klient', 1, 'Test 1234', 'Polska', '77-100', 'Miastko', 'ul. Leśna 10', '', '', '', '', '103 132 096', '', '', '', '', '', 0, NULL, NULL, '', 'GBP', NULL, NULL, NULL, '2020-05-06 15:40:32', '', 1),
 (10, NULL, '10', 10, 'c', 'Firma', 'klient/przewoznik', 0, 'Coś nowego', 'Polska', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', '4000.00', NULL, NULL, '2022-01-17 11:08:42', '', NULL),
 (11, NULL, '11', 11, 'd', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:18:38', '', NULL),
 (12, NULL, '12', 12, 'e', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:18:42', '', NULL),
@@ -286,14 +287,15 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `
 (19, NULL, '19', 19, 'uu', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:06', '', NULL),
 (20, NULL, '20', 20, 'i', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:08', '', NULL),
 (21, NULL, '21', 21, 'y', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-01-17 12:19:11', '', 1),
-(22, 1, '1', 1, 'a', '', '', 0, 'b', 'd', 'e', 'f', 'g', 'h', '', 'i', '', 'c', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-17 12:06:34', '', 1),
-(23, 1, '1', 1, 'a', NULL, NULL, NULL, 'b', 'd', 'e', 'f', 'g', 'h', NULL, 'i', NULL, 'c', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:18', NULL, 1),
-(24, 1, '1', 1, 'aa', NULL, NULL, NULL, 'b', 'd', 'e', 'f', 'g', 'h', NULL, 'i', NULL, 'c', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:21', NULL, 1),
-(25, 1, '1', 1, 'aab', NULL, NULL, NULL, 'bb', 'dd', 'ee', 'ff', 'gg', 'hh', NULL, 'ii', NULL, 'cc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:30', NULL, 1),
-(26, 1, '1', 1, 'aabc', NULL, NULL, NULL, 'bb', 'dd', 'ee', 'ff', 'gg', 'hh', NULL, 'ii', NULL, 'cc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:12:01', NULL, 1),
+(22, NULL, '1', 1, 'a', '', '', 0, 'b', 'd', 'e', 'f', 'g', 'h', '', 'i', '', 'c', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-17 12:06:34', '', 1),
+(23, NULL, '1', 1, 'a', NULL, NULL, NULL, 'b', 'd', 'e', 'f', 'g', 'h', NULL, 'i', NULL, 'c', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:18', NULL, 1),
+(24, NULL, '1', 1, 'aa', NULL, NULL, NULL, 'b', 'd', 'e', 'f', 'g', 'h', NULL, 'i', NULL, 'c', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:21', NULL, 1),
+(25, NULL, '1', 1, 'aab', NULL, NULL, NULL, 'bb', 'dd', 'ee', 'ff', 'gg', 'hh', NULL, 'ii', NULL, 'cc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:11:30', NULL, 1),
+(26, NULL, '1', 1, 'aabc', NULL, NULL, NULL, 'bb', 'dd', 'ee', 'ff', 'gg', 'hh', NULL, 'ii', NULL, 'cc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:12:01', NULL, 1),
 (27, 1, '1', 1, 'aabcd', NULL, NULL, NULL, 'bbd', 'ddd', 'eed', 'ffd', 'ggd', 'hhd', NULL, 'iid', NULL, 'ccd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:18:17', NULL, 7),
 (28, NULL, '22', 22, 'e', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-17 12:36:25', '', 1),
-(29, NULL, '23', 23, 'd', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-18 10:11:10', '', 1);
+(29, NULL, '23', 23, 'd', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-18 10:11:10', '', 1),
+(30, 1, '1', 1, 'nowy', NULL, NULL, NULL, 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', '', NULL, '', NULL, 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-19 10:49:36', NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -372,7 +374,7 @@ CREATE TABLE `rachunki` (
 
 INSERT INTO `rachunki` (`rach_id`, `kh_id`, `rach_nazwa_banku`, `rach_numer_rachunku`, `rach_waluta`, `rach_swift`, `rach_oddzial`) VALUES
 (4, 9, '1', '1', 'EUR', '', ''),
-(5, 9, 'PKO', '10 1020 1000 1000 0101', 'EUR', '', ''),
+(5, 9, 'PKO', '10 1020 1000 1000 0101', 'PLN', '', ''),
 (6, 10, 'BGŻ', '20 1020 2222 1000 2222', 'PLN', '', '');
 
 -- --------------------------------------------------------
@@ -518,6 +520,9 @@ CREATE TABLE `uzytkownicy` (
   `uz_haslo` varchar(255) DEFAULT NULL,
   `uz_imie` varchar(255) DEFAULT NULL,
   `uz_nazwisko` varchar(255) DEFAULT NULL,
+  `uz_telefon` varchar(255) DEFAULT NULL,
+  `uz_fax` varchar(255) DEFAULT NULL,
+  `uz_trans` varchar(255) DEFAULT NULL,
   `firma_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -525,9 +530,9 @@ CREATE TABLE `uzytkownicy` (
 -- Zrzut danych tabeli `uzytkownicy`
 --
 
-INSERT INTO `uzytkownicy` (`uz_id`, `uz_login`, `uz_haslo`, `uz_imie`, `uz_nazwisko`, `firma_id`) VALUES
-(1, 'dardaw', '1', 'Dawid', 'Nowakowski', 1),
-(2, 'dardaw2', '1', '1', '1', 1);
+INSERT INTO `uzytkownicy` (`uz_id`, `uz_login`, `uz_haslo`, `uz_imie`, `uz_nazwisko`, `uz_telefon`, `uz_fax`, `uz_trans`, `firma_id`) VALUES
+(1, 'dardaw', '1', 'Dawid', 'Nowakowski', '12', '12', '4321', 1),
+(2, 'dardaw2', 'dar', 'dardaw2', 'dardaw2', '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -543,6 +548,7 @@ CREATE TABLE `zlecenia` (
   `zl_miesiac` int(11) DEFAULT NULL,
   `zl_rok` int(11) DEFAULT NULL,
   `zl_oddzial` varchar(255) DEFAULT NULL,
+  `uz_id` int(11) DEFAULT NULL,
   `kh_id` int(11) DEFAULT NULL,
   `zl_order` varchar(255) DEFAULT NULL,
   `zl_ladunek` text DEFAULT NULL,
@@ -566,30 +572,30 @@ CREATE TABLE `zlecenia` (
 -- Zrzut danych tabeli `zlecenia`
 --
 
-INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, `zl_miesiac`, `zl_rok`, `zl_oddzial`, `kh_id`, `zl_order`, `zl_ladunek`, `zl_data_utworzenia`, `zl_waga`, `zl_waga_jednostka`, `zl_stawka`, `zl_jednostka`, `zl_ilosc`, `zl_wartosc`, `zl_waluta`, `zl_kilometry`, `zl_temperatura`, `zl_temperatura_jednostka`, `zl_uwagi`, `zl_faktura`, `firma_id`) VALUES
-(28, 0, '1', 1, 5, 2020, 'MIA', 0, '', '', '2020-05-07 14:06:08', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(29, 0, '2/5/2020/MIA', 2, 5, 2020, 'MIA', 0, '', '', '2020-05-07 14:06:12', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(30, 1, '1', 1, 11, 2021, 'MIA', 9, 'a', '', '2021-11-15 11:39:45', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(31, 1, '2/11/2021/MIA', 2, 11, 2021, 'MIA', 9, 'b', '', '2021-11-16 08:49:54', NULL, '', '1.22', 'Fracht', '2.00', '3.00', 'PLN', NULL, NULL, '', '', 'FS 22/1/2022', 1),
-(32, 1, '3/11/2021/MIA', 3, 1, 2022, 'MIA', 17, '', '', '2022-01-17 12:20:56', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(33, 1, '4/1/2022/MIA', 4, 1, 2022, 'MIA', 8, '', '', '2022-01-17 12:21:00', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(34, 1, '5/1/2022/MIA', 5, 1, 2022, 'MIA', 18, '', '', '2022-01-17 12:21:03', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(35, 1, '6/1/2022/MIA', 6, 1, 2022, 'MIA', 7, '', '', '2022-01-17 12:21:07', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(36, 1, '7/1/2022/MIA', 7, 1, 2022, 'MIA', 17, '', '', '2022-01-17 12:21:11', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(37, 1, '8/1/2022/MIA', 8, 1, 2022, 'MIA', 7, 'c', '', '2022-01-17 12:21:16', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(38, 1, '9/1/2022/MIA', 9, 1, 2022, 'MIA', 20, '', '', '2022-01-17 12:21:56', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(39, 1, '10/1/2022/MIA', 10, 1, 2022, 'MIA', 16, '', '', '2022-01-17 12:21:59', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(40, 1, '11/1/2022/MIA', 11, 1, 2022, 'MIA', 19, '', '', '2022-01-17 12:22:03', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(41, 1, '12/1/2022/MIA', 12, 1, 2022, 'MIA', 19, '', '', '2022-01-17 12:22:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(42, 1, '13/1/2022/MIA', 13, 1, 2022, 'MIA', 21, '', '', '2022-01-17 12:22:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(43, 1, '14/1/2022/MIA', 14, 1, 2022, 'MIA', 14, '', '', '2022-01-17 12:22:15', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(44, 1, '15/1/2022/MIA', 15, 1, 2022, 'MIA', 7, '', '', '2022-01-17 12:22:18', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(45, 1, '16/1/2022/MIA', 16, 1, 2022, 'MIA', 8, '', '', '2022-01-17 12:22:25', NULL, '', NULL, '', NULL, NULL, 'GBP', NULL, NULL, '', '', NULL, 1),
-(46, 1, '17/1/2022/MIA', 17, 1, 2022, 'MIA', 21, '', '', '2022-01-17 12:22:28', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(47, 1, '18/1/2022/MIA', 18, 1, 2022, 'MIA', 13, '', '', '2022-01-17 12:22:31', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(48, 1, '19/1/2022/MIA', 19, 1, 2022, 'MIA', 15, '', '', '2022-01-17 12:22:36', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(49, 1, '20/1/2022/MIA', 20, 1, 2022, 'MIA', 20, '', '', '2022-01-17 12:22:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(50, 1, '21/1/2022/MIA', 21, 1, 2022, 'MIA', 7, '', '', '2022-01-17 12:22:44', NULL, '', '1.00', 'Fracht', '1.00', '1.00', 'PLN', NULL, NULL, '', '', NULL, 1);
+INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, `zl_miesiac`, `zl_rok`, `zl_oddzial`, `uz_id`, `kh_id`, `zl_order`, `zl_ladunek`, `zl_data_utworzenia`, `zl_waga`, `zl_waga_jednostka`, `zl_stawka`, `zl_jednostka`, `zl_ilosc`, `zl_wartosc`, `zl_waluta`, `zl_kilometry`, `zl_temperatura`, `zl_temperatura_jednostka`, `zl_uwagi`, `zl_faktura`, `firma_id`) VALUES
+(29, 0, '2/5/2020/MIA', 2, 5, 2020, 'MIA', NULL, 0, '', '', '2020-05-07 14:06:12', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(30, 1, '1', 1, 11, 2021, 'MIA', NULL, 9, 'a', '', '2021-11-15 11:39:45', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(31, 1, '2/11/2021/MIA', 2, 11, 2021, 'MIA', NULL, 9, 'b', '', '2021-11-16 08:49:54', NULL, '', '1.22', 'Fracht', '2.00', '3.00', 'PLN', NULL, NULL, '', '', 'FS 22/1/2022', 1),
+(32, 1, '3/11/2021/MIA', 3, 1, 2022, 'MIA', NULL, 17, '', '', '2022-01-17 12:20:56', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(33, 1, '4/1/2022/MIA', 4, 1, 2022, 'MIA', NULL, 8, '', '', '2022-01-17 12:21:00', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(34, 1, '5/1/2022/MIA', 5, 1, 2022, 'MIA', NULL, 18, '', '', '2022-01-17 12:21:03', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(35, 1, '6/1/2022/MIA', 6, 1, 2022, 'MIA', NULL, 7, '', '', '2022-01-17 12:21:07', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(36, 1, '7/1/2022/MIA', 7, 1, 2022, 'MIA', NULL, 17, '', '', '2022-01-17 12:21:11', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(37, 1, '8/1/2022/MIA', 8, 1, 2022, 'MIA', NULL, 7, 'c', '', '2022-01-17 12:21:16', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(38, 1, '9/1/2022/MIA', 9, 1, 2022, 'MIA', NULL, 20, '', '', '2022-01-17 12:21:56', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(39, 1, '10/1/2022/MIA', 10, 1, 2022, 'MIA', NULL, 16, '', '', '2022-01-17 12:21:59', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(40, 1, '11/1/2022/MIA', 11, 1, 2022, 'MIA', NULL, 19, '', '', '2022-01-17 12:22:03', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(41, 1, '12/1/2022/MIA', 12, 1, 2022, 'MIA', NULL, 19, '', '', '2022-01-17 12:22:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(42, 1, '13/1/2022/MIA', 13, 1, 2022, 'MIA', NULL, 21, '', '', '2022-01-17 12:22:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(43, 1, '14/1/2022/MIA', 14, 1, 2022, 'MIA', NULL, 14, '', '', '2022-01-17 12:22:15', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(44, 1, '15/1/2022/MIA', 15, 1, 2022, 'MIA', NULL, 7, '', '', '2022-01-17 12:22:18', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(45, 1, '16/1/2022/MIA', 16, 1, 2022, 'MIA', NULL, 8, '', '', '2022-01-17 12:22:25', NULL, '', NULL, '', NULL, NULL, 'GBP', NULL, NULL, '', '', NULL, 1),
+(46, 1, '17/1/2022/MIA', 17, 1, 2022, 'MIA', NULL, 21, '', '', '2022-01-17 12:22:28', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(47, 1, '18/1/2022/MIA', 18, 1, 2022, 'MIA', NULL, 13, '', '', '2022-01-17 12:22:31', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(48, 1, '19/1/2022/MIA', 19, 1, 2022, 'MIA', NULL, 15, '', '', '2022-01-17 12:22:36', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(49, 1, '20/1/2022/MIA', 20, 1, 2022, 'MIA', 0, 0, '', '', '2022-01-17 12:22:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(50, 1, '21/1/2022/MIA', 21, 1, 2022, 'MIA', 1, 21, '', '', '2022-01-17 12:22:44', NULL, '', '1.00', 'Fracht', '1.00', '1.00', 'PLN', NULL, NULL, '', '', NULL, 1),
+(54, 1, '22/10/2022/MIA', 22, 10, 2022, 'MIA', 1, 21, '', '', '2022-10-19 11:25:58', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -711,13 +717,13 @@ ALTER TABLE `faktury_pozycje`
 -- AUTO_INCREMENT dla tabeli `firmy`
 --
 ALTER TABLE `firmy`
-  MODIFY `firma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `firma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
-  MODIFY `kh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `kh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT dla tabeli `kurs`
@@ -765,7 +771,7 @@ ALTER TABLE `uzytkownicy`
 -- AUTO_INCREMENT dla tabeli `zlecenia`
 --
 ALTER TABLE `zlecenia`
-  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
