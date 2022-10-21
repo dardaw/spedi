@@ -34,7 +34,7 @@ class UstawieniaController extends Controller {
         $query->where(["ust_nazwa" => "warunki_zlecenia_pl", 'firma_id' => Yii::$app->session->get('firma_id')]);
         $query->limit(1);
         $pl = $query->one();
-        if(!$pl){
+        if (!$pl) {
             $pl = [];
         }
         $query = (new \yii\db\Query());
@@ -42,23 +42,23 @@ class UstawieniaController extends Controller {
         $query->from('ustawienia_globalne');
         $query->where(["ust_nazwa" => "warunki_zlecenia_en", 'firma_id' => Yii::$app->session->get('firma_id')]);
         $query->limit(1);
-        $en= $query->one();
-         if(!$en){
+        $en = $query->one();
+        if (!$en) {
             $en = [];
         }
-          $query = (new \yii\db\Query());
+        $query = (new \yii\db\Query());
         $query->select(['*']);
         $query->from('ustawienia_globalne');
         $query->where(["ust_nazwa" => "warunki_zlecenia_de", 'firma_id' => Yii::$app->session->get('firma_id')]);
         $query->limit(1);
         $de = $query->one();
-         if(!$de){
+        if (!$de) {
             $de = [];
         }
         return $this->render('wydrukzlecenia', ['ustawienia' => ['ust1' => $pl, 'ust2' => $en, 'ust3' => $de]]);
     }
-    
-     public function actionWydrukzleceniazapisz() {
+
+    public function actionWydrukzleceniazapisz() {
         $post = Yii::$app->request->post();
         if (count($post) == 0) {
             echo 'Nieuprawniony dostep';
@@ -68,5 +68,38 @@ class UstawieniaController extends Controller {
         $id = $firmy->zapiszWydrukZlecenia($post);
         $this->redirect(['ustawienia/wydrukzlecenia']);
     }
+
+    public function actionNumeracjazlecenia() {
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "numeracja_zlecenia", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $numeracja = $query->one();
+        if (!$numeracja) {
+            $numeracja = [];
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "numeracja_zlecenia_oddzial", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $numeracja_oddzial = $query->one();
+        if (!$numeracja_oddzial) {
+            $numeracja_oddzial = [];
+        }
+        return $this->render('numeracjazlecenia', ['ustawienia' => $numeracja, 'numeracja_oddzial' => $numeracja_oddzial]);
+    }
     
+      public function actionNumeracjazleceniazapisz() {
+        $post = Yii::$app->request->post();
+        if (count($post) == 0) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $firmy = new Ustawienia();
+        $id = $firmy->zapiszNumeracjeZlecenia($post);
+        $this->redirect(['ustawienia/numeracjazlecenia']);
+    }
+
 }

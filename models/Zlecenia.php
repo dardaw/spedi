@@ -15,10 +15,42 @@ class Zlecenia extends ActiveRecord {
     }
 
     public function zapisz($post) {
+        $tablica_warunkow = ['zl_widocznosc' => 1, 'firma_id' => Yii::$app->session->get('firma_id')];
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "numeracja_zlecenia", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $numeracja = $query->one();
+        if (!$numeracja) {
+            $numeracja = [];
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "numeracja_zlecenia_oddzial", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $numeracja_oddzial = $query->one();
+        if (!$numeracja_oddzial) {
+            $numeracja_oddzial = [];
+        }
+        if (count($numeracja) != 0) {
+            if ($numeracja['ust_wartosc'] == 'roczna') {
+                $tablica_warunkow['zl_rok'] = date('Y');
+            } elseif ($numeracja['ust_wartosc'] == 'miesieczna') {
+                $tablica_warunkow['zl_rok'] = date('Y');
+                $tablica_warunkow['zl_miesiac'] = date('m');
+            }
+        }
+        if (count($numeracja_oddzial) != 0) {
+            if ($numeracja_oddzial['ust_wartosc'] == 1) {
+                $tablica_warunkow['zl_oddzial'] = Yii::$app->session->get('uz_oddzial');
+            }
+        }
         $query = (new \yii\db\Query());
         $query->select(['zl_numer_pelny', 'zl_numer', 'zl_miesiac', 'zl_rok', 'zl_oddzial']);
         $query->from('zlecenia');
-        $query->where(['zl_widocznosc' => 1]);
+        $query->where($tablica_warunkow);
         $query->limit(1);
         $query->orderBy('zl_numer DESC')->addOrderBy('zl_rok DESC')->addOrderBy('zl_miesiac DESC')->addOrderBy('zl_oddzial DESC');
         $wynik = $query->one();
@@ -33,15 +65,25 @@ class Zlecenia extends ActiveRecord {
             if (empty($wynik['zl_numer_pelny'])) {
                 $zlecenie->zl_numer_pelny = 1;
                 $zlecenie->zl_numer = 1;
-                $zlecenie->zl_rok = date('Y');
-                $zlecenie->zl_miesiac = date('m');
-                $zlecenie->zl_oddzial = "MIA";
             } else {
-                $zlecenie->zl_numer_pelny = ($wynik['zl_numer'] + 1) . '/' . date('m') . '/' . date('Y') . '/' . $wynik['zl_oddzial'];
+                $zlecenie->zl_numer_pelny = ($wynik['zl_numer'] + 1);
                 $zlecenie->zl_numer = $wynik['zl_numer'] + 1;
-                $zlecenie->zl_rok = date('Y');
-                $zlecenie->zl_miesiac = date('m');
-                $zlecenie->zl_oddzial = "MIA";
+            }
+            if (count($numeracja) != 0) {
+                if ($numeracja['ust_wartosc'] == 'roczna') {
+                    $zlecenie->zl_numer_pelny .= '/' . date('Y');
+                    $zlecenie->zl_rok = date('Y');
+                } elseif ($numeracja['ust_wartosc'] == 'miesieczna') {
+                    $zlecenie->zl_numer_pelny .= '/' . date('m') . '/' . date('Y');
+                    $zlecenie->zl_rok = date('Y');
+                    $zlecenie->zl_miesiac = date('m');
+                }
+            }
+            if (count($numeracja_oddzial) != 0) {
+                if ($numeracja_oddzial['ust_wartosc'] == 1) {
+                    $zlecenie->zl_numer_pelny .= '/' . Yii::$app->session->get('uz_oddzial');
+                    $zlecenie->zl_oddzial = Yii::$app->session->get('uz_oddzial');
+                }
             }
             $zlecenie->zl_data_utworzenia = date("Y-m-d H:i:s");
         }

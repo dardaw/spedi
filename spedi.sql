@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Paź 2022, 13:05
+-- Czas generowania: 21 Paź 2022, 12:58
 -- Wersja serwera: 10.4.25-MariaDB
 -- Wersja PHP: 7.4.30
 
@@ -506,7 +506,9 @@ CREATE TABLE `ustawienia_globalne` (
 INSERT INTO `ustawienia_globalne` (`ust_id`, `ust_nazwa`, `ust_wartosc`, `firma_id`) VALUES
 (15, 'warunki_zlecenia_pl', '1', 1),
 (16, 'warunki_zlecenia_en', '2', 1),
-(17, 'warunki_zlecenia_de', '3', 1);
+(17, 'warunki_zlecenia_de', '3', 1),
+(26, 'numeracja_zlecenia', 'stala', 1),
+(27, 'numeracja_zlecenia_oddzial', '0', 1);
 
 -- --------------------------------------------------------
 
@@ -523,6 +525,7 @@ CREATE TABLE `uzytkownicy` (
   `uz_telefon` varchar(255) DEFAULT NULL,
   `uz_fax` varchar(255) DEFAULT NULL,
   `uz_trans` varchar(255) DEFAULT NULL,
+  `uz_oddzial` varchar(255) DEFAULT NULL,
   `firma_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -530,9 +533,10 @@ CREATE TABLE `uzytkownicy` (
 -- Zrzut danych tabeli `uzytkownicy`
 --
 
-INSERT INTO `uzytkownicy` (`uz_id`, `uz_login`, `uz_haslo`, `uz_imie`, `uz_nazwisko`, `uz_telefon`, `uz_fax`, `uz_trans`, `firma_id`) VALUES
-(1, 'dardaw', '1', 'Dawid', 'Nowakowski', '12', '12', '4321', 1),
-(2, 'dardaw2', 'dar', 'dardaw2', 'dardaw2', '', '', '', 1);
+INSERT INTO `uzytkownicy` (`uz_id`, `uz_login`, `uz_haslo`, `uz_imie`, `uz_nazwisko`, `uz_telefon`, `uz_fax`, `uz_trans`, `uz_oddzial`, `firma_id`) VALUES
+(1, 'dardaw', '1', 'Dawid', 'Nowakowski', '12', '12', '4321', '', 1),
+(2, 'dardaw2', 'dar', 'dardaw2', 'dardaw2', '', '', '', NULL, 1),
+(3, 'dardaw3', '', '', '', '', '', '', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -573,29 +577,18 @@ CREATE TABLE `zlecenia` (
 --
 
 INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, `zl_miesiac`, `zl_rok`, `zl_oddzial`, `uz_id`, `kh_id`, `zl_order`, `zl_ladunek`, `zl_data_utworzenia`, `zl_waga`, `zl_waga_jednostka`, `zl_stawka`, `zl_jednostka`, `zl_ilosc`, `zl_wartosc`, `zl_waluta`, `zl_kilometry`, `zl_temperatura`, `zl_temperatura_jednostka`, `zl_uwagi`, `zl_faktura`, `firma_id`) VALUES
-(29, 0, '2/5/2020/MIA', 2, 5, 2020, 'MIA', NULL, 0, '', '', '2020-05-07 14:06:12', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(30, 1, '1', 1, 11, 2021, 'MIA', NULL, 9, 'a', '', '2021-11-15 11:39:45', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(31, 1, '2/11/2021/MIA', 2, 11, 2021, 'MIA', NULL, 9, 'b', '', '2021-11-16 08:49:54', NULL, '', '1.22', 'Fracht', '2.00', '3.00', 'PLN', NULL, NULL, '', '', 'FS 22/1/2022', 1),
-(32, 1, '3/11/2021/MIA', 3, 1, 2022, 'MIA', NULL, 17, '', '', '2022-01-17 12:20:56', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(33, 1, '4/1/2022/MIA', 4, 1, 2022, 'MIA', NULL, 8, '', '', '2022-01-17 12:21:00', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(34, 1, '5/1/2022/MIA', 5, 1, 2022, 'MIA', NULL, 18, '', '', '2022-01-17 12:21:03', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(35, 1, '6/1/2022/MIA', 6, 1, 2022, 'MIA', NULL, 7, '', '', '2022-01-17 12:21:07', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(36, 1, '7/1/2022/MIA', 7, 1, 2022, 'MIA', NULL, 17, '', '', '2022-01-17 12:21:11', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(37, 1, '8/1/2022/MIA', 8, 1, 2022, 'MIA', NULL, 7, 'c', '', '2022-01-17 12:21:16', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(38, 1, '9/1/2022/MIA', 9, 1, 2022, 'MIA', NULL, 20, '', '', '2022-01-17 12:21:56', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(39, 1, '10/1/2022/MIA', 10, 1, 2022, 'MIA', NULL, 16, '', '', '2022-01-17 12:21:59', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(40, 1, '11/1/2022/MIA', 11, 1, 2022, 'MIA', NULL, 19, '', '', '2022-01-17 12:22:03', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(41, 1, '12/1/2022/MIA', 12, 1, 2022, 'MIA', NULL, 19, '', '', '2022-01-17 12:22:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(42, 1, '13/1/2022/MIA', 13, 1, 2022, 'MIA', NULL, 21, '', '', '2022-01-17 12:22:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(43, 1, '14/1/2022/MIA', 14, 1, 2022, 'MIA', NULL, 14, '', '', '2022-01-17 12:22:15', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(44, 1, '15/1/2022/MIA', 15, 1, 2022, 'MIA', NULL, 7, '', '', '2022-01-17 12:22:18', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(45, 1, '16/1/2022/MIA', 16, 1, 2022, 'MIA', NULL, 8, '', '', '2022-01-17 12:22:25', NULL, '', NULL, '', NULL, NULL, 'GBP', NULL, NULL, '', '', NULL, 1),
-(46, 1, '17/1/2022/MIA', 17, 1, 2022, 'MIA', NULL, 21, '', '', '2022-01-17 12:22:28', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(47, 1, '18/1/2022/MIA', 18, 1, 2022, 'MIA', NULL, 13, '', '', '2022-01-17 12:22:31', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(48, 1, '19/1/2022/MIA', 19, 1, 2022, 'MIA', NULL, 15, '', '', '2022-01-17 12:22:36', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(49, 1, '20/1/2022/MIA', 20, 1, 2022, 'MIA', 0, 0, '', '', '2022-01-17 12:22:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(50, 1, '21/1/2022/MIA', 21, 1, 2022, 'MIA', 1, 21, '', '', '2022-01-17 12:22:44', NULL, '', '1.00', 'Fracht', '1.00', '1.00', 'PLN', NULL, NULL, '', '', NULL, 1),
-(54, 1, '22/10/2022/MIA', 22, 10, 2022, 'MIA', 1, 21, '', '', '2022-10-19 11:25:58', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1);
+(74, 1, '1/B', 1, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 11:00:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(75, 1, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:00:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(76, 0, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:45:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(77, 1, '3', 3, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:00:22', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(78, 1, '4', 4, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(79, 1, '5', 5, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:20', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
+(80, 1, '6', 6, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:54:35', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
+(81, 1, '7', 7, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 12:54:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(82, 1, '1/2022/', 1, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:54:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(83, 1, '2/2022', 2, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:55:09', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(84, 1, '3/2022', 3, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:43', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(85, 1, '8', 8, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:52', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -759,19 +752,19 @@ ALTER TABLE `trasy`
 -- AUTO_INCREMENT dla tabeli `ustawienia_globalne`
 --
 ALTER TABLE `ustawienia_globalne`
-  MODIFY `ust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `uz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `uz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `zlecenia`
 --
 ALTER TABLE `zlecenia`
-  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

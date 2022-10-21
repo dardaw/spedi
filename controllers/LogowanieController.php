@@ -35,6 +35,7 @@ class LogowanieController extends Controller {
                 $session->set('uz_imie', $wynik[0]['uz_imie']);
                 $session->set('uz_nazwisko', $wynik[0]['uz_nazwisko']);
                 $session->set('uz_id', $wynik[0]['uz_id']);
+                $session->set('uz_oddzial', $wynik[0]['uz_oddzial']);
                 $session->set('firma_id', $wynik[0]['firma_id']);
                 $this->redirect(['zlecenia/index']);
             }

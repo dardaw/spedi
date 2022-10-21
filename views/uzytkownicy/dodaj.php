@@ -31,17 +31,21 @@ $this->title = 'Dodawanie firmy';
                 <label for="uz_nazwisko">Nazwisko</label>
                 <input type="text" class="form-control" id="uz_nazwisko" name="uz_nazwisko" value="<?php echo key_exists("uz_nazwisko", $uzytkownik) ? $uzytkownik['uz_nazwisko'] : '' ?>">
             </div>
-                    <div class="form-group">
+            <div class="form-group">
                 <label for="uz_telefon">Telefon</label>
                 <input type="text" class="form-control" id="uz_telefon" name="uz_telefon" value="<?php echo key_exists("uz_telefon", $uzytkownik) ? $uzytkownik['uz_telefon'] : '' ?>">
             </div>
-                    <div class="form-group">
+            <div class="form-group">
                 <label for="uz_fax">Fax</label>
                 <input type="text" class="form-control" id="uz_fax" name="uz_fax" value="<?php echo key_exists("uz_fax", $uzytkownik) ? $uzytkownik['uz_fax'] : '' ?>">
             </div>
-                    <div class="form-group">
+            <div class="form-group">
                 <label for="uz_trans">Trans</label>
                 <input type="text" class="form-control" id="uz_trans" name="uz_trans" value="<?php echo key_exists("uz_trans", $uzytkownik) ? $uzytkownik['uz_trans'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="uz_trans">Oddział</label>
+                <input type="text" class="form-control" id="uz_oddzial" name="uz_oddzial" value="<?php echo key_exists("uz_oddzial", $uzytkownik) ? $uzytkownik['uz_oddzial'] : '' ?>">
             </div>
             <div class="form-group">
                 <label for="firma_id">Firma</label>
