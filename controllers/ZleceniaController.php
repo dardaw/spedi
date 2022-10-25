@@ -6,7 +6,9 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\Zlecenia;
+use app\models\Trasy;
 use app\models\Adresy;
+use app\models\Rozrachunki;
 use yii\data\Pagination;
 
 class ZleceniaController extends Controller {
@@ -96,6 +98,14 @@ class ZleceniaController extends Controller {
         $zlecenie->zl_widocznosc = 0;
         $zlecenie->save();
 
+        $trasa = Trasy::find()
+                ->where(['zl_id' => $get['id']])
+                ->one();
+        $rozrachunki = Rozrachunki::find()
+                ->where(['tr_id' => $trasa->tr_id])
+                ->one();
+        $rozrachunki->delete();
+
         $this->redirect(['zlecenia/index']);
     }
 
@@ -148,7 +158,7 @@ class ZleceniaController extends Controller {
             $kopia->$key = $value;
         }
         unset($kopia->zl_id);
-        
+
         $tablica_warunkow = ['zl_widocznosc' => 1, 'firma_id' => Yii::$app->session->get('firma_id')];
         $query = (new \yii\db\Query());
         $query->select(['*']);
@@ -188,31 +198,31 @@ class ZleceniaController extends Controller {
         $query->limit(1);
         $query->orderBy('zl_numer DESC')->addOrderBy('zl_rok DESC')->addOrderBy('zl_miesiac DESC')->addOrderBy('zl_oddzial DESC');
         $wynik = $query->one();
-        
+
         if (empty($wynik['zl_numer_pelny'])) {
-                $kopia->zl_numer_pelny = 1;
-                $kopia->zl_numer = 1;
-            } else {
-                $kopia->zl_numer_pelny = ($wynik['zl_numer'] + 1);
-                $kopia->zl_numer = $wynik['zl_numer'] + 1;
+            $kopia->zl_numer_pelny = 1;
+            $kopia->zl_numer = 1;
+        } else {
+            $kopia->zl_numer_pelny = ($wynik['zl_numer'] + 1);
+            $kopia->zl_numer = $wynik['zl_numer'] + 1;
+        }
+        if (count($numeracja) != 0) {
+            if ($numeracja['ust_wartosc'] == 'roczna') {
+                $kopia->zl_numer_pelny .= '/' . date('Y');
+                $kopia->zl_rok = date('Y');
+            } elseif ($numeracja['ust_wartosc'] == 'miesieczna') {
+                $kopia->zl_numer_pelny .= '/' . date('m') . '/' . date('Y');
+                $kopia->zl_rok = date('Y');
+                $kopia->zl_miesiac = date('m');
             }
-            if (count($numeracja) != 0) {
-                if ($numeracja['ust_wartosc'] == 'roczna') {
-                    $kopia->zl_numer_pelny .= '/' . date('Y');
-                    $kopia->zl_rok = date('Y');
-                } elseif ($numeracja['ust_wartosc'] == 'miesieczna') {
-                    $kopia->zl_numer_pelny .= '/' . date('m') . '/' . date('Y');
-                    $kopia->zl_rok = date('Y');
-                    $kopia->zl_miesiac = date('m');
-                }
+        }
+        if (count($numeracja_oddzial) != 0) {
+            if ($numeracja_oddzial['ust_wartosc'] == 1) {
+                $kopia->zl_numer_pelny .= '/' . Yii::$app->session->get('uz_oddzial');
+                $kopia->zl_oddzial = Yii::$app->session->get('uz_oddzial');
             }
-            if (count($numeracja_oddzial) != 0) {
-                if ($numeracja_oddzial['ust_wartosc'] == 1) {
-                    $kopia->zl_numer_pelny .= '/' . Yii::$app->session->get('uz_oddzial');
-                    $kopia->zl_oddzial = Yii::$app->session->get('uz_oddzial');
-                }
-            }
-        
+        }
+
         $kopia->zl_data_utworzenia = date('Y-m-d H:i:s');
         $kopia->save();
         $zl_id = $kopia->getAttribute("zl_id");

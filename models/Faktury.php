@@ -15,10 +15,29 @@ class Faktury extends ActiveRecord {
     }
 
     public function zapisz($post) {
+        $tablica_warunkow = ['fak_widocznosc' => 1, 'firma_id' => Yii::$app->session->get('firma_id')];
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "numeracja_faktury", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $numeracja = $query->one();
+        if (!$numeracja) {
+            $numeracja = [];
+        }
+         if (count($numeracja) != 0) {
+            if ($numeracja['ust_wartosc'] == 'roczna') {
+                $tablica_warunkow['fak_rok'] = date('Y');
+            } elseif ($numeracja['ust_wartosc'] == 'miesieczna') {
+                $tablica_warunkow['fak_rok'] = date('Y');
+                $tablica_warunkow['fak_miesiac'] = date('m');
+            }
+        }
+        
         $query = (new \yii\db\Query());
         $query->select(['fak_numer_pelny', 'fak_numer', 'fak_miesiac', 'fak_rok']);
         $query->from('faktury');
-        $query->where(['fak_widocznosc' => 1]);
+        $query->where($tablica_warunkow);
         $query->limit(1);
         $query->orderBy('fak_numer DESC')->addOrderBy('fak_rok DESC')->addOrderBy('fak_miesiac DESC');
         $wynik = $query->one();
@@ -30,16 +49,22 @@ class Faktury extends ActiveRecord {
                     ->one();
         }
         if (empty($post['fak_id'])) {
-            if (empty($wynik['fak_numer_pelny'])) {
+             if (empty($wynik['fak_numer_pelny'])) {
                 $faktura->fak_numer_pelny = 'FS ' . 1;
                 $faktura->fak_numer = 1;
-                $faktura->fak_rok = date('Y');
-                $faktura->fak_miesiac = date('m');
             } else {
-                $faktura->fak_numer_pelny = 'FS ' . ($wynik['fak_numer'] + 1) . '/' . $wynik['fak_miesiac'] . '/' . $wynik['fak_rok'];
+                $faktura->fak_numer_pelny = 'FS ' . ($wynik['fak_numer'] + 1);
                 $faktura->fak_numer = $wynik['fak_numer'] + 1;
-                $faktura->fak_rok = date('Y');
-                $faktura->fak_miesiac = date('m');
+            }
+            if (count($numeracja) != 0) {
+                if ($numeracja['ust_wartosc'] == 'roczna') {
+                    $faktura->fak_numer_pelny .= '/' . date('Y');
+                    $faktura->fak_rok = date('Y');
+                } elseif ($numeracja['ust_wartosc'] == 'miesieczna') {
+                    $faktura->fak_numer_pelny .= '/' . date('m') . '/' . date('Y');
+                    $faktura->fak_rok = date('Y');
+                    $faktura->fak_miesiac = date('m');
+                }
             }
         }
         $faktura->kh_id = $post['kh_id'];

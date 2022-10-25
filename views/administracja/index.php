@@ -62,6 +62,17 @@ $this->title = 'Administracja';
                         Edycja ustawień numeracji zlecenia
                     </td>
                 </tr>
+                <tr>
+                    <td scope="col">
+                        <?php $url = Url::toRoute(['ustawienia/numeracjafaktury']); ?>
+                        <button type="button" class="btn btn-default btn-lg">
+                            <a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-list" aria-hidden="true"> Numeracja faktury</span></a>
+                        </button>
+                    </td>
+                    <td scope="col"> 
+                        Edycja ustawień numeracji faktury
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

@@ -101,5 +101,29 @@ class UstawieniaController extends Controller {
         $id = $firmy->zapiszNumeracjeZlecenia($post);
         $this->redirect(['ustawienia/numeracjazlecenia']);
     }
+    
+     public function actionNumeracjafaktury() {
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('ustawienia_globalne');
+        $query->where(["ust_nazwa" => "numeracja_faktury", 'firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->limit(1);
+        $numeracja = $query->one();
+        if (!$numeracja) {
+            $numeracja = [];
+        }
+        return $this->render('numeracjafaktury', ['ustawienia' => $numeracja]);
+    }
+    
+      public function actionNumeracjafakturyzapisz() {
+        $post = Yii::$app->request->post();
+        if (count($post) == 0) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $firmy = new Ustawienia();
+        $id = $firmy->zapiszNumeracjeFaktury($post);
+        $this->redirect(['ustawienia/numeracjafaktury']);
+    }
 
 }

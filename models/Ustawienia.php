@@ -70,5 +70,19 @@ class Ustawienia extends ActiveRecord {
         $ustawienia_2->firma_id = Yii::$app->session->get('firma_id');
         $ustawienia_2->save();
     }
+    
+     public function zapiszNumeracjeFaktury($post) {
+        if (empty($post['ust1_id'])) {
+            $ustawienia_1 = clone $this;
+        } else {
+            $ustawienia_1 = self::find()
+                    ->where(['ust_id' => $post['ust1_id']])
+                    ->one();
+        }
+        $ustawienia_1->ust_nazwa = 'numeracja_faktury';
+        $ustawienia_1->ust_wartosc = $post['numeracja_faktury'];
+        $ustawienia_1->firma_id = Yii::$app->session->get('firma_id');
+        $ustawienia_1->save();
+    }
 
 }
