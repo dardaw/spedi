@@ -70,7 +70,7 @@ $this->title = 'Dodawanie/edycja trasy';
             </div>
             <div class="form-group">
                 <label for="tr_ilosc">Ilość</label>
-                <input type="text" class="form-control" id="tr_ilosc" name="tr_ilosc" value="<?php echo key_exists("tr_ilosc", $trasa) ? $trasa['tr_ilosc'] : '' ?>">
+                <input type="text" class="form-control" id="tr_ilosc" name="tr_ilosc" value="<?php echo key_exists("tr_ilosc", $trasa) ? $trasa['tr_ilosc'] : '1.00' ?>">
             </div>
             <div class="form-group">
                 <label for="zl_wartosc">Wartość</label>

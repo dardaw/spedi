@@ -33,5 +33,16 @@ $('document').ready(function () {
         });
     });
 
+    $('#zl_stawka, #zl_ilosc, #zl_wartosc').change(function () {
+        var zl_stawka = $("#zl_stawka").val().replace(',', '.');
+        var zl_ilosc = $("#zl_ilosc").val().replace(',', '.');
+        var zl_wartosc = $("#zl_wartosc").val().replace(',', '.');
+        if (isFinite(zl_stawka) && isFinite(zl_ilosc)) {
+            var wartosc = zl_stawka * zl_ilosc;
+            $("#zl_wartosc").val(parseFloat(wartosc).toFixed(2));
+        }
+    });
+
+
 })
 

@@ -83,7 +83,7 @@ $this->title = 'Dodawanie zlecenia';
             </div>
             <div class="form-group">
                 <label for="zl_ilosc">Ilość</label>
-                <input type="text" class="form-control" id="zl_ilosc" name="zl_ilosc" value="<?php echo key_exists("zl_ilosc", $zlecenie) ? $zlecenie['zl_ilosc'] : '' ?>">
+                <input type="text" class="form-control" id="zl_ilosc" name="zl_ilosc" value="<?php echo key_exists("zl_ilosc", $zlecenie) ? $zlecenie['zl_ilosc'] : '1.00' ?>">
             </div>
             <div class="form-group">
                 <label for="zl_wartosc">Wartość</label>

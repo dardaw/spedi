@@ -32,7 +32,7 @@ class ZleceniaController extends Controller {
 
     public function actionIndex() {
         $get = Yii::$app->request->get();
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazzlecenia.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazzlecenia.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $zlecenia = (new \yii\db\Query())
                 ->select(['*'])
                 ->from('zlecenia')
@@ -59,7 +59,7 @@ class ZleceniaController extends Controller {
     }
 
     public function actionDodaj() {
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajzlecenie.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajzlecenie.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $kontrahenci = (new \yii\db\Query())
                 ->select(['kh_id', 'kh_symbol'])
                 ->from('kontrahenci')
@@ -110,7 +110,7 @@ class ZleceniaController extends Controller {
     }
 
     public function actionEdycja() {
-        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajzlecenie.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajzlecenie.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $get = Yii::$app->request->get();
         if (empty($get['id'])) {
             echo 'Nieuprawniony dostep';
