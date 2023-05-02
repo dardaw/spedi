@@ -41,7 +41,7 @@ AppAsset::register($this);
                                 <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Rozrachunki</a></li>
                                 <?php $url = Url::toRoute(['kontrahenci/index']); ?>
                                 <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Kontrahenci</a></li>
-                                  <?php $url = Url::toRoute(['administracja/index']); ?>
+                                <?php $url = Url::toRoute(['administracja/index']); ?>
                                 <li><a href="<?php echo $url; ?>"><span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span> Administracja</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
@@ -64,7 +64,12 @@ AppAsset::register($this);
         <input type="hidden" id="base_url" value="<?php echo Url::base(); ?>" />
         <input type="hidden" id="controller_name" value="<?php echo Yii::$app->controller->id; ?>" />
         <input type="hidden" id="action_name" value="<?php echo Yii::$app->controller->action->id; ?>" />
-
+        <?php
+        if (Yii::$app->controller->action->id == 'index') {
+            $requrest_uri = $_SERVER['REQUEST_URI'];
+            Yii::$app->session->set('filtr_strony_' . Yii::$app->controller->id, $requrest_uri);
+        }
+        ?>
         <?php $this->endBody() ?>
         <script src="<?php echo Url::base() ?>/js/system.js?md=<?php echo rand(1, 1000000); ?>"></script>
     </body>

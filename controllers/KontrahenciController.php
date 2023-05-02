@@ -68,7 +68,11 @@ class KontrahenciController extends Controller {
         }
         $zlecenia = new Kontrahenci();
         $zlecenia->zapisz($post);
-        $this->redirect(['kontrahenci/index']);
+        if (!empty(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id))) {
+            $this->redirect(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id));
+        } else {
+            $this->redirect(['kontrahenci/index']);
+        }
     }
 
     public function actionEdycja() {

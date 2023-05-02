@@ -75,7 +75,11 @@ class RozrachunkiController extends Controller {
         }
         $zlecenia = new Rozrachunki();
         $zlecenia->zapisz($post);
-        $this->redirect(['rozrachunki/index']);
+        if (!empty(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id))) {
+            $this->redirect(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id));
+        } else {
+            $this->redirect(['rozrachunki/index']);
+        }
     }
 
     public function actionEdycja() {

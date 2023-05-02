@@ -86,7 +86,11 @@ class FakturyController extends Controller {
         }
         $zlecenia = new Faktury();
         $zlecenia->zapisz($post);
-        $this->redirect(['faktury/index']);
+        if (!empty(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id))) {
+            $this->redirect(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id));
+        } else {
+            $this->redirect(['faktury/index']);
+        }
     }
 
     public function actionUsun() {

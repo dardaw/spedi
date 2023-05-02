@@ -25,7 +25,7 @@ class Faktury extends ActiveRecord {
         if (!$numeracja) {
             $numeracja = [];
         }
-         if (count($numeracja) != 0) {
+        if (count($numeracja) != 0) {
             if ($numeracja['ust_wartosc'] == 'roczna') {
                 $tablica_warunkow['fak_rok'] = date('Y');
             } elseif ($numeracja['ust_wartosc'] == 'miesieczna') {
@@ -33,7 +33,7 @@ class Faktury extends ActiveRecord {
                 $tablica_warunkow['fak_miesiac'] = date('m');
             }
         }
-        
+
         $query = (new \yii\db\Query());
         $query->select(['fak_numer_pelny', 'fak_numer', 'fak_miesiac', 'fak_rok']);
         $query->from('faktury');
@@ -49,7 +49,7 @@ class Faktury extends ActiveRecord {
                     ->one();
         }
         if (empty($post['fak_id'])) {
-             if (empty($wynik['fak_numer_pelny'])) {
+            if (empty($wynik['fak_numer_pelny'])) {
                 $faktura->fak_numer_pelny = 'FS ' . 1;
                 $faktura->fak_numer = 1;
             } else {
@@ -66,6 +66,18 @@ class Faktury extends ActiveRecord {
                     $faktura->fak_miesiac = date('m');
                 }
             }
+            $query = (new \yii\db\Query());
+            $kontrahent_glowny = (new \yii\db\Query())
+                    ->select(['*'])
+                    ->from('kontrahenci')
+                    ->where(['firma_id' => Yii::$app->session->get('firma_id'), 'kh_glowny' => 1])
+                    ->one();
+            $faktura->fak_wystawca_nazwa = $kontrahent_glowny['kh_nazwa_pelna'];
+            $faktura->fak_wystawca_ulica = $kontrahent_glowny['kh_ulica'];
+            $faktura->fak_wystawca_kod_pocztowy = $kontrahent_glowny['kh_kod_pocztowy'];
+            $faktura->fak_wystawca_miasto = $kontrahent_glowny['kh_miasto'];
+            $faktura->fak_wystawca_nip = $kontrahent_glowny['kh_nip'];
+            $faktura->fak_wystawca_vat_ue = $kontrahent_glowny['kh_vat_ue'];
         }
         $faktura->kh_id = $post['kh_id'];
         $faktura->firma_id = Yii::$app->session->get('firma_id');

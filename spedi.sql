@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 21 Paź 2022, 12:58
+-- Czas generowania: 02 Maj 2023, 12:17
 -- Wersja serwera: 10.4.25-MariaDB
 -- Wersja PHP: 7.4.30
 
@@ -107,6 +107,12 @@ CREATE TABLE `faktury` (
   `fak_nabywca_kod_pocztowy` varchar(255) DEFAULT NULL,
   `fak_nabywca_miasto` varchar(255) DEFAULT NULL,
   `fak_nabywca_nip` varchar(255) DEFAULT NULL,
+  `fak_wystawca_nazwa` varchar(255) DEFAULT NULL,
+  `fak_wystawca_ulica` varchar(255) DEFAULT NULL,
+  `fak_wystawca_kod_pocztowy` varchar(255) DEFAULT NULL,
+  `fak_wystawca_miasto` varchar(255) DEFAULT NULL,
+  `fak_wystawca_nip` varchar(255) DEFAULT NULL,
+  `fak_wystawca_vat_ue` varchar(255) DEFAULT NULL,
   `fak_wystawil` varchar(255) DEFAULT NULL,
   `fak_wartosc_netto` decimal(10,2) DEFAULT NULL,
   `fak_wartosc_vat` decimal(10,2) DEFAULT NULL,
@@ -125,31 +131,40 @@ CREATE TABLE `faktury` (
 -- Zrzut danych tabeli `faktury`
 --
 
-INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_numer_pelny`, `kh_id`, `fak_widocznosc`, `fak_miejsce_wystawienia`, `fak_data_wystawienia`, `fak_data_zakonczenia`, `fak_nabywca_nazwa`, `fak_nabywca_ulica`, `fak_nabywca_kod_pocztowy`, `fak_nabywca_miasto`, `fak_nabywca_nip`, `fak_wystawil`, `fak_wartosc_netto`, `fak_wartosc_vat`, `fak_wartosc_brutto`, `fak_waluta`, `fak_platnosc`, `fak_metoda_platnosci`, `fak_termin_platnosci`, `fak_rachunek_bankowy`, `fak_rachunek_bankowy_vat`, `fak_opis`, `firma_id`) VALUES
-(1, 1, 1, 2022, '1', 9, 0, 'E', '2022-01-04', '2022-01-03', 'e', 'e', 'e', 'e', 'e', 'e', '11.00', '1.00', '11.00', 'PLN', 'zapłacono z góry', 'przelew', 1, '1', '1', '1', NULL),
-(2, 1, 1, 2022, '1', 9, 0, '', '2022-01-03', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', NULL, NULL, '10.22', 'PLN', '', '', NULL, '', '', '', NULL),
-(3, 1, 1, 2022, '1', 9, 1, '1', '2022-01-04', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', '4.00', '0.92', '4.92', 'PLN', '', '', NULL, '', '', '', NULL),
-(4, 2, 1, 2022, '2/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
-(5, 3, 1, 2022, '3/1/2022', 10, 1, '', NULL, NULL, 'Coś nowego', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
-(6, 4, 1, 2022, '4/1/2022', 19, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
-(7, 5, 1, 2022, '5/1/2022', 13, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
-(8, 6, 1, 2022, '6/1/2022', 20, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'USD', '', '', NULL, '', '', '', NULL),
-(9, 7, 1, 2022, '7/1/2022', 8, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'GBP', '', '', NULL, '', '', '', NULL),
-(10, 8, 1, 2022, '8/1/2022', 20, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', 'zapłacono z góry', '', NULL, '', '', '', NULL),
-(11, 9, 1, 2022, '9/1/2022', 14, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
-(12, 10, 1, 2022, '10/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
-(13, 11, 1, 2022, '11/1/2022', 8, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
-(14, 12, 1, 2022, '12/1/2022', 11, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'EUR', '', '', NULL, '', '', '', NULL),
-(15, 13, 1, 2022, '13/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
-(16, 14, 1, 2022, '14/1/2022', 12, 1, 'g', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'GBP', '', '', NULL, '', '', '', NULL),
-(17, 15, 1, 2022, '15/1/2022', 15, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
-(18, 16, 1, 2022, '16/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
-(19, 17, 1, 2022, '17/1/2022', 8, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'USD', '', '', NULL, '', '', '', NULL),
-(20, 18, 1, 2022, '18/1/2022', 15, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'CHF', 'zapłacono z góry', '', NULL, '', '', '', NULL),
-(21, 19, 1, 2022, '19/1/2022', 16, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
-(22, 20, 1, 2022, '20/1/2022', 18, 1, '', NULL, NULL, '', '', '', '', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
-(23, 21, 1, 2022, '21/1/2022', 9, 0, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
-(24, 22, 1, 2022, 'FS 22/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Dawid Nowakowski', '3.00', '0.00', '3.00', 'EUR', '', '', NULL, '1', '', '', 1);
+INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_numer_pelny`, `kh_id`, `fak_widocznosc`, `fak_miejsce_wystawienia`, `fak_data_wystawienia`, `fak_data_zakonczenia`, `fak_nabywca_nazwa`, `fak_nabywca_ulica`, `fak_nabywca_kod_pocztowy`, `fak_nabywca_miasto`, `fak_nabywca_nip`, `fak_wystawca_nazwa`, `fak_wystawca_ulica`, `fak_wystawca_kod_pocztowy`, `fak_wystawca_miasto`, `fak_wystawca_nip`, `fak_wystawca_vat_ue`, `fak_wystawil`, `fak_wartosc_netto`, `fak_wartosc_vat`, `fak_wartosc_brutto`, `fak_waluta`, `fak_platnosc`, `fak_metoda_platnosci`, `fak_termin_platnosci`, `fak_rachunek_bankowy`, `fak_rachunek_bankowy_vat`, `fak_opis`, `firma_id`) VALUES
+(1, 1, 1, 2022, '1', 9, 0, 'E', '2022-01-04', '2022-01-03', 'e', 'e', 'e', 'e', 'e', NULL, NULL, NULL, NULL, NULL, NULL, 'e', '11.00', '1.00', '11.00', 'PLN', 'zapłacono z góry', 'przelew', 1, '1', '1', '1', NULL),
+(2, 1, 1, 2022, '1', 9, 0, '', '2022-01-03', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '10.22', 'PLN', '', '', NULL, '', '', '', NULL),
+(3, 1, 1, 2022, '1', 9, 1, '1', '2022-01-04', '2022-01-04', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, '', '4.00', '0.92', '4.92', 'PLN', '', '', NULL, '', '', '', NULL),
+(4, 2, 1, 2022, '2/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
+(5, 3, 1, 2022, '3/1/2022', 10, 1, '', NULL, NULL, 'Coś nowego', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
+(6, 4, 1, 2022, '4/1/2022', 19, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
+(7, 5, 1, 2022, '5/1/2022', 13, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
+(8, 6, 1, 2022, '6/1/2022', 20, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'USD', '', '', NULL, '', '', '', NULL),
+(9, 7, 1, 2022, '7/1/2022', 8, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'GBP', '', '', NULL, '', '', '', NULL),
+(10, 8, 1, 2022, '8/1/2022', 20, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', 'zapłacono z góry', '', NULL, '', '', '', NULL),
+(11, 9, 1, 2022, '9/1/2022', 14, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
+(12, 10, 1, 2022, '10/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
+(13, 11, 1, 2022, '11/1/2022', 8, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
+(14, 12, 1, 2022, '12/1/2022', 11, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'EUR', '', '', NULL, '', '', '', NULL),
+(15, 13, 1, 2022, '13/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
+(16, 14, 1, 2022, '14/1/2022', 12, 1, 'g', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'GBP', '', '', NULL, '', '', '', NULL),
+(17, 15, 1, 2022, '15/1/2022', 15, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
+(18, 16, 1, 2022, '16/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'RUB', '', '', NULL, '', '', '', NULL),
+(19, 17, 1, 2022, '17/1/2022', 8, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'USD', '', '', NULL, '', '', '', NULL),
+(20, 18, 1, 2022, '18/1/2022', 15, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'CHF', 'zapłacono z góry', '', NULL, '', '', '', NULL),
+(21, 19, 1, 2022, '19/1/2022', 16, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
+(22, 20, 1, 2022, '20/1/2022', 18, 1, '', NULL, NULL, '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'JPY', '', '', NULL, '', '', '', NULL),
+(23, 21, 1, 2022, '21/1/2022', 9, 0, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', NULL),
+(24, 22, 1, 2022, 'FS 22/1/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', '3.00', '0.00', '3.00', 'EUR', '', '', NULL, '1', '', '', 1),
+(25, 23, NULL, NULL, 'FS 23', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'EUR', '', '', NULL, '1', '', '', 1),
+(26, 24, NULL, NULL, 'FS 24', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'CHF', '', '', NULL, '', '', '', 1),
+(27, 1, 10, 2022, 'FS 1/10/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1),
+(28, 2, 10, 2022, 'FS 2/10/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1),
+(29, 23, NULL, 2022, 'FS 23/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1),
+(30, 25, NULL, NULL, 'FS 25', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1),
+(31, 1, NULL, NULL, 'FS 1', 30, 1, '', NULL, NULL, 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, 'dardaw2 dardaw2', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', 8),
+(32, 26, NULL, NULL, 'FS 26', 29, 1, 'Miastko', '2023-05-02', '2023-05-02', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', '0.00', '0.00', '0.00', 'PLN', 'zapłacono z góry', 'przelew', 30, '10 1020 1000 1000 0101', '', 'test', 1),
+(33, 27, NULL, NULL, 'FS 27', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -183,7 +198,8 @@ CREATE TABLE `faktury_pozycje` (
 --
 
 INSERT INTO `faktury_pozycje` (`poz_id`, `poz_nazwa`, `zl_id`, `fak_id`, `poz_jednostka`, `poz_ilosc`, `poz_cena_netto`, `poz_wartosc_netto`, `poz_vat`, `poz_wartosc_brutto`, `poz_cena_netto_waluta`, `poz_wartosc_netto_waluta`, `poz_wartosc_brutto_waluta`, `poz_waluta`, `poz_waluta_zrodlowa`, `poz_kurs_wartosc`, `poz_kurs_data`, `poz_opis`) VALUES
-(23, 'Usługa transportowa ', 31, 24, 'Fracht', '2.00', '1.22', '3.00', 'np', '3.00', NULL, NULL, NULL, 'PLN', 'PLN', NULL, NULL, '');
+(23, 'Usługa transportowa ', 31, 24, 'Fracht', '2.00', '1.22', '3.00', 'np', '3.00', NULL, NULL, NULL, 'PLN', 'PLN', NULL, NULL, ''),
+(24, 'Usługa transportowa ', 88, 32, '', '1.24', NULL, NULL, '23', NULL, '1.11', '1.38', '1.70', '', '', NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -295,7 +311,8 @@ INSERT INTO `kontrahenci` (`kh_id`, `kh_glowny`, `kh_numer_pelny`, `kh_numer`, `
 (27, 1, '1', 1, 'aabcd', NULL, NULL, NULL, 'bbd', 'ddd', 'eed', 'ffd', 'ggd', 'hhd', NULL, 'iid', NULL, 'ccd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-17 12:18:17', NULL, 7),
 (28, NULL, '22', 22, 'e', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-17 12:36:25', '', 1),
 (29, NULL, '23', 23, 'd', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2022-10-18 10:11:10', '', 1),
-(30, 1, '1', 1, 'nowy', NULL, NULL, NULL, 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', '', NULL, '', NULL, 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-19 10:49:36', NULL, 8);
+(30, 1, '1', 1, 'nowy', NULL, NULL, NULL, 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', '', NULL, '', NULL, 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-10-19 10:49:36', NULL, 8),
+(31, NULL, '24', 24, '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, NULL, NULL, '', '', NULL, NULL, NULL, '2023-05-02 11:00:39', '', 1);
 
 -- --------------------------------------------------------
 
@@ -452,7 +469,9 @@ CREATE TABLE `rozrachunki` (
 INSERT INTO `rozrachunki` (`roz_id`, `roz_typ`, `tr_id`, `roz_data_powstania`, `roz_data_sprzedazy`, `roz_data_wystawienia`, `roz_termin_platnosci`, `roz_numer_faktury`, `kh_id`, `roz_waluta`, `roz_kwota_netto`, `roz_vat`, `roz_kwota_brutto`, `roz_kwota_brutto_waluta`, `roz_pozostalo_do_zaplaty`, `roz_pozostalo_do_zaplaty_waluta`, `roz_numer_zlecenia`, `roz_data_ostatniej_splaty`, `roz_kwota_ostatniej_splaty`, `roz_status`, `roz_data_kursu`, `roz_wartosc_kursu`, `firma_id`) VALUES
 (8, 'N', NULL, NULL, NULL, NULL, NULL, 'FS 123', NULL, '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (9, 'Z', 15, NULL, NULL, NULL, NULL, 'Trasa: c - e - f -  ', 9, 'PLN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(10, 'Z', 16, NULL, NULL, NULL, NULL, 'Trasa: Miastko - Wrocław - Przemyśl ', 27, 'PLN', '22.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+(10, 'Z', 16, NULL, NULL, NULL, NULL, 'Trasa: Miastko - Wrocław - Przemyśl ', 27, 'PLN', '22.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(13, 'Z', 19, NULL, NULL, NULL, NULL, 'Trasa: ', 9, '', '7.49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(14, 'Z', 20, NULL, NULL, NULL, NULL, 'Trasa: ', 9, '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -484,7 +503,11 @@ CREATE TABLE `trasy` (
 
 INSERT INTO `trasy` (`tr_id`, `zl_id`, `przew_id`, `tr_rodzaj_pojazdu`, `tr_kierowca_imie`, `tr_kierowca_nazwisko`, `tr_samochod`, `tr_naczepa`, `tr_stawka`, `tr_jednostka`, `tr_ilosc`, `tr_wartosc`, `tr_waluta`, `tr_uwagi`, `firma_id`) VALUES
 (15, 50, 9, '', '', '', '', '', NULL, 'Fracht', NULL, NULL, 'PLN', '', 1),
-(16, 31, 27, 'g', '', '', '', '', '11.00', 'Fracht', '2.00', '22.00', 'PLN', '', 1);
+(16, 31, 27, 'g', '', '', '', '', '11.00', 'Fracht', '2.00', '22.00', 'PLN', '', 1),
+(17, 86, 9, '', '', '', '', '', NULL, '', NULL, NULL, '', '', 1),
+(18, 87, 0, '', '', '', '', '', NULL, '', NULL, NULL, '', '', 1),
+(19, 88, 9, '', '', '', '', '', '2.11', '', '3.55', '7.49', '', '', 1),
+(20, 91, 9, '', '', '', '', '', NULL, '', '1.00', NULL, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -506,9 +529,7 @@ CREATE TABLE `ustawienia_globalne` (
 INSERT INTO `ustawienia_globalne` (`ust_id`, `ust_nazwa`, `ust_wartosc`, `firma_id`) VALUES
 (15, 'warunki_zlecenia_pl', '1', 1),
 (16, 'warunki_zlecenia_en', '2', 1),
-(17, 'warunki_zlecenia_de', '3', 1),
-(26, 'numeracja_zlecenia', 'stala', 1),
-(27, 'numeracja_zlecenia_oddzial', '0', 1);
+(17, 'warunki_zlecenia_de', '3', 1);
 
 -- --------------------------------------------------------
 
@@ -535,7 +556,7 @@ CREATE TABLE `uzytkownicy` (
 
 INSERT INTO `uzytkownicy` (`uz_id`, `uz_login`, `uz_haslo`, `uz_imie`, `uz_nazwisko`, `uz_telefon`, `uz_fax`, `uz_trans`, `uz_oddzial`, `firma_id`) VALUES
 (1, 'dardaw', '1', 'Dawid', 'Nowakowski', '12', '12', '4321', '', 1),
-(2, 'dardaw2', 'dar', 'dardaw2', 'dardaw2', '', '', '', NULL, 1),
+(2, 'dardaw2', '1', 'dardaw2', 'dardaw2', '', '', '', '', 8),
 (3, 'dardaw3', '', '', '', '', '', '', 'A', NULL);
 
 -- --------------------------------------------------------
@@ -577,18 +598,24 @@ CREATE TABLE `zlecenia` (
 --
 
 INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, `zl_miesiac`, `zl_rok`, `zl_oddzial`, `uz_id`, `kh_id`, `zl_order`, `zl_ladunek`, `zl_data_utworzenia`, `zl_waga`, `zl_waga_jednostka`, `zl_stawka`, `zl_jednostka`, `zl_ilosc`, `zl_wartosc`, `zl_waluta`, `zl_kilometry`, `zl_temperatura`, `zl_temperatura_jednostka`, `zl_uwagi`, `zl_faktura`, `firma_id`) VALUES
-(74, 1, '1/B', 1, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 11:00:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(75, 1, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:00:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(74, 0, '1/B', 1, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 11:00:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(75, 0, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:00:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
 (76, 0, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:45:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(77, 1, '3', 3, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:00:22', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(78, 1, '4', 4, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(79, 1, '5', 5, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:20', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
-(80, 1, '6', 6, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:54:35', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
-(81, 1, '7', 7, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 12:54:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(82, 1, '1/2022/', 1, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:54:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(83, 1, '2/2022', 2, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:55:09', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(84, 1, '3/2022', 3, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:43', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(85, 1, '8', 8, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:52', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1);
+(77, 0, '3', 3, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:00:22', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(78, 0, '4', 4, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(79, 0, '5', 5, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:20', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
+(80, 0, '6', 6, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:54:35', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
+(81, 0, '7', 7, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 12:54:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(82, 0, '1/2022/', 1, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:54:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(83, 0, '2/2022', 2, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:55:09', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(84, 0, '3/2022', 3, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:43', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(85, 0, '8', 8, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:52', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(86, 0, '1', 1, NULL, NULL, NULL, 1, 0, '', '', '2022-10-24 09:49:13', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(87, 0, '1', 1, NULL, NULL, NULL, 1, 0, '', '', '2022-10-24 09:59:15', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
+(88, 1, '1', 1, NULL, NULL, NULL, 1, 29, '', '', '2022-10-26 09:13:45', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', 'FS 26', 1),
+(89, 1, '2', 2, NULL, NULL, NULL, 1, 29, '', '', '2023-05-02 08:21:33', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', 'FS 26', 1),
+(90, 1, '3', 3, NULL, NULL, NULL, 1, 29, '', '', '2023-05-02 08:22:19', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', NULL, 1),
+(91, 1, '4', 4, NULL, NULL, NULL, 1, 24, '', '', '2023-05-02 08:28:17', NULL, '', NULL, '', '1.00', NULL, '', NULL, NULL, '', '', NULL, 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -698,13 +725,13 @@ ALTER TABLE `dokumenty`
 -- AUTO_INCREMENT dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
-  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `fak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT dla tabeli `faktury_pozycje`
 --
 ALTER TABLE `faktury_pozycje`
-  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT dla tabeli `firmy`
@@ -716,7 +743,7 @@ ALTER TABLE `firmy`
 -- AUTO_INCREMENT dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
-  MODIFY `kh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `kh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT dla tabeli `kurs`
@@ -740,19 +767,19 @@ ALTER TABLE `rozliczenia`
 -- AUTO_INCREMENT dla tabeli `rozrachunki`
 --
 ALTER TABLE `rozrachunki`
-  MODIFY `roz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `roz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT dla tabeli `trasy`
 --
 ALTER TABLE `trasy`
-  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT dla tabeli `ustawienia_globalne`
 --
 ALTER TABLE `ustawienia_globalne`
-  MODIFY `ust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT dla tabeli `uzytkownicy`
@@ -764,7 +791,7 @@ ALTER TABLE `uzytkownicy`
 -- AUTO_INCREMENT dla tabeli `zlecenia`
 --
 ALTER TABLE `zlecenia`
-  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `zl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

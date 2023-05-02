@@ -83,7 +83,11 @@ class ZleceniaController extends Controller {
         }
         $zlecenia = new Zlecenia();
         $zlecenia->zapisz($post);
-        $this->redirect(['zlecenia/index']);
+        if (!empty(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id))) {
+            $this->redirect(Yii::$app->session->get('filtr_strony_' . Yii::$app->controller->id));
+        } else {
+            $this->redirect(['zlecenia/index']);
+        }
     }
 
     public function actionUsun() {
@@ -224,6 +228,7 @@ class ZleceniaController extends Controller {
         }
 
         $kopia->zl_data_utworzenia = date('Y-m-d H:i:s');
+        $kopia->zl_faktura = NULL;
         $kopia->save();
         $zl_id = $kopia->getAttribute("zl_id");
         $adresy = (new \yii\db\Query())

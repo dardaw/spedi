@@ -31,7 +31,7 @@ $this->title = 'Dodawanie zlecenia';
                 </select>
             </div>
             <div class="form-group">
-                 <label for="uz_id">Spedytor</label>
+                <label for="uz_id">Spedytor</label>
                 <select class="form-control" id="uz_id" name="uz_id">
                     <option value="0" <?php echo key_exists("uz_id", $zlecenie) && 0 == $zlecenie['uz_id'] ? 'selected="selected"' : '' ?>></option>
                     <?php foreach ($uzytkownicy as $uzytkownik): ?>
@@ -122,7 +122,11 @@ $this->title = 'Dodawanie zlecenia';
                 <label for="zl_uwagi">Uwagi</label>
                 <textarea class="form-control" id="zl_uwagi" name="zl_uwagi"><?php echo key_exists("zl_uwagi", $zlecenie) ? $zlecenie['zl_uwagi'] : '' ?></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Zapisz</button>
+            <?php if (empty($zlecenie['zl_faktura'])): ?>
+                <button type="submit" class="btn btn-primary">Zapisz</button>
+            <?php else: ?>
+                Faktura: <span style="font-weight: bold"><?php echo $zlecenie['zl_faktura'] ?></span>
+            <?php endif; ?>
             <?php $url = Url::toRoute(['zlecenia/index']); ?>
             <a href="<?php echo $url; ?>">
                 <button type="button" class="btn btn-primary">Anuluj</button>
