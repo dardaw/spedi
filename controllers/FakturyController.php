@@ -230,5 +230,47 @@ class FakturyController extends Controller {
 
         $this->redirect(['faktury/dodajpozycje', 'id' => $get['fak_id']]);
     }
+    
+     public function actionDodajvat() {
+        $get = Yii::$app->request->get();
+        Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazfakturevat.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
+          $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('faktury_vat');
+        $query->where(["fak_id" => $get['id']]);
+        $wynik = $query->all();
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+
+        return $this->render('dodajvat', ['faktura_vat' => $wynik, 'pages' => $pages, 'id' => $get['id']]);
+
+    }
+    
+     public function actionDodajvatedytuj() {
+        $get = Yii::$app->request->get();
+        if (empty($get['id']) || empty($get['fak_vat_id'])) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('faktury_vat');
+        $query->where(["fak_vat_id" => $get['fak_vat_id']]);
+        $query->limit(1);
+        $wynik = $query->one();
+
+        return $this->render('dodajvatdodaj', ['dodajvatfakturydodaj' => $wynik, 'id' => $get['id']]);
+    }
+    
+     public function actionZapiszvat() {
+        $post = Yii::$app->request->post();
+        if (count($post) == 0) {
+            echo 'Nieuprawniony dostep';
+            exit;
+        }
+        $faktury_vat = new FakturyVAT();
+        $faktury_vat->zapiszVATEdycja($post);
+        $this->redirect(['faktury/dodajvat', 'id' => $post['fak_id']]);
+    }
 
 }

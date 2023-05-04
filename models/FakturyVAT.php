@@ -85,5 +85,22 @@ class FakturyVAT extends ActiveRecord {
             $faktura_vat->save();
         }
     }
+    
+     public function zapiszVATEdycja($post) {
+              if (empty($post['fak_vat_id'])) {
+            $faktura_vat = $this;
+        } else {
+            $faktura_vat = self::find()
+                    ->where(['fak_vat_id' => $post['fak_vat_id']])
+                    ->one();
+        }
+            $faktura_vat->fak_vat_procent = $post['fak_vat_procent'];
+            $faktura_vat->fak_vat_waluta = $post['fak_vat_waluta'];
+            $faktura_vat->fak_vat_wartosc_netto = $post['fak_vat_wartosc_netto'];
+            $faktura_vat->fak_vat_wartosc_vat = $post['fak_vat_wartosc_vat'];
+            $faktura_vat->fak_vat_wartosc_brutto = $post['fak_vat_wartosc_brutto'];
+            $faktura_vat->fak_id = $post['fak_id'];
+            $faktura_vat->save();
+     }
 
 }

@@ -135,6 +135,8 @@ $session = Yii::$app->session;
                 <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Usuń</button></a>
                 <?php $link = Url::toRoute(['faktury/dodajpozycje', 'id' => $faktura['fak_id']]); ?>
                 <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">Pozycje faktury</button></a>
+                 <?php $link = Url::toRoute(['faktury/dodajvat', 'id' => $faktura['fak_id']]); ?>
+                <a href="<?php echo $link ?>"><button type="button" class="btn btn-primary">VAT</button></a>
             <?php endif; ?>
         </form>
     </div>
