@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 02 Maj 2023, 12:17
+-- Czas generowania: 04 Maj 2023, 10:25
 -- Wersja serwera: 10.4.25-MariaDB
 -- Wersja PHP: 7.4.30
 
@@ -163,7 +163,7 @@ INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_num
 (29, 23, NULL, 2022, 'FS 23/2022', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1),
 (30, 25, NULL, NULL, 'FS 25', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1),
 (31, 1, NULL, NULL, 'FS 1', 30, 1, '', NULL, NULL, 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, 'dardaw2 dardaw2', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', 8),
-(32, 26, NULL, NULL, 'FS 26', 29, 1, 'Miastko', '2023-05-02', '2023-05-02', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', '0.00', '0.00', '0.00', 'PLN', 'zapłacono z góry', 'przelew', 30, '10 1020 1000 1000 0101', '', 'test', 1),
+(32, 26, NULL, NULL, 'FS 26', 29, 1, 'Miastko', '2023-05-02', '2023-05-02', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', '8.76', '2.43', '11.19', 'EUR', 'zapłacono z góry', 'przelew', 30, '1', '', 'test', 1),
 (33, 27, NULL, NULL, 'FS 27', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1);
 
 -- --------------------------------------------------------
@@ -199,7 +199,37 @@ CREATE TABLE `faktury_pozycje` (
 
 INSERT INTO `faktury_pozycje` (`poz_id`, `poz_nazwa`, `zl_id`, `fak_id`, `poz_jednostka`, `poz_ilosc`, `poz_cena_netto`, `poz_wartosc_netto`, `poz_vat`, `poz_wartosc_brutto`, `poz_cena_netto_waluta`, `poz_wartosc_netto_waluta`, `poz_wartosc_brutto_waluta`, `poz_waluta`, `poz_waluta_zrodlowa`, `poz_kurs_wartosc`, `poz_kurs_data`, `poz_opis`) VALUES
 (23, 'Usługa transportowa ', 31, 24, 'Fracht', '2.00', '1.22', '3.00', 'np', '3.00', NULL, NULL, NULL, 'PLN', 'PLN', NULL, NULL, ''),
-(24, 'Usługa transportowa ', 88, 32, '', '1.24', NULL, NULL, '23', NULL, '1.11', '1.38', '1.70', '', '', NULL, NULL, '');
+(24, 'Usługa transportowa ', 88, 32, '', '1.24', '3.00', '3.00', '8', '3.24', '1.11', '1.38', '1.49', 'EUR', 'PLN', NULL, NULL, ''),
+(25, 'Usługa transportowa ', NULL, 32, 'Fracht', '1.00', '1.22', '3.00', '23', '3.69', '1.11', '1.38', '1.70', 'PLN', '', NULL, NULL, ''),
+(26, 'Usługa transportowa ', NULL, 32, 'Fracht', '1.00', '2.00', '3.00', 'np', '4.00', '5.00', '6.00', '8.00', 'PLN', '', NULL, NULL, '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `faktury_vat`
+--
+
+CREATE TABLE `faktury_vat` (
+  `fak_vat_id` bigint(20) NOT NULL,
+  `fak_vat_procent` varchar(255) DEFAULT NULL,
+  `fak_vat_waluta` varchar(255) DEFAULT NULL,
+  `fak_vat_wartosc_netto` decimal(10,2) DEFAULT NULL,
+  `fak_vat_wartosc_vat` decimal(10,2) DEFAULT NULL,
+  `fak_vat_wartosc_brutto` decimal(10,2) DEFAULT NULL,
+  `fak_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `faktury_vat`
+--
+
+INSERT INTO `faktury_vat` (`fak_vat_id`, `fak_vat_procent`, `fak_vat_waluta`, `fak_vat_wartosc_netto`, `fak_vat_wartosc_vat`, `fak_vat_wartosc_brutto`, `fak_id`) VALUES
+(24, '1', 'EUR', '1.00', '1.00', '1.00', 32),
+(25, '8', 'PLN', '3.00', '0.24', '3.24', 32),
+(26, '23', 'EUR', '1.38', '0.32', '1.70', 32),
+(27, '23', 'PLN', '3.00', '0.69', '3.69', 32),
+(28, 'np', 'EUR', '6.00', '2.00', '8.00', 32),
+(29, 'np', 'PLN', '3.00', '1.00', '4.00', 32);
 
 -- --------------------------------------------------------
 
@@ -646,6 +676,12 @@ ALTER TABLE `faktury_pozycje`
   ADD PRIMARY KEY (`poz_id`);
 
 --
+-- Indeksy dla tabeli `faktury_vat`
+--
+ALTER TABLE `faktury_vat`
+  ADD PRIMARY KEY (`fak_vat_id`);
+
+--
 -- Indeksy dla tabeli `firmy`
 --
 ALTER TABLE `firmy`
@@ -731,7 +767,13 @@ ALTER TABLE `faktury`
 -- AUTO_INCREMENT dla tabeli `faktury_pozycje`
 --
 ALTER TABLE `faktury_pozycje`
-  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT dla tabeli `faktury_vat`
+--
+ALTER TABLE `faktury_vat`
+  MODIFY `fak_vat_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT dla tabeli `firmy`
