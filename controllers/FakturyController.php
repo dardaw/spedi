@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use app\models\Faktury;
 use app\models\FakturyPozycje;
+use app\models\FakturyVAT;
 use app\models\Zlecenia;
 use yii\data\Pagination;
 
@@ -184,6 +185,8 @@ class FakturyController extends Controller {
         }
         $zlecenia = new FakturyPozycje();
         $zlecenia->zapiszpozycje($post);
+        $faktury_vat = new FakturyVAT();
+        $faktury_vat->zapiszVAT($post);
         $this->redirect(['faktury/dodajpozycje', 'id' => $post['fak_id']]);
     }
 
