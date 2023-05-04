@@ -107,4 +107,32 @@ class Zlecenia extends ActiveRecord {
         $zlecenie->save();
     }
 
+    public function zapiszAdresyDoZlecenia($post) {
+        $zlecenie = self::find()
+                ->where(['zl_id' => $post['zl_id']])
+                ->one();
+        $adresy = Adresy::find()
+                ->where(['zl_id' => $post['zl_id']])
+                ->all();
+        if ($adresy == null) {
+            $zlecenie->zl_data_zaladunku = NULL;
+            $zlecenie->zl_miasto_zaladunku = NULL;
+            $zlecenie->zl_kraj_zaladunku = NULL;
+        } else {
+            $zlecenie->zl_data_zaladunku = $adresy[0]->adres_data;
+            $zlecenie->zl_miasto_zaladunku = $adresy[0]->adres_miasto;
+            $zlecenie->zl_kraj_zaladunku = $adresy[0]->adres_kraj;
+        }
+        if (count($adresy) > 1) {
+            $zlecenie->zl_data_rozladunku = $adresy[count($adresy) - 1]->adres_data;
+            $zlecenie->zl_miasto_rozladunku = $adresy[count($adresy) - 1]->adres_miasto;
+            $zlecenie->zl_kraj_rozladunku = $adresy[count($adresy) - 1]->adres_kraj;
+        } else {
+            $zlecenie->zl_data_rozladunku = NULL;
+            $zlecenie->zl_miasto_rozladunku = NULL;
+            $zlecenie->zl_kraj_rozladunku = NULL;
+        }
+        $zlecenie->save();
+    }
+
 }

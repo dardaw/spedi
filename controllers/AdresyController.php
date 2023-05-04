@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\Adresy;
+use app\models\Zlecenia;
 use yii\data\Pagination;
 
 class AdresyController extends Controller {
@@ -46,8 +47,10 @@ class AdresyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-        $zlecenia = new Adresy();
-        $zlecenia->zapisz($post);
+        $adresy = new Adresy();
+        $adresy->zapisz($post);
+        $zlecenia = new Zlecenia();
+        $zlecenia->zapiszAdresyDoZlecenia($post);
         $this->redirect(['adresy/index', 'id' => $post['zl_id']]);
     }
 
@@ -76,10 +79,14 @@ class AdresyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
-        $dokumenty = Adresy::find()
+        $adresy = Adresy::find()
                 ->where(['adres_id' => $get['adres_id']])
                 ->one();
-        $dokumenty->delete();
+        $post['zl_id'] = $adresy['zl_id'];
+        $adresy->delete();
+
+        $zlecenia = new Zlecenia();
+        $zlecenia->zapiszAdresyDoZlecenia($post);
 
         $this->redirect(['adresy/index', 'id' => $get['id']]);
     }

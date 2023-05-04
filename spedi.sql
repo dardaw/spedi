@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 04 Maj 2023, 10:25
+-- Czas generowania: 04 Maj 2023, 12:13
 -- Wersja serwera: 10.4.25-MariaDB
 -- Wersja PHP: 7.4.30
 
@@ -60,7 +60,10 @@ INSERT INTO `adresy` (`adres_id`, `zl_id`, `adres_nazwa`, `adres_kraj`, `adres_m
 (8, 50, 'a', 'b', 'c', 'd', 'e', '2022-04-07', '08:58:00', 'ZAL', '', NULL, '', '', 1),
 (9, 50, 'f', 'g', 'e', 'r', 't', '2022-04-07', NULL, 'ROZ', '', NULL, '', '', 1),
 (10, 50, 'f', 'f', 'f', 'f', 'f', '2022-04-07', NULL, 'ROZ', '', NULL, '', '', 1),
-(11, 50, '', '', '', '', '', NULL, NULL, 'ROZ', '', NULL, '', '', 1);
+(11, 50, '', '', '', '', '', NULL, NULL, 'ROZ', '', NULL, '', '', 1),
+(18, 90, 'Niemcy', 'Poslka', 'Miaskto', '77-200', 'Nowa 3', '2023-05-04', NULL, '', '', NULL, '', '', 1),
+(19, 91, 'Nazwa', 'Poslka', 'Miaskto', '77-200', 'Nowa 3', '2023-05-04', NULL, '', '', NULL, '', '', 1),
+(20, 91, 'Niemcy', 'Poslka', 'Berlin', '11-23', 'Jkas 2', '2023-06-08', NULL, '', '', NULL, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -164,7 +167,7 @@ INSERT INTO `faktury` (`fak_id`, `fak_numer`, `fak_miesiac`, `fak_rok`, `fak_num
 (30, 25, NULL, NULL, 'FS 25', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1),
 (31, 1, NULL, NULL, 'FS 1', 30, 1, '', NULL, NULL, 'mowy', 'mowy', 'mowy', 'mowy', 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, 'dardaw2 dardaw2', NULL, NULL, NULL, 'PLN', '', '', NULL, '', '', '', 8),
 (32, 26, NULL, NULL, 'FS 26', 29, 1, 'Miastko', '2023-05-02', '2023-05-02', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', 'mowy', NULL, NULL, NULL, NULL, NULL, NULL, 'Dawid Nowakowski', '8.76', '2.43', '11.19', 'EUR', 'zapłacono z góry', 'przelew', 30, '1', '', 'test', 1),
-(33, 27, NULL, NULL, 'FS 27', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', 'Dawid Nowakowski', NULL, NULL, NULL, 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1);
+(33, 27, NULL, NULL, 'FS 27', 9, 1, '', NULL, NULL, 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', 'Test 1234', 'ul. Leśna 10', '77-100', 'Miastko', '103 132 096', '', 'Dawid Nowakowski', '3.00', '0.24', '3.24', 'PLN', '', '', NULL, '10 1020 1000 1000 0101', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -201,7 +204,8 @@ INSERT INTO `faktury_pozycje` (`poz_id`, `poz_nazwa`, `zl_id`, `fak_id`, `poz_je
 (23, 'Usługa transportowa ', 31, 24, 'Fracht', '2.00', '1.22', '3.00', 'np', '3.00', NULL, NULL, NULL, 'PLN', 'PLN', NULL, NULL, ''),
 (24, 'Usługa transportowa ', 88, 32, '', '1.24', '3.00', '3.00', '8', '3.24', '1.11', '1.38', '1.49', 'EUR', 'PLN', NULL, NULL, ''),
 (25, 'Usługa transportowa ', NULL, 32, 'Fracht', '1.00', '1.22', '3.00', '23', '3.69', '1.11', '1.38', '1.70', 'PLN', '', NULL, NULL, ''),
-(26, 'Usługa transportowa ', NULL, 32, 'Fracht', '1.00', '2.00', '3.00', 'np', '4.00', '5.00', '6.00', '8.00', 'PLN', '', NULL, NULL, '');
+(26, 'Usługa transportowa ', NULL, 32, 'Fracht', '1.00', '2.00', '3.00', 'np', '4.00', '5.00', '6.00', '8.00', 'PLN', '', NULL, NULL, ''),
+(27, 'Usługa transportowa ', NULL, 33, 'Fracht', '1.00', '1.22', '3.00', '23', '3.24', '1.11', '1.38', '1.69', 'PLN', 'PLN', NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -229,7 +233,8 @@ INSERT INTO `faktury_vat` (`fak_vat_id`, `fak_vat_procent`, `fak_vat_waluta`, `f
 (26, '23', 'EUR', '1.38', '0.32', '1.70', 32),
 (27, '23', 'PLN', '3.00', '0.69', '3.69', 32),
 (28, 'np', 'EUR', '6.00', '2.00', '8.00', 32),
-(29, 'np', 'PLN', '3.00', '1.00', '4.00', 32);
+(29, 'np', 'PLN', '3.00', '1.00', '4.00', 32),
+(30, '23', 'PLN', '3.00', '0.24', '3.24', 33);
 
 -- --------------------------------------------------------
 
@@ -620,6 +625,12 @@ CREATE TABLE `zlecenia` (
   `zl_temperatura_jednostka` varchar(255) DEFAULT NULL,
   `zl_uwagi` text DEFAULT NULL,
   `zl_faktura` varchar(255) DEFAULT NULL,
+  `zl_data_zaladunku` date DEFAULT NULL,
+  `zl_miasto_zaladunku` varchar(255) DEFAULT NULL,
+  `zl_kraj_zaladunku` varchar(255) DEFAULT NULL,
+  `zl_data_rozladunku` date DEFAULT NULL,
+  `zl_miasto_rozladunku` varchar(255) DEFAULT NULL,
+  `zl_kraj_rozladunku` varchar(255) DEFAULT NULL,
   `firma_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -627,25 +638,25 @@ CREATE TABLE `zlecenia` (
 -- Zrzut danych tabeli `zlecenia`
 --
 
-INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, `zl_miesiac`, `zl_rok`, `zl_oddzial`, `uz_id`, `kh_id`, `zl_order`, `zl_ladunek`, `zl_data_utworzenia`, `zl_waga`, `zl_waga_jednostka`, `zl_stawka`, `zl_jednostka`, `zl_ilosc`, `zl_wartosc`, `zl_waluta`, `zl_kilometry`, `zl_temperatura`, `zl_temperatura_jednostka`, `zl_uwagi`, `zl_faktura`, `firma_id`) VALUES
-(74, 0, '1/B', 1, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 11:00:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(75, 0, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:00:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(76, 0, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:45:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(77, 0, '3', 3, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:00:22', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(78, 0, '4', 4, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(79, 0, '5', 5, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:20', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
-(80, 0, '6', 6, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:54:35', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, 1),
-(81, 0, '7', 7, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 12:54:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(82, 0, '1/2022/', 1, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:54:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(83, 0, '2/2022', 2, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:55:09', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(84, 0, '3/2022', 3, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:43', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(85, 0, '8', 8, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:52', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(86, 0, '1', 1, NULL, NULL, NULL, 1, 0, '', '', '2022-10-24 09:49:13', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(87, 0, '1', 1, NULL, NULL, NULL, 1, 0, '', '', '2022-10-24 09:59:15', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, 1),
-(88, 1, '1', 1, NULL, NULL, NULL, 1, 29, '', '', '2022-10-26 09:13:45', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', 'FS 26', 1),
-(89, 1, '2', 2, NULL, NULL, NULL, 1, 29, '', '', '2023-05-02 08:21:33', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', 'FS 26', 1),
-(90, 1, '3', 3, NULL, NULL, NULL, 1, 29, '', '', '2023-05-02 08:22:19', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', NULL, 1),
-(91, 1, '4', 4, NULL, NULL, NULL, 1, 24, '', '', '2023-05-02 08:28:17', NULL, '', NULL, '', '1.00', NULL, '', NULL, NULL, '', '', NULL, 1);
+INSERT INTO `zlecenia` (`zl_id`, `zl_widocznosc`, `zl_numer_pelny`, `zl_numer`, `zl_miesiac`, `zl_rok`, `zl_oddzial`, `uz_id`, `kh_id`, `zl_order`, `zl_ladunek`, `zl_data_utworzenia`, `zl_waga`, `zl_waga_jednostka`, `zl_stawka`, `zl_jednostka`, `zl_ilosc`, `zl_wartosc`, `zl_waluta`, `zl_kilometry`, `zl_temperatura`, `zl_temperatura_jednostka`, `zl_uwagi`, `zl_faktura`, `zl_data_zaladunku`, `zl_miasto_zaladunku`, `zl_kraj_zaladunku`, `zl_data_rozladunku`, `zl_miasto_rozladunku`, `zl_kraj_rozladunku`, `firma_id`) VALUES
+(74, 0, '1/B', 1, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 11:00:10', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(75, 0, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:00:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(76, 0, '2', 2, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 11:45:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(77, 0, '3', 3, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:00:22', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(78, 0, '4', 4, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:06', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(79, 0, '5', 5, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:01:20', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(80, 0, '6', 6, NULL, NULL, NULL, 1, 0, '', '', '2022-10-21 12:54:35', NULL, '', NULL, '', NULL, NULL, 'PLN', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(81, 0, '7', 7, NULL, NULL, 'B', 1, 0, '', '', '2022-10-21 12:54:39', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(82, 0, '1/2022/', 1, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:54:51', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(83, 0, '2/2022', 2, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:55:09', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(84, 0, '3/2022', 3, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:43', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(85, 0, '8', 8, NULL, 2022, '', 1, 0, '', '', '2022-10-21 12:56:52', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(86, 0, '1', 1, NULL, NULL, NULL, 1, 0, '', '', '2022-10-24 09:49:13', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(87, 0, '1', 1, NULL, NULL, NULL, 1, 0, '', '', '2022-10-24 09:59:15', NULL, '', NULL, '', NULL, NULL, '', NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(88, 1, '1', 1, NULL, NULL, NULL, 1, 29, '', '', '2022-10-26 09:13:45', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', 'FS 26', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(89, 1, '2', 2, NULL, NULL, NULL, 1, 29, '', '', '2023-05-02 08:21:33', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', 'FS 26', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(90, 1, '3', 3, NULL, NULL, NULL, 1, 29, '', '', '2023-05-02 08:22:19', NULL, '', '1.11', '', '1.24', '1.38', '', NULL, NULL, '', '', NULL, '2023-05-04', 'Miaskto', 'Poslka', NULL, NULL, NULL, 1),
+(91, 1, '4', 4, NULL, NULL, NULL, 1, 24, '', '', '2023-05-02 08:28:17', NULL, '', NULL, '', '1.00', NULL, 'PLN', NULL, NULL, '', '', NULL, '2023-05-04', 'Miaskto', 'Poslka', '2023-06-08', 'Berlin', 'Poslka', 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -749,7 +760,7 @@ ALTER TABLE `zlecenia`
 -- AUTO_INCREMENT dla tabeli `adresy`
 --
 ALTER TABLE `adresy`
-  MODIFY `adres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `adres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT dla tabeli `dokumenty`
@@ -767,13 +778,13 @@ ALTER TABLE `faktury`
 -- AUTO_INCREMENT dla tabeli `faktury_pozycje`
 --
 ALTER TABLE `faktury_pozycje`
-  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `poz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT dla tabeli `faktury_vat`
 --
 ALTER TABLE `faktury_vat`
-  MODIFY `fak_vat_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `fak_vat_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT dla tabeli `firmy`

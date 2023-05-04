@@ -19,6 +19,10 @@ use yii\helpers\Url;
                 <form action ="<?php echo $url; ?>" method="GET" id='filtr_okno_formularz'>
                     <div class="modal-body">
                         <div class="form-group">
+                            <label for="zl_numer_pelny">Nr zlecenia</label>
+                            <input type="text" id="zl_numer_pelny" class="form-control" name="zl_numer_pelny"/>
+                        </div>
+                        <div class="form-group">
                             <input type="hidden" name="r" value="<?php echo "zlecenia/index"; ?>" />
                             <label for="kh_symbol">Klient symbol</label>
                             <input type="text" id="kh_symbol" class="form-control" name="kh_symbol"/>
@@ -30,6 +34,30 @@ use yii\helpers\Url;
                         <div class="form-group">
                             <label for="zl_waluta">Waluta</label>
                             <input type="text" id="zl_waluta" class="form-control" name="zl_waluta"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="zl_data_zaladunku">Data załadunku</label>
+                            <input type="text" id="zl_data_zaladunku" class="form-control datepicker" name="zl_data_zaladunku"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="zl_miasto_zaladunku">Miasto załadunku</label>
+                            <input type="text" id="zl_miasto_zaladunku" class="form-control" name="zl_miasto_zaladunku"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="zl_kraj_zaladunku">Kraj załadunku</label>
+                            <input type="text" id="zl_kraj_zaladunku" class="form-control" name="zl_kraj_zaladunku"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="zl_data_rozladunku">Data rozładunku</label>
+                            <input type="text" id="zl_data_rozladunku" class="form-control datepicker" name="zl_data_rozladunku"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="zl_miasto_rozladunku">Miasto rozładunku</label>
+                            <input type="text" id="zl_miasto_rozladunku" class="form-control" name="zl_miasto_rozladunku"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="zl_kraj_rozladunku">Kraj rozładunku</label>
+                            <input type="text" id="zl_kraj_rozladunku" class="form-control" name="zl_kraj_rozladunku"/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -107,15 +135,15 @@ use yii\helpers\Url;
                             <label for="roz_typ">Typ</label>
                             <input type="text" id="roz_typ" class="form-control" name="roz_typ" placeholder="N lub Z"/>
                         </div>
-                          <div class="form-group">
+                        <div class="form-group">
                             <label for="roz_numer_faktury">Dokument</label>
                             <input type="text" id="roz_numer_faktury" class="form-control" name="roz_numer_faktury" />
                         </div>
-                           <div class="form-group">
+                        <div class="form-group">
                             <label for="roz_waluta">Waluta</label>
                             <input type="text" id="roz_waluta" class="form-control" name="roz_waluta" />
                         </div>
-                            <div class="form-group">
+                        <div class="form-group">
                             <label for="roz_numer_zlecenia">Nr zlecenia</label>
                             <input type="text" id="roz_numer_zlecenia" class="form-control" name="roz_numer_zlecenia" />
                         </div>

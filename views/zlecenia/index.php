@@ -31,6 +31,24 @@ $this->title = 'Zlecenia';
                     <td scope="col">
                         Klient
                     </td>
+                    <td scope="col">
+                        Data załadunku
+                    </td>
+                    <td scope="col">
+                        Miasto załadunku
+                    </td>
+                    <td scope="col">
+                        Kraj załadunku
+                    </td>
+                    <td scope="col">
+                        Data rozładunku
+                    </td>
+                    <td scope="col">
+                        Miasto rozładunku
+                    </td>
+                    <td scope="col">
+                        Kraj rozładunku
+                    </td>
                 </tr>
                 <?php foreach ($zlecenia as $zlecenie): ?>      
                     <?php $url = Url::toRoute(['zlecenia/edycja', 'id' => $zlecenie['zl_id']]); ?>
@@ -46,6 +64,24 @@ $this->title = 'Zlecenia';
                         </td>
                         <td>
                             <?php echo $zlecenie['kh_nazwa_pelna']; ?>
+                        </td>
+                           <td>
+                            <?php echo $zlecenie['zl_data_zaladunku']; ?>
+                        </td>
+                           <td>
+                            <?php echo $zlecenie['zl_miasto_zaladunku']; ?>
+                        </td>
+                           <td>
+                            <?php echo $zlecenie['zl_kraj_zaladunku']; ?>
+                        </td>
+                           <td>
+                            <?php echo $zlecenie['zl_data_rozladunku']; ?>
+                        </td>
+                           <td>
+                            <?php echo $zlecenie['zl_miasto_rozladunku']; ?>
+                        </td>
+                           <td>
+                            <?php echo $zlecenie['zl_kraj_rozladunku']; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
