@@ -105,10 +105,13 @@ class ZleceniaController extends Controller {
         $trasa = Trasy::find()
                 ->where(['zl_id' => $get['id']])
                 ->one();
-        $rozrachunki = Rozrachunki::find()
-                ->where(['tr_id' => $trasa->tr_id])
-                ->one();
-        $rozrachunki->delete();
+        if ($trasa != null) {
+            $rozrachunki = Rozrachunki::find()
+                    ->where(['tr_id' => $trasa->tr_id])
+                    ->one();
+            $rozrachunki->delete();
+            $trasa->delete();
+        }
 
         $this->redirect(['zlecenia/index']);
     }

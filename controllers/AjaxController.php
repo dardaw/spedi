@@ -155,7 +155,7 @@ class AjaxController extends Controller {
         $query->from('trasy');
         $query->where(["zl_id" => $get['zl_id']]);
         $trasa = $query->one();
-        if ($trasa) {
+        if ($trasa != null) {
             $query = (new \yii\db\Query());
             $query->select(['kh_glowny']);
             $query->from('kontrahenci');
