@@ -31,6 +31,18 @@ $this->title = 'Kontrahenci';
                     <td scope="col"> 
                         Nazwa pełna
                     </td>
+                       <td scope="col"> 
+                        NIP
+                    </td>
+                       <td scope="col"> 
+                        Ulica
+                    </td>
+                       <td scope="col"> 
+                        Miasto
+                    </td>
+                    <td scope="col"> 
+                        Kraj
+                    </td>
                 </tr>
                 <?php foreach ($kontrahenci as $kontrahent): ?>      
                     <?php $url = Url::toRoute(['kontrahenci/edycja', 'id' => $kontrahent['kh_id']]); ?>
@@ -46,6 +58,18 @@ $this->title = 'Kontrahenci';
                         </td>
                         <td>
                             <?php echo $kontrahent['kh_nazwa_pelna']; ?>
+                        </td>
+                        <td>
+                            <?php echo $kontrahent['kh_nip']; ?>
+                        </td>
+                         <td>
+                            <?php echo $kontrahent['kh_ulica']; ?>
+                        </td>
+                         <td>
+                            <?php echo $kontrahent['kh_miasto']; ?>
+                        </td>
+                         <td>
+                            <?php echo $kontrahent['kh_kraj']; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
