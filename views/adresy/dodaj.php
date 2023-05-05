@@ -279,7 +279,7 @@ $this->title = 'Dodawanie zlecenia';
             </div>
             <div class="form-group">
                 <label for="adres_miasto">Miasto</label>
-                <input type="text" class="form-control" id="adres_miasto" name="adres_miasto" value="<?php echo key_exists("adres_miasto", $adres) ? $adres['adres_miasto'] : '' ?>">
+                <input type="text" class="form-control" id="adres_miasto" data-provide="typeahead" name="adres_miasto" value="<?php echo key_exists("adres_miasto", $adres) ? $adres['adres_miasto'] : '' ?>">
             </div>
             <div class="form-group">
                 <label for="adres_kod_pocztowy">Kod pocztowy</label>

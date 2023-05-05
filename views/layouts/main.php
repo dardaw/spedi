@@ -72,6 +72,8 @@ AppAsset::register($this);
         ?>
         <?php $this->endBody() ?>
         <script src="<?php echo Url::base() ?>/js/system.js?md=<?php echo rand(1, 1000000); ?>"></script>
+        <script src="<?php echo Url::base() ?>/js/typehead.js?md=<?php echo rand(1, 1000000); ?>"></script>
+        
     </body>
 </html>
 <?php $this->endPage() ?>

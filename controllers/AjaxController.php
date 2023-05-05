@@ -66,6 +66,22 @@ class AjaxController extends Controller {
         exit;
     }
 
+    public function actionPobierzadresy() {
+        $get = Yii::$app->request->getQueryParams();
+        if (empty($get['adresy_miasto_nazwa']) || empty($get['adresy_miasto_kraj'])) {
+            exit;
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['CONCAT(adresy_miasto_nazwa, " (", adresy_miasto_kod_pocztowy, ")") AS Name']);
+        $query->from('adresy_miasta');
+        $query->where(['like', 'adresy_miasto_nazwa', '%' . $get['adresy_miasto_nazwa'] . '%', false]);
+        $query->andWhere(["adresy_miasto_kraj" => $get['adresy_miasto_kraj']]);
+        $query->limit(5);
+        $wynik = $query->all();
+        echo json_encode($wynik);
+        exit;
+    }
+
     public function actionPobierzkursdata() {
         $get = Yii::$app->request->getQueryParams();
         if (empty($get['poz_kurs_data']) || empty($get['poz_waluta'])) {

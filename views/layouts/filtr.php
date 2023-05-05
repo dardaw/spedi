@@ -100,20 +100,36 @@ use yii\helpers\Url;
                             <input type="text" id="kh_numer_pelny" class="form-control" name="kh_numer_pelny"/>
                         </div>
                         <div class="form-group">
-                            <label for="zl_order">Klient symbol</label>
+                            <label for="zl_order">Kontrahent symbol</label>
                             <input type="text" id="kh_symbol" class="form-control" name="kh_symbol"/>
                         </div>
                         <div class="form-group">
-                            <label for="kh_kraj">Kraj</label>
-                            <input type="text" id="kh_kraj" class="form-control" name="kh_kraj"/>
+                            <label for="kh_miasto">Miasto</label>
+                            <input type="text" id="kh_miasto" class="form-control" name="kh_miasto"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="kh_kod_pocztowy">Ulica</label>
+                            <input type="text" id="kh_ulica" class="form-control" name="kh_ulica"/>
                         </div>
                         <div class="form-group">
                             <label for="kh_kod_pocztowy">Kod pocztowy</label>
                             <input type="text" id="kh_kod_pocztowy" class="form-control" name="kh_kod_pocztowy"/>
                         </div>
                         <div class="form-group">
-                            <label for="kh_miasto">Miasto</label>
-                            <input type="text" id="kh_miasto" class="form-control" name="kh_miasto"/>
+                            <label for="kh_kraj">Kraj</label>
+                            <input type="text" id="kh_kraj" class="form-control" name="kh_kraj"/>
+                        </div>
+                         <div class="form-group">
+                            <label for="kh_kraj">NIP</label>
+                            <input type="text" id="kh_kraj" class="form-control" name="kh_nip"/>
+                        </div>
+                         <div class="form-group">
+                            <label for="kh_kraj">REGON</label>
+                            <input type="text" id="kh_kraj" class="form-control" name="kh_regon"/>
+                        </div>
+                         <div class="form-group">
+                            <label for="kh_kraj">Telefon</label>
+                            <input type="text" id="kh_kraj" class="form-control" name="kh_telefon"/>
                         </div>
                     </div>
                     <div class="modal-footer">
