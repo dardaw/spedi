@@ -25,11 +25,12 @@ $('document').ready(function () {
     });
     
     $('#adres_miasto').change( function(){
-        if($(this).val().indexOf('(') != 0 && $(this).val().indexOf(')') != 0 ){
+        if($(this).val().indexOf('(') !== -1 && $(this).val().indexOf(')') !== -1 ){
             var kod_pocztowy = $(this).val().substring($(this).val().indexOf('(') + 1, $(this).val().indexOf(')'));
             $('#adres_kod_pocztowy').val(kod_pocztowy);
             var miasto = $(this).val().substring(0, $(this).val().indexOf('(') - 1);
             $(this).val(miasto);
+
         }
     });
 
