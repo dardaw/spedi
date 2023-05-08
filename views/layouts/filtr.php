@@ -36,6 +36,25 @@ use yii\helpers\Url;
                             <input type="text" id="zl_waluta" class="form-control" name="zl_waluta"/>
                         </div>
                         <div class="form-group">
+                            <?php
+                            $uzytkownicy = (new \yii\db\Query())
+                                    ->select(['uz_id', 'uz_imie', 'uz_nazwisko'])
+                                    ->from('uzytkownicy')
+                                    ->where(['firma_id' => Yii::$app->session->get('firma_id')])
+                                    ->orderBy('uz_nazwisko ASC')
+                                    ->all();
+                            ?>
+                            <label for="uz_id">Spedytor</label>
+                            <select class="form-control" id="uz_id" name="uz_id">
+                                <option value="" selected="selected"></option>
+                                <?php foreach ($uzytkownicy as $uzytkownik): ?>
+                                    <option value="<?php echo $uzytkownik['uz_id'] ?>">
+                                        <?php echo $uzytkownik['uz_nazwisko'] . ' ' . $uzytkownik['uz_imie'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="zl_data_zaladunku">Data załadunku</label>
                             <input type="text" id="zl_data_zaladunku" class="form-control datepicker" name="zl_data_zaladunku"/>
                         </div>
@@ -166,6 +185,25 @@ use yii\helpers\Url;
                         <div class="form-group">
                             <label for="kh_kraj">Telefon</label>
                             <input type="text" id="kh_kraj" class="form-control" name="kh_telefon"/>
+                        </div>
+                        <div class="form-group">
+                            <?php
+                            $uzytkownicy = (new \yii\db\Query())
+                                    ->select(['uz_id', 'uz_imie', 'uz_nazwisko'])
+                                    ->from('uzytkownicy')
+                                    ->where(['firma_id' => Yii::$app->session->get('firma_id')])
+                                    ->orderBy('uz_nazwisko ASC')
+                                    ->all();
+                            ?>
+                            <label for="kh_spedytor">Spedytor</label>
+                            <select class="form-control" id="kh_spedytor" name="kh_spedytor">
+                                <option value="" selected="selected"></option>
+                                <?php foreach ($uzytkownicy as $uzytkownik): ?>
+                                    <option value="<?php echo $uzytkownik['uz_id'] ?>">
+                                        <?php echo $uzytkownik['uz_nazwisko'] . ' ' . $uzytkownik['uz_imie'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
