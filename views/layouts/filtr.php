@@ -107,6 +107,18 @@ use yii\helpers\Url;
                             <label for="zl_waluta">Waluta</label>
                             <input type="text" id="fak_waluta" class="form-control" name="fak_waluta"/>
                         </div>
+                        <div class="form-group">
+                            <label for="fak_data_wystawienia">Data wystawienia</label>
+                            <input type="text" id="fak_data_wystawienia" class="form-control" name="fak_data_wystawienia"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="fak_data_zakonczenia">Data zakończenia</label>
+                            <input type="text" id="fak_data_zakonczenia" class="form-control" name="fak_data_zakonczenia"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="fak_wystawil">Wystawił</label>
+                            <input type="text" id="fak_wystawil" class="form-control" name="fak_wystawil"/>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
