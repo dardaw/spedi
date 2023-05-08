@@ -282,6 +282,18 @@ use yii\helpers\Url;
                             <label for="roz_termin_platnosci_data">Termin płatności (data)</label>
                             <input type="text" id="roz_termin_platnosci_data" class="form-control datepicker" name="roz_termin_platnosci_data" />
                         </div>
+                        <div class="form-group">
+                            <label for="roz_status">Status</label>
+                            <select class="form-control" id="roz_status" name="roz_status">
+                                <option value="" selected="selected"></option>
+                                <option value="zaplacone">Zapłacone</option>
+                                <option value="niezaplaconebeztermin">Niezapłacone bez względu na termin</option>
+                                <option value="niezaplacone">Niezapłacone</option>
+                                <option value="czesc">Zapłacone w części</option>
+                                <option value="zdokumentami">Z wprowadzonymi dokumentami</option>
+                                <option value="bezdokumentow">Bez dokumentów</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>

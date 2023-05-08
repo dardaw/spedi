@@ -41,13 +41,27 @@ class RozrachunkiController extends Controller {
             foreach ($get as $klucz => $wartosc) {
                 if (!empty($wartosc)) {
                     if ($klucz != 'r' && $klucz != 'id' && $klucz != 'page') {
-                        $rozrachunki->andWhere([$klucz => $wartosc]);
                         $ktory++;
+                        if ($klucz == 'roz_status' && $wartosc == 'zaplacone') {
+                            $rozrachunki->andWhere("roz_status = 1");
+                        } else if ($klucz == 'roz_status' && $wartosc == 'niezaplaconebeztermin') {
+                            $rozrachunki->andWhere("(roz_status = 0 OR roz_status IS NULL)");
+                        } else if ($klucz == 'roz_status' && $wartosc == 'niezaplacone') {
+                            $rozrachunki->andWhere("roz_termin_platnosci < '" . date('Y-m-d') . "'");
+                        } else if ($klucz == 'roz_status' && $wartosc == 'zdokumentami') {
+                            $rozrachunki->andWhere("roz_termin_platnosci IS NOT NULL");
+                        } else if ($klucz == 'roz_status' && $wartosc == 'bezdokumentow') {
+                            $rozrachunki->andWhere("roz_termin_platnosci IS NULL");
+                        } else if ($klucz == 'roz_status' && $wartosc == 'czesc') {
+                            $rozrachunki->andWhere("roz_kwota_brutto != roz_pozostalo_do_zaplaty AND (roz_status IS NULL OR roz_status = 0)");
+
+                        } else {
+                            $rozrachunki->andWhere([$klucz => $wartosc]);
+                        }
                     }
                 }
             }
         }
-
         $countQuery = clone $rozrachunki;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $rozrachunki = $rozrachunki->offset($pages->offset)
