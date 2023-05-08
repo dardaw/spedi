@@ -10,7 +10,7 @@ $this->title = 'Dodawanie kontrahenta';
 
 
     <div class="body-content">
-          <?php if (!empty($kontrahent['kh_id'])): ?>
+        <?php if (!empty($kontrahent['kh_id'])): ?>
             <?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/layouts/kontrahentmenu.php', ['kh_id' => $kontrahent['kh_id']]); ?>
         <?php endif; ?>
 
@@ -56,7 +56,7 @@ $this->title = 'Dodawanie kontrahenta';
                 <input type="text" class="form-control" id="kh_nazwa_pelna" name="kh_nazwa_pelna" value="<?php echo key_exists("kh_nazwa_pelna", $kontrahent) ? $kontrahent['kh_nazwa_pelna'] : '' ?>">
             </div>
             <div class="form-group">
-                  <label for="kh_kraj">Kraj</label>
+                <label for="kh_kraj">Kraj</label>
                 <select class="form-control" id="kh_kraj" name="kh_kraj">
                     <option value="Polska" <?php echo key_exists("kh_kraj", $kontrahent) && $kontrahent['kh_kraj'] == 'Polska' ? 'selected="selected"' : '' ?>>Polska</option>
                     <option value="Niemcy" <?php echo key_exists("kh_kraj", $kontrahent) && $kontrahent['kh_kraj'] == 'Niemcy' ? 'selected="selected"' : '' ?>>Niemcy</option>
@@ -408,7 +408,14 @@ $this->title = 'Dodawanie kontrahenta';
             </div>
             <div class="form-group">
                 <label for="kh_spedytor">Spedytor</label>
-                <input type="text" class="form-control" id="kh_spedytor" name="kh_spedytor" value="<?php echo key_exists("kh_spedytor", $kontrahent) ? $kontrahent['kh_spedytor'] : '' ?>">
+                <select class="form-control" id="kh_spedytor" name="kh_spedytor">
+                    <option value="0" <?php echo key_exists("kh_spedytor", $kontrahent) && 0 == $kontrahent['kh_spedytor'] ? 'selected="selected"' : '' ?>></option>
+                    <?php foreach ($uzytkownicy as $uzytkownik): ?>
+                        <option value="<?php echo $uzytkownik['uz_id'] ?>" <?php echo (key_exists("kh_spedytor", $kontrahent) && $uzytkownik['uz_id'] == $kontrahent['kh_spedytor']) || (!key_exists("kh_spedytor", $kontrahent) && $uzytkownik['uz_id'] == Yii::$app->session->get('uz_id')) ? 'selected="selected"' : '' ?>>
+                            <?php echo $uzytkownik['uz_nazwisko'] . ' ' . $uzytkownik['uz_imie'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <div class="form-group">
                 <label for="kh_uwagi">Uwagi</label>

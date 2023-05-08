@@ -57,7 +57,14 @@ class KontrahenciController extends Controller {
 
     public function actionDodaj() {
 
-        return $this->render('dodaj', ['kontrahent' => []]);
+        $uzytkownicy = (new \yii\db\Query())
+                ->select(['uz_id', 'uz_imie', 'uz_nazwisko'])
+                ->from('uzytkownicy')
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
+                ->orderBy('uz_nazwisko ASC')
+                ->all();
+
+        return $this->render('dodaj', ['kontrahent' => [], 'uzytkownicy' => $uzytkownicy]);
     }
 
     public function actionZapisz() {
@@ -87,7 +94,15 @@ class KontrahenciController extends Controller {
         $query->where(["kh_id" => $get['id']]);
         $query->limit(1);
         $wynik = $query->one();
-        return $this->render('dodaj', ['kontrahent' => $wynik]);
+
+        $uzytkownicy = (new \yii\db\Query())
+                ->select(['uz_id', 'uz_imie', 'uz_nazwisko'])
+                ->from('uzytkownicy')
+                ->where(['firma_id' => Yii::$app->session->get('firma_id')])
+                ->orderBy('uz_nazwisko ASC')
+                ->all();
+
+        return $this->render('dodaj', ['kontrahent' => $wynik, 'uzytkownicy' => $uzytkownicy]);
     }
 
 }
