@@ -38,6 +38,9 @@ $this->title = 'Zlecenia';
                         Miasto załadunku
                     </td>
                     <td scope="col">
+                        Kod p. załadunku
+                    </td>
+                    <td scope="col">
                         Kraj załadunku
                     </td>
                     <td scope="col">
@@ -45,6 +48,9 @@ $this->title = 'Zlecenia';
                     </td>
                     <td scope="col">
                         Miasto rozładunku
+                    </td>
+                    <td scope="col">
+                        Kod p. rozładunku
                     </td>
                     <td scope="col">
                         Kraj rozładunku
@@ -65,22 +71,28 @@ $this->title = 'Zlecenia';
                         <td>
                             <?php echo $zlecenie['kh_nazwa_pelna']; ?>
                         </td>
-                           <td>
+                        <td>
                             <?php echo $zlecenie['zl_data_zaladunku']; ?>
                         </td>
-                           <td>
+                        <td>
                             <?php echo $zlecenie['zl_miasto_zaladunku']; ?>
                         </td>
-                           <td>
+                          <td>
+                            <?php echo $zlecenie['zl_kod_pocztowy_zaladunku']; ?>
+                        </td>
+                        <td>
                             <?php echo $zlecenie['zl_kraj_zaladunku']; ?>
                         </td>
-                           <td>
+                        <td>
                             <?php echo $zlecenie['zl_data_rozladunku']; ?>
                         </td>
-                           <td>
+                        <td>
                             <?php echo $zlecenie['zl_miasto_rozladunku']; ?>
                         </td>
-                           <td>
+                               <td>
+                            <?php echo $zlecenie['zl_kod_pocztowy_rozladunku']; ?>
+                        </td>
+                        <td>
                             <?php echo $zlecenie['zl_kraj_rozladunku']; ?>
                         </td>
                     </tr>

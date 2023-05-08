@@ -118,19 +118,23 @@ class Zlecenia extends ActiveRecord {
             $zlecenie->zl_data_zaladunku = NULL;
             $zlecenie->zl_miasto_zaladunku = NULL;
             $zlecenie->zl_kraj_zaladunku = NULL;
+            $zlecenie->zl_kod_pocztowy_zaladunku = NULL;
         } else {
             $zlecenie->zl_data_zaladunku = $adresy[0]->adres_data;
             $zlecenie->zl_miasto_zaladunku = $adresy[0]->adres_miasto;
             $zlecenie->zl_kraj_zaladunku = $adresy[0]->adres_kraj;
+            $zlecenie->zl_kod_pocztowy_zaladunku = $adresy[0]->adres_kod_pocztowy;
         }
         if (count($adresy) > 1) {
             $zlecenie->zl_data_rozladunku = $adresy[count($adresy) - 1]->adres_data;
             $zlecenie->zl_miasto_rozladunku = $adresy[count($adresy) - 1]->adres_miasto;
             $zlecenie->zl_kraj_rozladunku = $adresy[count($adresy) - 1]->adres_kraj;
+            $zlecenie->zl_kod_pocztowy_rozladunku = $adresy[count($adresy) - 1]->adres_kod_pocztowy;
         } else {
             $zlecenie->zl_data_rozladunku = NULL;
             $zlecenie->zl_miasto_rozladunku = NULL;
             $zlecenie->zl_kraj_rozladunku = NULL;
+            $zlecenie->zl_kod_pocztowy_rozladunku = NULL;
         }
         $zlecenie->save();
     }
