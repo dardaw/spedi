@@ -29,6 +29,11 @@ class Rozrachunki extends ActiveRecord {
         $rozrachunki->roz_data_sprzedazy = $post['roz_data_sprzedazy'];
         $rozrachunki->roz_data_wystawienia = $post['roz_data_wystawienia'];
         $rozrachunki->roz_termin_platnosci = $post['roz_termin_platnosci'];
+        if(!empty($post['roz_data_powstania']) && !empty($post['roz_termin_platnosci'])){
+            $data = new \DateTime($post['roz_data_powstania']);
+            $data->modify("+" .$post['roz_termin_platnosci'] . " days");
+            $rozrachunki->roz_termin_platnosci_data = $data->format("Y-m-d");
+        }
         $rozrachunki->roz_numer_faktury = $post['roz_numer_faktury'];
         $rozrachunki->roz_waluta = $post['roz_waluta'];
         $rozrachunki->roz_kwota_netto = $post['roz_kwota_netto'];

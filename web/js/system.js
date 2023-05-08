@@ -26,7 +26,7 @@ $('document').ready(function () {
 
     $("#filtr_okno_formularz").submit(function (event) {
         $(this).find('input, select').each(function () {
-            if ($(this).val() == '') {
+            if ($.trim($(this).val()) == '') {
                 $(this).remove();
             }
         });

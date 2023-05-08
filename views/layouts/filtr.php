@@ -243,6 +243,10 @@ use yii\helpers\Url;
                             <input type="text" id="kh_symbol" class="form-control" name="kh_symbol"/>
                         </div>
                         <div class="form-group">
+                            <label for="kh_nip">NIP</label>
+                            <input type="text" id="kh_nip" class="form-control" name="kh_nip"/>
+                        </div>
+                        <div class="form-group">
                             <label for="roz_typ">Typ</label>
                             <input type="text" id="roz_typ" class="form-control" name="roz_typ" placeholder="N lub Z"/>
                         </div>
@@ -257,6 +261,26 @@ use yii\helpers\Url;
                         <div class="form-group">
                             <label for="roz_numer_zlecenia">Nr zlecenia</label>
                             <input type="text" id="roz_numer_zlecenia" class="form-control" name="roz_numer_zlecenia" />
+                        </div>
+                        <div class="form-group">
+                            <label for="roz_data_sprzedazy">Data sprzedaży</label>
+                            <input type="text" id="roz_data_sprzedazy" class="form-control datepicker" name="roz_data_sprzedazy" />
+                        </div>
+                        <div class="form-group">
+                            <label for="roz_data_wystawienia">Data wystawienia</label>
+                            <input type="text" id="roz_data_wystawienia" class="form-control datepicker" name="roz_data_wystawienia" />
+                        </div>
+                        <div class="form-group">
+                            <label for="roz_data_ostatniej_splaty">Data ostatniej spłaty</label>
+                            <input type="text" id="roz_data_ostatniej_splaty" class="form-control datepicker" name="roz_data_ostatniej_splaty" />
+                        </div>
+                        <div class="form-group">
+                            <label for="roz_termin_platnosci">Termin płatności (dni)</label>
+                            <input type="text" id="roz_termin_platnosci" class="form-control" name="roz_termin_platnosci" />
+                        </div>
+                        <div class="form-group">
+                            <label for="roz_termin_platnosci_data">Termin płatności (data)</label>
+                            <input type="text" id="roz_termin_platnosci_data" class="form-control datepicker" name="roz_termin_platnosci_data" />
                         </div>
                     </div>
                     <div class="modal-footer">
