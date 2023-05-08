@@ -71,6 +71,18 @@ use yii\helpers\Url;
                             <label for="przewoznicy,kh_symbol">Symbol przewoźnika</label>
                             <input type="text" id="przewoznicy,kh_symbol" class="form-control" name="przewoznicy,kh_symbol"/>
                         </div>
+                        <div class="form-group">
+                            <label for="tr_samochod">Pojazd rejestracja</label>
+                            <input type="text" id="tr_samochod" class="form-control" name="tr_samochod"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="tr_kierowca_imie">Kierowca imię</label>
+                            <input type="text" id="tr_kierowca_imie" class="form-control" name="tr_kierowca_imie"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="tr_kierowca_nazwisko">Kierowca nazwisko</label>
+                            <input type="text" id="tr_kierowca_nazwisko" class="form-control" name="tr_kierowca_nazwisko"/>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
