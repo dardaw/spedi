@@ -173,8 +173,13 @@ class FakturyController extends Controller {
             echo 'Nieuprawniony dostep';
             exit;
         }
+        $query = (new \yii\db\Query());
+        $query->select(['fak_waluta']);
+        $query->from('faktury');
+        $query->where(["fak_id" => $get['id']]);
+        $faktura = $query->one();
         Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
-        return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => [], 'id' => $get['id']]);
+        return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => [], 'id' => $get['id'], 'faktura' => $faktura]);
     }
 
     public function actionZapiszpozycje() {
@@ -204,7 +209,7 @@ class FakturyController extends Controller {
         $wynik = $query->one();
 
         Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/dodajpozycjefaktury.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
-        return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => $wynik, 'id' => $get['id']]);
+        return $this->render('dodajpozycjedodaj', ['dodajpozycjefakturydodaj' => $wynik, 'id' => $get['id'], 'faktura' => []]);
     }
 
     public function actionUsunpozycje() {
@@ -230,11 +235,11 @@ class FakturyController extends Controller {
 
         $this->redirect(['faktury/dodajpozycje', 'id' => $get['fak_id']]);
     }
-    
-     public function actionDodajvat() {
+
+    public function actionDodajvat() {
         $get = Yii::$app->request->get();
         Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazfakturevat.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
-          $query = (new \yii\db\Query());
+        $query = (new \yii\db\Query());
         $query->select(['*']);
         $query->from('faktury_vat');
         $query->where(["fak_id" => $get['id']]);
@@ -243,10 +248,9 @@ class FakturyController extends Controller {
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
 
         return $this->render('dodajvat', ['faktura_vat' => $wynik, 'pages' => $pages, 'id' => $get['id']]);
-
     }
-    
-     public function actionDodajvatedytuj() {
+
+    public function actionDodajvatedytuj() {
         $get = Yii::$app->request->get();
         if (empty($get['id']) || empty($get['fak_vat_id'])) {
             echo 'Nieuprawniony dostep';
@@ -261,8 +265,8 @@ class FakturyController extends Controller {
 
         return $this->render('dodajvatdodaj', ['dodajvatfakturydodaj' => $wynik, 'id' => $get['id']]);
     }
-    
-     public function actionZapiszvat() {
+
+    public function actionZapiszvat() {
         $post = Yii::$app->request->post();
         if (count($post) == 0) {
             echo 'Nieuprawniony dostep';

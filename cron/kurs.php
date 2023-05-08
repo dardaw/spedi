@@ -22,13 +22,13 @@ foreach ($waluty as $waluta) {
     $kod = (string) $waluta->Code;
     $wartosc = (string) $waluta->Mid;
 
-    $sql = "SELECT kurs_id FROM kurs WHERE kurs_kod = ? AND kurs_data = ?";
+    $sql = "SELECT kurs_id FROM kursy WHERE kurs_kod = ? AND kurs_data = ?";
     $statement = $dbh->prepare($sql);
     $statement->execute([$kod, $data]);
     $wynik = $statement->fetchAll();
 
     if (count($wynik) == 0) {
-        $sql = "INSERT INTO kurs (kurs_kod, kurs_data, kurs_nazwa, kurs_wartosc) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO kursy (kurs_kod, kurs_data, kurs_nazwa, kurs_wartosc) VALUES (?,?,?,?)";
         $statement = $dbh->prepare($sql)->execute([$kod, $data, $nazwa, $wartosc]);
     }
 }

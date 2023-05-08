@@ -89,7 +89,7 @@ class AjaxController extends Controller {
         }
         $query = (new \yii\db\Query());
         $query->select(['*']);
-        $query->from('kurs');
+        $query->from('kursy');
         $query->where(["kurs_data" => $get['poz_kurs_data'], 'kurs_kod' => $get['poz_waluta']]);
         $query->limit(1);
         $wynik = $query->one();
@@ -155,6 +155,47 @@ class AjaxController extends Controller {
         $query->from('trasy');
         $query->where(["zl_id" => $get['zl_id']]);
         $trasa = $query->one();
+        $data_rozladunku = new \DateTime($zlecenie['zl_data_rozladunku']);
+        $data_rozladunku->modify("-1 days");
+
+        if ($get['waluta'] == 'PLN') {
+            if ($zlecenie['zl_waluta'] != 'PLN') {
+                $get['waluta'] = $zlecenie['zl_waluta'];
+            }
+        }
+        $query = (new \yii\db\Query());
+        $query->select(['kurs_wartosc']);
+        $query->from('kursy');
+        $query->where(["kurs_kod" => $get['waluta'], "kurs_data" => $data_rozladunku->format("Y-m-d")]);
+        $kurs = $query->one();
+        if ($kurs == null) {
+            $query = (new \yii\db\Query());
+            $query->select(['kurs_wartosc']);
+            $query->from('kursy');
+            $query->where(["kurs_kod" => $get['waluta'], "kurs_data" => $data_rozladunku->modify("-1 days")->format("Y-m-d")]);
+            $kurs = $query->one();
+        }
+        if ($kurs == null) {
+            $query = (new \yii\db\Query());
+            $query->select(['kurs_wartosc']);
+            $query->from('kursy');
+            $query->where(["kurs_kod" => $get['waluta'], "kurs_data" => $data_rozladunku->modify("-1 days")->format("Y-m-d")]);
+            $kurs = $query->one();
+        }
+        if ($kurs == null) {
+            $query = (new \yii\db\Query());
+            $query->select(['kurs_wartosc']);
+            $query->from('kursy');
+            $query->where(["kurs_kod" => $get['waluta'], "kurs_data" => $data_rozladunku->modify("-1 days")->format("Y-m-d")]);
+            $kurs = $query->one();
+        }
+        if ($kurs != null) {
+            $zlecenie['zl_data_rozladunku'] = $data_rozladunku->format("Y-m-d");
+            $zlecenie['poz_kurs_wartosc'] = $kurs['kurs_wartosc'];
+        } else {
+            $zlecenie['zl_data_rozladunku'] = NULL;
+            $zlecenie['poz_kurs_wartosc'] = NULL;
+        }
         if ($trasa != null) {
             $query = (new \yii\db\Query());
             $query->select(['kh_glowny']);
@@ -216,7 +257,7 @@ class AjaxController extends Controller {
                     $data = $zlec['zl_data_utworzenia']->modify('-1 days')->format('Y-m-d');
                     $query = (new \yii\db\Query());
                     $query->select(['*']);
-                    $query->from('kurs');
+                    $query->from('kursy');
                     $query->where(["kurs_data" => $data, 'kurs_kod' => $zlec['zl_waluta']]);
                     $query->limit(1);
                     $wynik = $query->one();

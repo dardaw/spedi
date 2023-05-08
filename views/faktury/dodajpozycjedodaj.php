@@ -7,7 +7,7 @@ $this->title = 'Dodawanie pozycji faktury';
 ?>
 <div class="site-index">
 
-<button type="button" class="btn btn-primary" id="wybierz_zlecenie">Wybierz zlecenie</button>
+    <button type="button" class="btn btn-primary" id="wybierz_zlecenie">Wybierz zlecenie</button>
 
     <div class="body-content">
         <?php $url = Url::toRoute(['faktury/zapiszpozycje']); ?>
@@ -62,13 +62,34 @@ $this->title = 'Dodawanie pozycji faktury';
                 <label for="poz_waluta">Waluta</label>
                 <select class="form-control" id="poz_waluta" name="poz_waluta">
                     <option value=""></option>
-                    <option value="CHF" <?php echo key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'CHF' ? 'selected="selected"' : '' ?>>CHF</option>
-                    <option value="EUR" <?php echo key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'EUR' ? 'selected="selected"' : '' ?>>EUR</option>
-                    <option value="GBP" <?php echo key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'GBP' ? 'selected="selected"' : '' ?>>GBP</option>
-                    <option value="JPY" <?php echo key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'JPY' ? 'selected="selected"' : '' ?>>JPY</option>
-                    <option value="PLN" <?php echo key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'PLN' ? 'selected="selected"' : '' ?>>PLN</option>
-                    <option value="RUB" <?php echo key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'RUB' ? 'selected="selected"' : '' ?>>RUB</option>
-                    <option value="USD" <?php echo key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'USD' ? 'selected="selected"' : '' ?>>USD</option>
+                    <option value="CHF" <?php
+                    echo (key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'CHF') ||
+                    (!key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $faktura['fak_waluta'] == 'CHF') ? 'selected="selected"' : ''
+                    ?>>CHF</option>
+                    <option value="EUR" <?php
+                    echo (key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'EUR') ||
+                    (!key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $faktura['fak_waluta'] == 'EUR') ? 'selected="selected"' : ''
+                    ?>>EUR</option>
+                    <option value="GBP" <?php
+                    echo (key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'GBP') ||
+                    (!key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $faktura['fak_waluta'] == 'GBP') ? 'selected="selected"' : ''
+                    ?>>GBP</option>
+                    <option value="JPY" <?php
+                    echo (key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'JPY') ||
+                    (!key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $faktura['fak_waluta'] == 'JPY') ? 'selected="selected"' : ''
+                    ?>>JPY</option>
+                    <option value="PLN" <?php
+                    echo (key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'PLN') ||
+                    (!key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $faktura['fak_waluta'] == 'PLN') ? 'selected="selected"' : ''
+                    ?>>PLN</option>
+                    <option value="RUB" <?php
+                    echo (key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'RUB') ||
+                    (!key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $faktura['fak_waluta'] == 'RUB') ? 'selected="selected"' : ''
+                    ?>>RUB</option>
+                    <option value="USD" <?php
+                    echo (key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $dodajpozycjefakturydodaj['poz_waluta'] == 'USD') ||
+                    (!key_exists("poz_waluta", $dodajpozycjefakturydodaj) && $faktura['fak_waluta'] == 'USD') ? 'selected="selected"' : ''
+                    ?>>USD</option>
                 </select>
             </div>
             <div class="form-group">

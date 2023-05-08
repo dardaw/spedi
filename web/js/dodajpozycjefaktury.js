@@ -29,11 +29,11 @@ $('document').ready(function () {
         var poz_wartosc_netto_waluta = $("#poz_wartosc_netto").val() / $("#poz_kurs_wartosc").val() * $("#poz_ilosc").val();
         var poz_wartosc_brutto_waluta = $("#poz_wartosc_brutto").val() / $("#poz_kurs_wartosc").val() * $("#poz_ilosc").val();
 
-        if (($("#poz_waluta").val() == 'PLN' && $("#poz_waluta_zrodlowa").val() != 'PLN') || $("#poz_waluta").val() == $("#poz_waluta_zrodlowa").val()) {
+        if (($("#poz_waluta").val() == 'PLN' && $("#poz_waluta_zrodlowa").val() != 'PLN') || ($("#poz_waluta").val() != 'PLN' && $("#poz_waluta_zrodlowa").val() != 'PLN')) {
             $('#poz_cena_netto').val(parseFloat(cena_netto_pln).toFixed(2));
             $('#poz_wartosc_netto').val(parseFloat(poz_wartosc_netto).toFixed(2));
             $("#poz_wartosc_brutto").val(parseFloat(poz_wartosc_brutto).toFixed(2));
-        } else if ($("#poz_waluta").val() != 'PLN' && $("#poz_waluta_zrodlowa").val() == 'PLN') {
+        } else if (($("#poz_waluta").val() != 'PLN' && $("#poz_waluta_zrodlowa").val() == 'PLN')) {
             $('#poz_cena_netto_waluta').val(parseFloat(cena_netto_waluta).toFixed(2));
             $('#poz_wartosc_netto_waluta').val(parseFloat(poz_wartosc_netto_waluta).toFixed(2));
             $('#poz_wartosc_brutto_waluta').val(parseFloat(poz_wartosc_brutto_waluta).toFixed(2));
@@ -124,9 +124,16 @@ $('document').ready(function () {
     $(document.body).delegate("#tabela_zlecen tbody tr", "click", function () {
         var zl_id = $(this).find('#zl_id').val();
 
+        var waluta = $("#poz_waluta").val();
+        if (waluta == 'PLN') {
+            waluta = $("#poz_waluta_zrodlowa").val();
+        }
+        if (waluta == '') {
+            waluta = $("#poz_waluta").val();
+        }
         $.ajax({
             type: "POST",
-            url: base_url + "/index.php?r=ajax/danezleceniadofaktury&" + "zl_id=" + zl_id,
+            url: base_url + "/index.php?r=ajax/danezleceniadofaktury&" + "zl_id=" + zl_id + "&waluta=" + waluta,
             success: function (data) {
                 if (data !== false) {
                     if (data['usluga'] == "Brak trasy") {
@@ -139,7 +146,6 @@ $('document').ready(function () {
                     $('#formularz_dodawania_pozycji').find('#poz_jednostka').val(data['zl_jednostka']);
                     $('#formularz_dodawania_pozycji').find('#poz_nazwa').val(data['usluga'] + ' ' + data['nazwa']);
                     $('#formularz_dodawania_pozycji').find('#poz_ilosc').val(data['zl_ilosc']);
-                    $('#formularz_dodawania_pozycji').find('#poz_waluta').val(data['zl_waluta']);
                     $('#formularz_dodawania_pozycji').find('#poz_waluta_zrodlowa').val(data['zl_waluta']);
                     if (data['zl_waluta'] == 'PLN') {
                         $('#formularz_dodawania_pozycji').find('#poz_cena_netto').val(data['zl_stawka']);
@@ -155,7 +161,16 @@ $('document').ready(function () {
                         $('#formularz_dodawania_pozycji').find('#poz_cena_netto_waluta').val(data['zl_stawka']);
                         $('#formularz_dodawania_pozycji').find('#poz_wartosc_netto_waluta').val(data['zl_wartosc']);
                         $('#formularz_dodawania_pozycji').find('#poz_wartosc_brutto_waluta').val(data['zl_wartosc'] * vat);
+
                     }
+                    if (data['zl_data_rozladunku'] != null && data['poz_kurs_wartosc'] != null) {
+                        $('#formularz_dodawania_pozycji').find('#poz_kurs_data').val(data['zl_data_rozladunku']);
+                        $('#formularz_dodawania_pozycji').find('#poz_kurs_wartosc').val(data['poz_kurs_wartosc']);
+                    }
+                    if ($("#poz_waluta_zrodlowa").val() != 'PLN' || $("#poz_waluta").val() != 'PLN') {
+                        przelicz_wartosc_kursu();
+                    }
+
                     $('#wybor_zlecenia').modal('hide');
                 }
             },
