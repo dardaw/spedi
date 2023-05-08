@@ -77,18 +77,15 @@ $this->title = 'Rozrachunki';
                             <?php echo $roz['roz_waluta']; ?>
                         </td>
                         <td>
-                            <?php if (!empty($roz['roz_data_powstania']) && !empty($roz['roz_termin_platnosci'])): ?>
-                                <?php
-                                $data_termin_platnosci = new DateTime($roz['roz_data_powstania']);
-                                $data_termin_platnosci->modify("+" . $roz['roz_termin_platnosci'] . ' days');
-                                ?>
-                                <?php echo $data_termin_platnosci->format("Y-m-d") . '(' . $roz['roz_termin_platnosci'] . ')'; ?>
+                            <?php if (!empty($roz['roz_termin_platnosci_data']) && !empty($roz['roz_termin_platnosci'])): ?>
+                                <?php echo  $roz['roz_termin_platnosci_data'] . '(' . $roz['roz_termin_platnosci'] . ')'; ?>
                             <?php endif; ?>
                         </td>
                         <td>
-                            <?php if (!empty($roz['roz_data_powstania']) && !empty($roz['roz_termin_platnosci'])): ?>
+                            <?php if (!empty($roz['roz_termin_platnosci_data'])): ?>
                                 <?php
                                 $teraz = new DateTime("NOW");
+                                $data_termin_platnosci = new DateTime($roz['roz_termin_platnosci_data']);
                                 $dni_spoznienia = $data_termin_platnosci->diff($teraz);
                                 $dni = $dni_spoznienia->days;
                                 if ($dni_spoznienia->invert == 1)
