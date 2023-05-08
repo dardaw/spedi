@@ -205,6 +205,27 @@ use yii\helpers\Url;
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="kh_termin_platnosci_klienta">Termin płatności klienta</label>
+                            <input type="text" id="kh_termin_platnosci_klienta" class="form-control" name="kh_termin_platnosci_klienta"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="kh_termin_platnosci_przewoznika">Termin płatności przewoźnika</label>
+                            <input type="text" id="kh_termin_platnosci_przewoznika" class="form-control" name="kh_termin_platnosci_przewoznika"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="kh_kredyt_kupiecki">Kredyt kupiecki</label>
+                            <input type="text" id="kh_kredyt_kupiecki" class="form-control" name="kh_kredyt_kupiecki"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="kh_blokada">Status</label>
+                            <select class="form-control" id="kh_blokada" name="kh_blokada">
+                                <option value="" selected="selected"></option>
+                                <option value="0">Brak blokady</option>
+                                <option value="1">Blokada</option>
+                                <option value="2">Uwaga</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
