@@ -34,16 +34,18 @@ class ZleceniaController extends Controller {
         $get = Yii::$app->request->get();
         Yii::$app->getView()->registerJsFile(\Yii::$app->request->BaseUrl . '/js/pokazzlecenia.js?md=' . rand(1, 1000000), ['depends' => [\yii\web\JqueryAsset::className()]]);
         $zlecenia = (new \yii\db\Query())
-                ->select(['*'])
+                ->select(['*', 'zlecenia.zl_id', 'kontrahenci.kh_nazwa_pelna as klient_nazwa', 'przewoznicy.kh_nazwa_pelna as przewoznik_nazwa'])
                 ->from('zlecenia')
                 ->leftJoin("kontrahenci", "kontrahenci.kh_id = zlecenia.kh_id")
-                ->where(['zl_widocznosc' => 1, 'zlecenia.firma_id' => Yii::$app->session->get('firma_id')])
-                ->orderBy('zl_id DESC');
-
+                ->leftJoin("trasy", "trasy.zl_id = zlecenia.zl_id")
+                ->leftJoin("kontrahenci as przewoznicy", "przewoznicy.kh_id = trasy.przew_id")
+                ->where(['zlecenia.zl_widocznosc' => 1, 'zlecenia.firma_id' => Yii::$app->session->get('firma_id')])
+                ->orderBy('zlecenia.zl_id DESC');
         if (count($get) != 0) {
             foreach ($get as $klucz => $wartosc) {
                 if (!empty($wartosc)) {
                     if ($klucz != 'r' && $klucz != 'page') {
+                        $klucz = str_replace(",", ".", $klucz);
                         $zlecenia->andWhere([$klucz => $wartosc]);
                     }
                 }

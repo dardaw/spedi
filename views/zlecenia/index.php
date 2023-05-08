@@ -55,6 +55,9 @@ $this->title = 'Zlecenia';
                     <td scope="col">
                         Kraj rozładunku
                     </td>
+                    <td scope="col">
+                        Przewoźnik
+                    </td>
                 </tr>
                 <?php foreach ($zlecenia as $zlecenie): ?>      
                     <?php $url = Url::toRoute(['zlecenia/edycja', 'id' => $zlecenie['zl_id']]); ?>
@@ -69,7 +72,7 @@ $this->title = 'Zlecenia';
                             <?php echo $zlecenie['zl_ladunek']; ?>
                         </td>
                         <td>
-                            <?php echo $zlecenie['kh_nazwa_pelna']; ?>
+                            <?php echo $zlecenie['klient_nazwa']; ?>
                         </td>
                         <td>
                             <?php echo $zlecenie['zl_data_zaladunku']; ?>
@@ -77,7 +80,7 @@ $this->title = 'Zlecenia';
                         <td>
                             <?php echo $zlecenie['zl_miasto_zaladunku']; ?>
                         </td>
-                          <td>
+                        <td>
                             <?php echo $zlecenie['zl_kod_pocztowy_zaladunku']; ?>
                         </td>
                         <td>
@@ -89,11 +92,14 @@ $this->title = 'Zlecenia';
                         <td>
                             <?php echo $zlecenie['zl_miasto_rozladunku']; ?>
                         </td>
-                               <td>
+                        <td>
                             <?php echo $zlecenie['zl_kod_pocztowy_rozladunku']; ?>
                         </td>
                         <td>
                             <?php echo $zlecenie['zl_kraj_rozladunku']; ?>
+                        </td>
+                         <td>
+                            <?php echo $zlecenie['przewoznik_nazwa']; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

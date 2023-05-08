@@ -24,8 +24,8 @@ use yii\helpers\Url;
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="r" value="<?php echo "zlecenia/index"; ?>" />
-                            <label for="kh_symbol">Klient symbol</label>
-                            <input type="text" id="kh_symbol" class="form-control" name="kh_symbol"/>
+                            <label for="kontrahenci,kh_symbol">Klient symbol</label>
+                            <input type="text" id="kontrahenci,kh_symbol" class="form-control" name="kontrahenci,kh_symbol"/>
                         </div>
                         <div class="form-group">
                             <label for="zl_order">Nr order</label>
@@ -44,6 +44,10 @@ use yii\helpers\Url;
                             <input type="text" id="zl_miasto_zaladunku" class="form-control" name="zl_miasto_zaladunku"/>
                         </div>
                         <div class="form-group">
+                            <label for="zl_kod_pocztowy_zaladunku">Kod pocztowy załadunku</label>
+                            <input type="text" id="zl_kod_pocztowy_zaladunku" class="form-control" name="zl_kod_pocztowy_zaladunku"/>
+                        </div>
+                        <div class="form-group">
                             <label for="zl_kraj_zaladunku">Kraj załadunku</label>
                             <input type="text" id="zl_kraj_zaladunku" class="form-control" name="zl_kraj_zaladunku"/>
                         </div>
@@ -56,8 +60,16 @@ use yii\helpers\Url;
                             <input type="text" id="zl_miasto_rozladunku" class="form-control" name="zl_miasto_rozladunku"/>
                         </div>
                         <div class="form-group">
+                            <label for="zl_kod_pocztowy_rozladunku">Kod pocztowy rozładunku</label>
+                            <input type="text" id="zl_kod_pocztowy_rozladunku" class="form-control" name="zl_kod_pocztowy_rozladunku"/>
+                        </div>
+                        <div class="form-group">
                             <label for="zl_kraj_rozladunku">Kraj rozładunku</label>
                             <input type="text" id="zl_kraj_rozladunku" class="form-control" name="zl_kraj_rozladunku"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="przewoznicy,kh_symbol">Symbol przewoźnika</label>
+                            <input type="text" id="przewoznicy,kh_symbol" class="form-control" name="przewoznicy,kh_symbol"/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -119,15 +131,15 @@ use yii\helpers\Url;
                             <label for="kh_kraj">Kraj</label>
                             <input type="text" id="kh_kraj" class="form-control" name="kh_kraj"/>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="kh_kraj">NIP</label>
                             <input type="text" id="kh_kraj" class="form-control" name="kh_nip"/>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="kh_kraj">REGON</label>
                             <input type="text" id="kh_kraj" class="form-control" name="kh_regon"/>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="kh_kraj">Telefon</label>
                             <input type="text" id="kh_kraj" class="form-control" name="kh_telefon"/>
                         </div>
