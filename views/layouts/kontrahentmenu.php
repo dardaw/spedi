@@ -10,5 +10,9 @@ use yii\helpers\Url;
 <a href="<?php echo $url; ?>">
     <button type="button" class="btn btn-primary">Rachunki bankowe</button>
 </a>
+<?php $url = Url::toRoute(['adresykorespondencyjne/index', 'id' => $kh_id]); ?>
+<a href="<?php echo $url; ?>">
+    <button type="button" class="btn btn-primary">Adresy korespondencyjne</button>
+</a>
 <br />
 <br />
