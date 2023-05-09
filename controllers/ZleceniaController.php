@@ -146,13 +146,6 @@ class ZleceniaController extends Controller {
         return $this->render('dodaj', ['zlecenie' => $wynik, 'kontrahenci' => $kontrahenci, 'uzytkownicy' => $uzytkownicy]);
     }
 
-    public function actionError() {
-        $exception = Yii::$app->errorHandler->exception;
-        if ($exception !== null) {
-            return $this->render('error', ['exception' => $exception]);
-        }
-    }
-
     public function actionKopiuj() {
         $get = Yii::$app->request->get();
         if (empty($get['id'])) {

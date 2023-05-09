@@ -18,10 +18,10 @@ $this->title = $exception->getLine().  ' ' . $exception->getTrace();
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
+        Wystąpił błąd w programie.
     </p>
     <p>
-        Please contact us if you think this is a server error. Thank you.
+        Jeżeli problem się powtórzy prosimy o kontakt.
     </p>
 
 </div>
