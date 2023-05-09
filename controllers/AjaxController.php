@@ -279,5 +279,32 @@ class AjaxController extends Controller {
         echo json_encode($zwrot);
         exit;
     }
+    
+    public function actionWybierzadreswielokrotnegouzytku(){
+        $get = Yii::$app->request->getQueryParams();
+        if (empty($get['zl_id'])) {
+            exit;
+        }
+
+        $query = (new \yii\db\Query());
+        $query->select(['kh_id']);
+        $query->from('zlecenia');
+        $query->where(["zl_id" => $get['zl_id'], 'zlecenia.firma_id' => Yii::$app->session->get('firma_id')]);
+        $query->andWhere(["zl_widocznosc" => 1]);
+        $wynik = $query->one();
+        $wynik['kh_id'];
+          $query = (new \yii\db\Query());
+        $query->select(['*']);
+        $query->from('adresy_wielokrotnego_uzytku');
+        $query->where(["kh_id" => $wynik['kh_id'], 'adresy_wielokrotnego_uzytku.firma_id' => Yii::$app->session->get('firma_id')]);
+        if (!empty($get['adres_wiel_nazwa'])) {
+            $query->andWhere(['like', 'adres_wiel_nazwa', '%' . $get['adres_wiel_nazwa'] . '%', false]);
+        }
+        $query->limit(10);
+        $adresy = $query->all();
+        
+        echo json_encode($adresy);
+        exit;
+    }
 
 }

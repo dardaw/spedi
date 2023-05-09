@@ -57,7 +57,7 @@ $('document').ready(function () {
                     return false;
                 }
                 if ($("#poz_waluta").val() != 'PLN' && $("#poz_waluta_zrodlowa").val() != 'PLN' && $("#poz_waluta").val() != $("#poz_waluta_zrodlowa").val()) {
-                    alert("Nie można wybrać kursu gdy waluta i waluta źródłowa jest różna od PLN");
+                    alert("Nie można wybrać kursu");
                     $("#poz_kurs_wartosc").val("");
                     return false;
                 }

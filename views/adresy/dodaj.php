@@ -19,7 +19,7 @@ $this->title = 'Dodawanie zlecenia';
                 <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->getCsrfToken() ?>" />
             </div>
             <div class="form-group">
-                <label for="adres_nazwa">Nazwa/Firma</label>
+                <label for="adres_nazwa">Nazwa/Firma</label><button type="button" class="btn btn-primary" id="wybierz_adres_wielokrotnego_uzytku">Wybierz adres wielokrotnego użytku</button>
                 <input type="text" class="form-control" id="adres_nazwa" name="adres_nazwa" value="<?php echo key_exists("adres_nazwa", $adres) ? $adres['adres_nazwa'] : '' ?>">
             </div>
             <div class="form-group">
@@ -325,6 +325,14 @@ $this->title = 'Dodawanie zlecenia';
                     <option value="kg" <?php echo key_exists("adres_waga_jednostka", $adres) && $adres['adres_waga_jednostka'] == 'kg' ? 'selected="selected"' : '' ?>>kg</option>
                 </select>
             </div>
+             <div class="form-group">
+                <label for="adres_wiel_uzytku">Adres wielokrotnego użytku</label>
+                <select class="form-control" id="adres_wiel_uzytku" name="adres_wiel_uzytku">
+                    <option value=""></option>
+                    <option value="0" <?php echo key_exists("adres_wiel_uzytku", $adres) && $adres['adres_wiel_uzytku'] == '0' ? 'selected="selected"' : '' ?>>Nie</option>
+                    <option value="1" <?php echo key_exists("adres_wiel_uzytku", $adres) && $adres['adres_wiel_uzytku'] == '1' ? 'selected="selected"' : '' ?>>Tak</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="adres_uwagi">Uwagi</label>
                 <textarea class="form-control" id="adres_uwagi" name="adres_uwagi"><?php echo key_exists("adres_uwagi", $adres) ? $adres['adres_uwagi'] : '' ?></textarea>
@@ -337,3 +345,5 @@ $this->title = 'Dodawanie zlecenia';
         </form>
     </div>
 </div>
+
+<?php echo \Yii::$app->view->renderFile(Yii::getAlias('@app') . '/views/adresy/wyboradresu.php'); ?>

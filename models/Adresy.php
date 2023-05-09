@@ -36,7 +36,9 @@ class Adresy extends ActiveRecord {
         $adres->adres_waga = $post['adres_waga'];
         $adres->adres_waga_jednostka = $post['adres_waga_jednostka'];
         $adres->adres_uwagi = $post['adres_uwagi'];
+        $adres->adres_wiel_uzytku = $post['adres_wiel_uzytku'];
         $adres->save();
+        return $adres->adres_id;
     }
 
 }

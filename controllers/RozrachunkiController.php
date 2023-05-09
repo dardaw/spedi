@@ -53,7 +53,7 @@ class RozrachunkiController extends Controller {
                         } else if ($klucz == 'roz_status' && $wartosc == 'bezdokumentow') {
                             $rozrachunki->andWhere("roz_termin_platnosci IS NULL");
                         } else if ($klucz == 'roz_status' && $wartosc == 'czesc') {
-                            $rozrachunki->andWhere("roz_kwota_brutto != roz_pozostalo_do_zaplaty AND (roz_status IS NULL OR roz_status = 0)");
+                            $rozrachunki->andWhere("(roz_kwota_brutto != roz_pozostalo_do_zaplaty AND (roz_status IS NULL OR roz_status = 0))");
 
                         } else {
                             $rozrachunki->andWhere([$klucz => $wartosc]);

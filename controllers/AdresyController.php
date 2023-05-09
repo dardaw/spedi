@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\Adresy;
+use app\models\AdresyWielokrotnegoUzytku;
 use app\models\Zlecenia;
 use yii\data\Pagination;
 
@@ -49,9 +50,11 @@ class AdresyController extends Controller {
             exit;
         }
         $adresy = new Adresy();
-        $adresy->zapisz($post);
+        $post['adres_id'] = $adresy->zapisz($post);
         $zlecenia = new Zlecenia();
         $zlecenia->zapiszAdresyDoZlecenia($post);
+        $adresy_wiel_uzytku = new AdresyWielokrotnegoUzytku();
+        $adresy_wiel_uzytku->zapisz($post);
         $this->redirect(['adresy/index', 'id' => $post['zl_id']]);
     }
 
