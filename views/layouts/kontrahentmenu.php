@@ -18,5 +18,9 @@ use yii\helpers\Url;
 <a href="<?php echo $url; ?>">
     <button type="button" class="btn btn-primary">Osoby</button>
 </a>
+<?php $url = Url::toRoute(['telefony/index', 'id' => $kh_id]); ?>
+<a href="<?php echo $url; ?>">
+    <button type="button" class="btn btn-primary">Telefony, faksy</button>
+</a>
 <br />
 <br />

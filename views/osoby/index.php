@@ -4,7 +4,7 @@
 use yii\helpers\Url;
 use \yii\widgets\LinkPager;
 
-$this->title = 'Osoby';
+$this->title = 'Pracownicy';
 ?>
 <div class="site-index">
 
@@ -16,7 +16,7 @@ $this->title = 'Osoby';
         <?php endif; ?>
 
         <?php $dodaj = Url::toRoute(['osoby/dodaj', 'kh_id' => $get['id']]); ?>
-        <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Dodaj osobę</button></a>
+        <a href="<?php echo $dodaj ?>"><button type="button" class="btn btn-primary">Dodaj pracownika</button></a>
         <br />
         <br />
         <div class="row">

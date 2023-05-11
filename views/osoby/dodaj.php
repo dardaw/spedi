@@ -3,7 +3,7 @@
 
 use yii\helpers\Url;
 
-$this->title = 'Dodawanie osoby';
+$this->title = 'Dodawanie pracownika';
 ?>
 <div class="site-index">
 
