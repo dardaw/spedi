@@ -15,6 +15,10 @@ $('document').ready(function () {
                 $('#fak_nabywca_kod_pocztowy').val(data['kh_kod_pocztowy']);
                 $('#fak_nabywca_miasto').val(data['kh_miasto']);
                 $('#fak_nabywca_nip').val(data['kh_nip']);
+                if (data['kh_waluta_faktury'] != '') {
+                    $('#fak_waluta').val(data['kh_waluta_faktury']);
+                    $('#fak_waluta').change();
+                }
                 alert('Pobrano dane kontrahenta do faktury');
             },
             dataType: "json"
