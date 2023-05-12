@@ -58,7 +58,10 @@ $this->title = 'Dodawanie/edycja trasy';
                 <select class="form-control" id="tr_jednostka" name="tr_jednostka">
                     <option value=""></option>
                     <option value="Kilometry" <?php echo key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Kilometry' ? 'selected="selected"' : '' ?>>Kilometry</option>
-                    <option value="Fracht" <?php echo key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Fracht' ? 'selected="selected"' : '' ?>>Fracht</option>
+                    <option value="Fracht" <?php
+                    echo (key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Fracht') ||
+                    (!key_exists("tr_jednostka", $trasa)) ? 'selected="selected"' : ''
+                    ?>>Fracht</option>
                     <option value="Paleta" <?php echo key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Paleta' ? 'selected="selected"' : '' ?>>Paleta</option>
                     <option value="Godzina" <?php echo key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Godzina' ? 'selected="selected"' : '' ?>>Godzina</option>
                     <option value="Tony"> <?php echo key_exists("tr_jednostka", $trasa) && $trasa['tr_jednostka'] == 'Tony' ? 'selected="selected"' : '' ?>Tony</option>
@@ -84,7 +87,10 @@ $this->title = 'Dodawanie/edycja trasy';
                     <option value="EUR" <?php echo key_exists("tr_waluta", $trasa) && $trasa['tr_waluta'] == 'EUR' ? 'selected="selected"' : '' ?>>EUR</option>
                     <option value="GBP" <?php echo key_exists("tr_waluta", $trasa) && $trasa['tr_waluta'] == 'GBP' ? 'selected="selected"' : '' ?>>GBP</option>
                     <option value="JPY" <?php echo key_exists("tr_waluta", $trasa) && $trasa['tr_waluta'] == 'JPY' ? 'selected="selected"' : '' ?>>JPY</option>
-                    <option value="PLN" <?php echo key_exists("tr_waluta", $trasa) && $trasa['tr_waluta'] == 'PLN' ? 'selected="selected"' : '' ?>>PLN</option>
+                    <option value="PLN" <?php
+                    echo (key_exists("tr_waluta", $trasa) && $trasa['tr_waluta'] == 'PLN') ||
+                    (!key_exists("tr_waluta", $trasa)) ? 'selected="selected"' : ''
+                    ?>>PLN</option>
                     <option value="RUB" <?php echo key_exists("tr_waluta", $trasa) && $trasa['tr_waluta'] == 'RUB' ? 'selected="selected"' : '' ?>>RUB</option>
                     <option value="USD" <?php echo key_exists("tr_waluta", $trasa) && $trasa['tr_waluta'] == 'USD' ? 'selected="selected"' : '' ?>>USD</option>
                 </select>
