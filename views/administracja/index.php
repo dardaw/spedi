@@ -20,6 +20,17 @@ $this->title = 'Administracja';
                 </tr>
                 <tr>
                     <td scope="col">
+                        <?php $url = Url::toRoute(['bledy/index']); ?>
+                        <button type="button" class="btn btn-default btn-lg">
+                            <a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-flag" aria-hidden="true"> Błędy</span></a>
+                        </button>
+                    </td>
+                    <td scope="col"> 
+                        Błędy aplikacji
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">
                         <?php $url = Url::toRoute(['firmy/index']); ?>
                         <button type="button" class="btn btn-default btn-lg">
                             <a href="<?php echo $url; ?>"><span class="glyphicon glyphicon-flag" aria-hidden="true"> Firma</span></a>

@@ -301,6 +301,22 @@ use yii\helpers\Url;
                     </div>
                 </form>
             <?php endif; ?>
+            <?php if (Yii::$app->controller->id == 'bledy'): ?>
+                <?php $url = Url::toRoute(['bledy/index']); ?>
+                <form action ="<?php echo $url; ?>" method="GET" id='filtr_okno_formularz'>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="r" value="<?php echo "bledy/index"; ?>" />
+                            <label for="data_logu">Data logu</label>
+                            <input type="text" id="data_logu" class="form-control" name="data_logu"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                        <button type="submit" class="btn btn-primary">Szukaj</button>
+                    </div>
+                </form>
+            <?php endif; ?>
         </div>
     </div>
 </div>
